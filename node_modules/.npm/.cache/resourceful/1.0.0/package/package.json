@@ -1,0 +1,14 @@
+{
+  "name": "resourceful",
+  "description": "Resource middleware for ExpressJS",
+  "version": "1.0.0",
+  "author": "Skookum",
+  "contributors": [ 
+    { "name": "Hunter Loftis", "email": "hunter.loftis@gmail.com" }, 
+    { "name": "Jim Snodgrass", "email": "jim@skookum.com" },
+    { "name": "Chris Gutierrez", "email": "chris@skookum.com" }
+  ],
+  "dependencies": { "express":">=1.0.3" },
+  "directories": { "lib": "./lib" },
+  "main": "./index.js"
+}

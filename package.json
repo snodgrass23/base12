@@ -1,0 +1,8 @@
+{
+  "name":"newproject",
+  "version":"0.0.1",
+  "dependencies": {
+    "express":">=1.0.3",
+    "resourceful":"https://github.com/Skookum/resourceful/tarball/master"
+  }
+}
