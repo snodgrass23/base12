@@ -1,10 +1,23 @@
 # node-boilerplate
       
   Form from mud.
-  built on [node](http://nodejs.org) and [Express](http://github.com/visionmedia/express).
+  
+  Built on [node](http://nodejs.org).
 
 ## Installation
 
     git clone https://github.com/skookum/node-boilerplate.git
     sudo npm bundle
     sudo node app.js
+
+## Adding libraries
+
+  Add to 'dependencies' in /package.json, then:
+  
+    sudo npm bundle
+    
+## Modules used:
+
+  - [Express](http://github.com/visionmedia/express)
+  - [Resourceful](http://github.com/skookum/resourceful)
+  
