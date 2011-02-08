@@ -1,6 +1,10 @@
-node-boilerplate
-Form from mud.
+# node-boilerplate
+      
+  Form from mud.
+  built on [node](http://nodejs.org) and [Express](http://github.com/visionmedia/express).
 
-git clone ...
-sudo npm bundle
-sudo node app.js OR sudo nodemon app.js
+## Installation
+
+    git clone https://github.com/skookum/node-boilerplate.git
+    sudo npm bundle
+    sudo node app.js
