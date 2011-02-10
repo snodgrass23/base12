@@ -16,7 +16,7 @@
   
     sudo npm bundle
     
-## Modules used:
+## Included modules:
 
   - [Express](http://github.com/visionmedia/express)
   - [Resourceful](http://github.com/skookum/resourceful)

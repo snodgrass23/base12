@@ -1,8 +1,10 @@
 {
   "name":"newproject",
   "version":"0.0.1",
-  "dependencies": {
-    "express":">=1.0.3",
+  "dependencies":{
+    "jade":"https://github.com/Skookum/jade/tarball/master",
+    "express":"https://github.com/Skookum/express/tarball/master",
     "resourceful":"https://github.com/Skookum/resourceful/tarball/master"
-  }
+  },
+  "directories":{}
 }
