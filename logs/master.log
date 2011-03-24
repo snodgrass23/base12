@@ -1,2 +1,7 @@
 [Thu, 24 Mar 2011 16:15:54 GMT] INFO master started
 [Thu, 24 Mar 2011 16:15:54 GMT] INFO spawned worker 0
+[Thu, 24 Mar 2011 16:21:39 GMT] INFO master started
+[Thu, 24 Mar 2011 16:21:52 GMT] INFO master started
+[Thu, 24 Mar 2011 16:21:52 GMT] INFO spawned worker 0
+[Thu, 24 Mar 2011 16:21:52 GMT] INFO spawned worker 1
+[Thu, 24 Mar 2011 16:22:06 GMT] WARNING shutting down master
