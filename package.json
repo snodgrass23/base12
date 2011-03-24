@@ -2,9 +2,10 @@
   "name":"newproject",
   "version":"0.0.1",
   "dependencies":{
-    "jade":"https://github.com/Skookum/jade/tarball/master",
-    "express":"https://github.com/Skookum/express/tarball/master",
-    "resourceful":"https://github.com/Skookum/resourceful/tarball/master"
+    "jade":">=0.9.2",
+    "express":">=2.0.0",
+    "stylus":">=0.9.2",
+    "connect-timeout":">=0.0.1"
   },
   "directories":{}
 }

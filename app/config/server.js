@@ -1,4 +1,3 @@
-
 // Application root - where to start building require() paths
 
 var root = __dirname + '/../..'
@@ -12,44 +11,21 @@ require.paths.unshift(
 
 // Modules
 
-var express = require('express')
+var express = require('express'),
+    connectTimeout = require('connect-timeout');
 
-require('math.uuid')
+require('math.uuid');
 
-// Options
+// Constants
 
-var TWO_WEEKS = 14 * 24 * 60 * 60 * 1000
-
-var option_tables = {
-  development: {
-    forceCompile: true,
-    reapInterval: TWO_WEEKS,
-    maxAge: TWO_WEEKS,
-    reqTimeout: 10000,
-    sessionKey: 'devsession'
-  },
-  staging: {
-    forceCompile: false,
-    reapInterval: TWO_WEEKS,
-    maxAge: TWO_WEEKS,
-    reqTimeout: 10000,
-    sessionKey: 'stagingsession'
-  },
-  production: {
-    forceCompile: false,
-    reapInterval: TWO_WEEKS,
-    maxAge: TWO_WEEKS,
-    reqTimeout: 10000,
-    sessionKey: 'prodsession'
-  }
-}
+var constants = require('constants')();
 
 // Server export
 
 exports = module.exports = function() {
   
   var server = express.createServer(),
-      options = option_tables[server.set('env')]
+      options = constants[server.set('env')];
 
   // Config (all)
   
@@ -60,12 +36,14 @@ exports = module.exports = function() {
     server.set('app root', root + '/app')
     server.set('view engine', options.view_engine || 'jade')
     server.set('views', server.set('app root') + '/views')
+    server.set('port', options.port);
+    server.set('host', options.host);
     
     // Middleware
     
-    //server.use(connectTimeout({ time: options.reqTimeout }))
+    server.use(connectTimeout({ time: options.reqTimeout }))
     server.use(express.conditionalGet())
-    server.use(express.compiler({ src: server.set('app root') + '/public', enable: ['less'], forceCompile: options.forceCompile || false }))
+    server.use(express.compiler({ src: server.set('app root') + '/public' }));
     server.use(express.staticProvider(server.set('app root') + '/public'))
     server.use(express.cookieDecoder())
     server.use(express.session({
@@ -78,14 +56,11 @@ exports = module.exports = function() {
     }))
     server.use(express.bodyDecoder())
     server.use(server.router)
+    server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}))
     
     // Helpers
     
     require('./helpers')(server)
-
-    // Resourceful routing
-    
-    require('resourceful')(server)
     
     // Map routes
     
@@ -96,19 +71,14 @@ exports = module.exports = function() {
   // Config (development)
   
   server.configure('development', function() {
-    server.use(express.errorHandler({ dumpExceptions: true, showStack: true}))
     server.use(express.logger({ format: ':method :url :status' }));
-    server.set('port', 100)
-    server.set('host', 'http://localhost:100')
+    
   })
       
   // Config (staging)
   
   server.configure('staging', function() {
-    server.use(express.errorHandler({ dumpExceptions: true, showStack: false}))
     server.use(express.logger({ format: ':method :url :status' }));
-    server.set('port', 100)
-    server.set('host', 'http://staging.maximum.com')
   })
       
   // Config (production)
@@ -117,25 +87,9 @@ exports = module.exports = function() {
 
   })
   
-  // Handle uncaught exceptions (no crashing)
-
-  process.on("uncaughtException", function(err){
-    console.warn("caught unhandled exception:")
-    console.warn(err.stack || err)
-  })
+  // Handle errors
   
-  // Respond to standard request errors
-  
-  server.error(function(err, req, res, next){
-    if (!err || 2 !== err.errno)
-      return res.render("500.jade", { layout: "layout.error.jade" }, function(err, content){
-        res.send(content || "Internal Server Error", 500)  
-      })
+  require('./errors.js')(server)
     
-    res.render("404.jade", { layout: "layout.error.jade" }, function(err, content){
-      res.send(content || "File Not Found", 404)  
-    })
-  })
-  
   return server   // Export the server
 }
