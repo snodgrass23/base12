@@ -1,8 +1,6 @@
 # node-boilerplate
       
-  Structure for your node project.
-  
-  Built on [node](http://nodejs.org).
+  Structure for your [node.js](http://nodejs.org) project.
 
 ## Installation (contributor)
 
