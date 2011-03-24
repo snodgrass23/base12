@@ -1,14 +1,26 @@
 # node-boilerplate
       
-  Form from mud.
+  Structure for your node project.
   
   Built on [node](http://nodejs.org).
 
-## Installation
+## Installation (contributor)
 
-    git clone https://github.com/skookum/node-boilerplate.git
+    mkdir mynewproject
+    cd mynewproject
+    git clone -b edge git@github.com:Skookum/node-boilerplate.git .
+    git checkout -b mynewproject
     sudo npm bundle
-    sudo node app.js
+    sudo node server.js
+  
+## Installation (user)
+
+    mkdir mynewproject
+    cd mynewproject
+    git clone -b edge https://github.com/skookum/node-boilerplate.git .
+    git checkout -b mynewproject
+    sudo npm bundle
+    sudo node server.js
 
 ## Adding libraries
 
@@ -18,6 +30,10 @@
     
 ## Included modules:
 
-  - [Express](http://github.com/visionmedia/express)
-  - [Resourceful](http://github.com/skookum/resourceful)
+  - Express
+  - Jade
+  - Stylus
+  - Connect-Timeout
+  - Cluster
+  - Express-Messages
   
