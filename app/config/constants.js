@@ -1,4 +1,4 @@
-exports = module.exports = function() {
+exports = module.exports = function(env) {
 
   // Options
   
@@ -34,6 +34,6 @@ exports = module.exports = function() {
   option_tables.staging.prototype = new option_tables.development()
   option_tables.production.prototype = new option_tables.staging()
 
-  return option_tables;
+  return new option_tables[env]();
   
 };

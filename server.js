@@ -4,7 +4,9 @@ var cluster = require('cluster'),
 console.log("Opening server on port " + port + "...");
 
 cluster('./app/config/app')
-  .use(cluster.logger('logs'))
+  .use(cluster.debug())
+  .use(cluster.reload())
+  .use(cluster.logger('logs', 'debug'))
   .use(cluster.stats())
   .use(cluster.pidfiles('pids'))
   .use(cluster.cli())

@@ -1,3 +1,1483 @@
 Opening server on port 3100...
 Opening server on port 3100...
 GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+GET /favicon.ico 404
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+GET /favicon.ico 404
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+GET /favicon.ico 404
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+Opening server on port 3100...
+GET /favicon.ico 404
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+GET /favicon.ico 404
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 13,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57731,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:40:41 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 13,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57731,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:40:41 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 8,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: [Object],
+        sessionStore: [Object],
+        sessionID: 'kG1IteViLmtcay6DruBb2OG6.jWuZNXI7S8L9imMLCbzLbJouQZD180C5ekYIW0KlZPs',
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 13,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57731,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:41:17 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 13,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57731,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:41:17 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 8,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: [Object],
+        sessionStore: [Object],
+        sessionID: 'kG1IteViLmtcay6DruBb2OG6.jWuZNXI7S8L9imMLCbzLbJouQZD180C5ekYIW0KlZPs',
+        _events: [Object],
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 13,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57731,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:41:23 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 13,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57731,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:41:23 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 8,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: [Object],
+        sessionStore: [Object],
+        sessionID: 'kG1IteViLmtcay6DruBb2OG6.jWuZNXI7S8L9imMLCbzLbJouQZD180C5ekYIW0KlZPs',
+        _events: [Object],
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 15,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57772,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:42:36 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 15,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57772,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:42:36 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 12,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: [Object],
+        sessionStore: [Object],
+        sessionID: '36FVn0bDUOCp4ZNr87Kv3IEl.SDYvVuGi9J6ogyUe0b1dvlCZB9O3UNfT8k0EwOJwBJc',
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 15,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57830,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:45:11 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 15,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57830,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:45:11 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 13,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: [Object],
+        sessionStore: [Object],
+        sessionID: 'LYX7oOT9hKKKIKpkAJRePqlS.cvekE21V5Y8sk7FJ0T7XBAxz4GAdtnLK9sh4iQHTd+k',
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 15,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57830,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:45:20 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 15,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57830,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:45:20 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 13,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: [Object],
+        sessionStore: [Object],
+        sessionID: 'LYX7oOT9hKKKIKpkAJRePqlS.cvekE21V5Y8sk7FJ0T7XBAxz4GAdtnLK9sh4iQHTd+k',
+        _events: [Object],
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 15,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57830,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:45:21 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 15,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57830,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:45:21 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 13,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: [Object],
+        sessionStore: [Object],
+        sessionID: 'LYX7oOT9hKKKIKpkAJRePqlS.cvekE21V5Y8sk7FJ0T7XBAxz4GAdtnLK9sh4iQHTd+k',
+        _events: [Object],
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 16,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57850,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:45:46 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 16,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57850,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:45:46 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 13,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: {},
+        sessionStore: [Object],
+        sessionID: 'wf12faGz9lWweRdMblJTxANC.M4B3C2kXqNmBpMsBfE4v6dbfvzGQa7gErSG5XPbXKoc',
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+GET /favicon.ico 404
+{ res: 
+   { output: [],
+     outputEncodings: [],
+     writable: true,
+     _last: false,
+     chunkedEncoding: false,
+     shouldKeepAlive: true,
+     useChunkedEncodingByDefault: true,
+     _hasBody: true,
+     _trailer: '',
+     finished: false,
+     socket: 
+      { bufferSize: 0,
+        fd: 16,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57963,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:47:59 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     connection: 
+      { bufferSize: 0,
+        fd: 16,
+        type: null,
+        allowHalfOpen: true,
+        _readWatcher: [Object],
+        destroyed: false,
+        readable: true,
+        _writeQueue: [],
+        _writeQueueEncoding: [],
+        _writeQueueFD: [],
+        _writeQueueCallbacks: [],
+        _writeWatcher: [Object],
+        writable: true,
+        _writeImpl: [Function],
+        _readImpl: [Function],
+        _shutdownImpl: [Function],
+        remoteAddress: '127.0.0.1',
+        remotePort: 57963,
+        server: [Object],
+        ondrain: [Function],
+        _idleTimeout: 120000,
+        _idleNext: [Object],
+        _idlePrev: [Object],
+        _idleStart: Thu, 24 Mar 2011 18:47:59 GMT,
+        _events: [Object],
+        ondata: [Function],
+        onend: [Function],
+        _httpMessage: [Circular] },
+     _events: { finish: [Function] },
+     _headers: { 'x-powered-by': 'Express' },
+     _headerNames: { 'x-powered-by': 'X-Powered-By' },
+     app: 
+      { stack: [Object],
+        connections: 1,
+        allowHalfOpen: true,
+        watcher: [Object],
+        _events: [Object],
+        httpAllowHalfOpen: false,
+        settings: [Object],
+        redirects: {},
+        isCallbacks: {},
+        viewHelpers: {},
+        dynamicViewHelpers: {},
+        errorHandlers: [Object],
+        route: '/',
+        routes: [Object],
+        router: [Getter],
+        __usedRouter: true,
+        fd: 13,
+        type: null },
+     req: 
+      { socket: [Object],
+        connection: [Object],
+        httpVersion: '1.1',
+        complete: true,
+        headers: [Object],
+        trailers: {},
+        readable: true,
+        url: '/',
+        method: 'GET',
+        statusCode: null,
+        client: [Object],
+        httpVersionMajor: 1,
+        httpVersionMinor: 1,
+        upgrade: false,
+        originalUrl: '/',
+        query: {},
+        app: [Object],
+        res: [Circular],
+        next: [Function: next],
+        clearTimeout: [Function],
+        cookies: [Object],
+        sessionStore: [Object],
+        sessionID: 'UPDSPoegvJPniNIkRtkYYbjZ.v5CeHUmDk/6EgSWqs4lmUXjYmPKDQYXKlkdc6u6k8RE',
+        session: [Object],
+        _route_index: 0,
+        params: [] },
+     writeHead: [Function],
+     end: [Function],
+     status: [Function],
+     context: [Function] } }
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+GET /favicon.ico 404
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Detected environment: development
+Detected environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Flashing message Something broke
+Flashing message Something broke
+Flashing message Something broke
+Flashing message Something broke
+Flashing message Something broke
+Flashing message Something broke
+Flashing message Something broke
+Flashing message Something broke
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Flashing message Something broke
+Opening server on port 3100...
+Environment: development
+Opening server on port 3100...
+Environment: development
+Opening server on port 3100...
+Environment: development
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+GET /other 404
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+GET /other 404
+GET /other 404
+GET /other 404
+GET /other 404
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Flashing message Something broke
+Flashing message Something broke
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Flashing message Something broke
+Flashing message Something broke
+Flashing message Something broke
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development
+Opening server on port 3100...
+Opening server on port 3100...
+Environment: development
+Environment: development

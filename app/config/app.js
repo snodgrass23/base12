@@ -1,21 +1,24 @@
+// Establish a working directory
+
+var root = require('path').normalize(__dirname + '/../../');
+
 // Modules
 
 var express = require('express'),
-    connectTimeout = require('connect-timeout');
+    connectTimeout = require('connect-timeout'),
+    context = require('../../lib/context');
 
 require('../../lib/math.uuid');
-
-// Constants
-
-var constants = require('./constants')();
 
 // Server export
 
 exports = module.exports = (function() {
   
   var server = express.createServer(),
-      options = constants[server.set('env')];
+      options = require('./constants')([server.set('env')]);
 
+  console.log("Environment: " + server.set('env'));
+  
   // Config (all)
   
   server.configure(function() {
@@ -42,8 +45,9 @@ exports = module.exports = (function() {
       })
     }))
     server.use(express.bodyParser())
+    server.use(context);
     server.use(server.router)
-    server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}))
+    server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}));
     
     // Helpers
     
@@ -59,24 +63,26 @@ exports = module.exports = (function() {
   
   server.configure('development', function() {
     server.use(express.logger({ format: ':method :url :status' }));
-    
-  })
+  });
       
   // Config (staging)
   
   server.configure('staging', function() {
     server.use(express.logger({ format: ':method :url :status' }));
-  })
+  });
       
   // Config (production)
   
   server.configure('production', function() {
 
-  })
+  });
   
   // Handle errors
   
   require('./errors.js')(server)
     
-  return server   // Export the server
+  // Export the server
+  
+  return server;
+  
 })();

@@ -6,7 +6,8 @@
     "express":">=2.0.0",
     "stylus":">=0.9.2",
     "connect-timeout":">=0.0.1",
-    "cluster":">=0.4.2"
+    "cluster":">=0.4.2",
+    "express-messages":">=0.0.1"
   },
   "directories":{}
 }

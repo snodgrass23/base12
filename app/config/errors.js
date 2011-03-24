@@ -13,6 +13,9 @@ exports = module.exports = function(server) {
   // Respond to standard request errors
   
   server.error(function(err, req, res, next){
+    res.send("Internal Server Error", 500);
+    console.warn("Internal server error");
+    /*
     if (!err || 2 !== err.errno)
       return res.render("500.jade", { layout: "layout.error.jade" }, function(err, content){
         res.send(content || "Internal Server Error", 500)  
@@ -21,6 +24,7 @@ exports = module.exports = function(server) {
     res.render("404.jade", { layout: "layout.error.jade" }, function(err, content){
       res.send(content || "File Not Found", 404)  
     })
-  })
+    */
+  });
   
 }
