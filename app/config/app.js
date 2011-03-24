@@ -1,28 +1,17 @@
-// Application root - where to start building require() paths
-
-var root = __dirname + '/../..'
-
-require.paths.unshift(
-  root + '/app',
-  root + '/',
-  root + '/lib',
-  root + '/node_modules'
-)
-
 // Modules
 
 var express = require('express'),
     connectTimeout = require('connect-timeout');
 
-require('math.uuid');
+require('../../lib/math.uuid');
 
 // Constants
 
-var constants = require('constants')();
+var constants = require('./constants')();
 
 // Server export
 
-exports = module.exports = function() {
+exports = module.exports = (function() {
   
   var server = express.createServer(),
       options = constants[server.set('env')];
@@ -41,11 +30,9 @@ exports = module.exports = function() {
     
     // Middleware
     
-    server.use(connectTimeout({ time: options.reqTimeout }))
-    server.use(express.conditionalGet())
-    server.use(express.compiler({ src: server.set('app root') + '/public' }));
-    server.use(express.staticProvider(server.set('app root') + '/public'))
-    server.use(express.cookieDecoder())
+    server.use(connectTimeout({ time: options.reqTimeout }));
+    server.use(express.static(server.set('app root') + '/public'));
+    server.use(express.cookieParser());
     server.use(express.session({
       secret: Math.uuidFast(),
       key: options.sessionKey,
@@ -54,7 +41,7 @@ exports = module.exports = function() {
         maxAge: options.maxAge
       })
     }))
-    server.use(express.bodyDecoder())
+    server.use(express.bodyParser())
     server.use(server.router)
     server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}))
     
@@ -92,4 +79,4 @@ exports = module.exports = function() {
   require('./errors.js')(server)
     
   return server   // Export the server
-}
+})();
