@@ -1,21 +1,22 @@
 // Establish a working directory
 
-var root = require('path').normalize(__dirname + '/../../');
+var root = require('path').normalize(__dirname + '/..');
 
 // Modules
 
 var express = require('express'),
     connectTimeout = require('connect-timeout'),
-    context = require('../../lib/context');
+    stylus = require('stylus'),
+    context = require('../lib/context');
 
-require('../../lib/math.uuid');
+require('../lib/math.uuid');
 
 // Server export
 
 exports = module.exports = (function() {
   
   var server = express.createServer(),
-      options = require('./constants')([server.set('env')]);
+      options = require('./config/constants')([server.set('env')]);
 
   console.log("Environment: " + server.set('env'));
   
@@ -28,12 +29,24 @@ exports = module.exports = (function() {
     server.set('app root', root + '/app')
     server.set('view engine', options.view_engine || 'jade')
     server.set('views', server.set('app root') + '/views')
+    server.set('public', server.set('app root') + '/public');
     server.set('port', options.port);
     server.set('host', options.host);
     
     // Middleware
     
     server.use(connectTimeout({ time: options.reqTimeout }));
+    server.use(stylus.middleware({
+      src: server.set('views'),
+      dest: server.set('public'),
+      debug: true,
+      compileMethod: function(str) {
+        return stylus(str, path)
+          .set('compress', options.compressCss)
+          .set('filename', path);
+      },
+      force: true
+    }));
     server.use(express.static(server.set('app root') + '/public'));
     server.use(express.cookieParser());
     server.use(express.session({
@@ -51,11 +64,11 @@ exports = module.exports = (function() {
     
     // Helpers
     
-    require('./helpers')(server)
+    require('./config/helpers')(server)
     
     // Map routes
     
-    require('./routes')(server)
+    require('./config/routes')(server)
 
   })
   
@@ -79,7 +92,7 @@ exports = module.exports = (function() {
   
   // Handle errors
   
-  require('./errors.js')(server)
+  require('./config/errors.js')(server)
     
   // Export the server
   

@@ -2,9 +2,9 @@
   "name":"newproject",
   "version":"0.0.1",
   "dependencies":{
-    "jade":">=0.9.2",
-    "express":">=2.0.0",
-    "stylus":">=0.9.2",
+    "jade":">=0.13.0",
+    "express":">=2.4.3",
+    "stylus":">=0.13.7",
     "connect-timeout":">=0.0.1",
     "cluster":">=0.4.2",
     "express-messages":">=0.0.1"
