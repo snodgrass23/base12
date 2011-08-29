@@ -9,7 +9,7 @@ var express = require('express'),
     stylus = require('stylus'),
     context = require('../lib/context');
 
-require('../lib/math.uuid');
+require('../lib/mathlib.uuid');
 
 // Server export
 
@@ -39,7 +39,7 @@ exports = module.exports = (function() {
     server.use(stylus.middleware({
       src: server.set('views'),
       dest: server.set('public'),
-      debug: true,
+      debug: false,
       compileMethod: function(str) {
         return stylus(str, path)
           .set('compress', options.compressCss)
