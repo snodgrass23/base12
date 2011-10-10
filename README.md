@@ -2,29 +2,18 @@
       
   Structure for your [node.js](http://nodejs.org) project.
 
-## Installation (contributor)
+## Installation
 
-    mkdir mynewproject
-    cd mynewproject
-    git clone -b edge git@github.com:Skookum/node-boilerplate.git .
-    git checkout -b mynewproject
-    sudo npm bundle
-    sudo node server.js
-  
-## Installation (user)
-
-    mkdir mynewproject
-    cd mynewproject
     git clone -b edge https://github.com/skookum/node-boilerplate.git .
-    git checkout -b mynewproject
-    sudo npm bundle
+    cd node-boilerplate
+    sudo npm install
     sudo node server.js
 
 ## Adding libraries
 
   Add to 'dependencies' in /package.json, then:
   
-    sudo npm bundle
+    sudo npm install
     
 ## Included modules:
 
