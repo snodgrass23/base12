@@ -4,7 +4,7 @@
 
 ## Installation
 
-    git clone -b edge https://github.com/skookum/node-boilerplate.git .
+    git clone git://github.com/Skookum/node-boilerplate.git
     cd node-boilerplate
     sudo npm install
     sudo node server.js
