@@ -1,0 +1,121 @@
+// Prefixes the property for various vendors
+vendor(prop, args)
+  -webkit-{prop} args
+  -moz-{prop} args
+  -ms-{prop} args
+  -o-{prop} args
+  {prop} args
+
+two-stop(start, end=start)
+  add-property(current-property[0], -moz-linear-gradient(top, start, end 100%)) /* FF3.6+ */
+  add-property(current-property[0], -webkit-gradient(linear, left top, left bottom, color-stop(0%,start), color-stop(100%,end))) /* Chrome,Safari4+ */
+  add-property(current-property[0], -webkit-linear-gradient(top, start 0%,end 100%)) /* Chrome10+,Safari5.1+ */
+  add-property(current-property[0], -o-linear-gradient(top, start 0%,end 100%)) /* Opera11.10+ */
+  add-property(current-property[0], -ms-linear-gradient(top, start 0%,end 100%)) /* IE10+ */
+  add-property('filter', s("progid:DXImageTransform.Microsoft.gradient( startColorstr='%s', endColorstr='%s',GradientType=0 )",start,end)) /* IE6-9 */
+  add-property(current-property[0], linear-gradient(top, start 0%,start 100%)) /* W3C */
+
+two-stop-position(start, end=start, position)
+  add-property(current-property[0], -moz-linear-gradient(top, start, end position)) /* FF3.6+ */
+  add-property(current-property[0], -webkit-gradient(linear, left top, left bottom, color-stop(0%,start), color-stop(position,end))) /* Chrome,Safari4+ */
+  add-property(current-property[0], -webkit-linear-gradient(top, start 0%,end position)) /* Chrome10+,Safari5.1+ */
+  add-property(current-property[0], -o-linear-gradient(top, start 0%,end position)) /* Opera11.10+ */
+  add-property(current-property[0], -ms-linear-gradient(top, start 0%,end position)) /* IE10+ */
+  //add-property('filter', s("progid:DXImageTransform.Microsoft.gradient( startColorstr='%s', endColorstr='%s',GradientType=0 )",start,end)) /* IE6-9 */
+  add-property(current-property[0], linear-gradient(top, start 0%,start position)) /* W3C */
+
+radial-two-stop(pos, start, end=start)
+  add-property(current-property[0], -moz-radial-gradient(pos, circle, start 0%, end 100%)) /* FF3.6+ */
+  add-property(current-property[0], -webkit-radial-gradient(pos, circle, start 0%, end 100%)) /* Chrome,Safari4+ */
+  radial-gradient(pos, circle, start 0%, end 100%)
+
+border-radius(n)
+  vendor('border-radius', arguments)
+
+border-bottom-right-radius(n)
+  -webkit-border-bottom-right-radius 0
+  -moz-border-radius-bottomright n
+  border-bottom-right-radius n
+border-bottom-left-radius(n)
+  -webkit-border-bottom-left-radius 0
+  -moz-border-radius-bottomleft n
+  border-bottom-left-radius n
+border-top-right-radius(n)
+  -webkit-border-top-right-radius 0
+  -moz-border-radius-topright n
+  border-top-right-radius n
+border-top-left-radius(n)
+  -webkit-border-top-left-radius 0
+  -moz-border-radius-topleft n
+  border-top-left-radius n
+
+box-shadow(n)
+  vendor('box-shadow', arguments)
+
+inner-shadow(n)
+  vendor('box-shadow', unshift(arguments, 'inset'))
+
+// cross-browser inline-block
+inline-block()
+  display inline-block
+  zoom 1
+  *display inline
+
+draggable()
+  cursor hand
+  cursor grab
+  cursor -moz-grab
+  cursor -webkit-grab
+  &.ui-draggable-dragging
+    dragging()
+
+dragging()
+  cursor grabbing
+  cursor -moz-grabbing
+  cursor -webkit-grabbing
+
+clearfix()
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+
+perspective()
+  vendor('perspective', arguments)
+transition()
+  vendor('transition', arguments)
+transform()
+  vendor('transform', arguments)
+transform-origin()
+  vendor('transform-origin', arguments)
+transition-property()
+  vendor('transition-property', arguments)
+transition-duration()
+  vendor('transition-duration', arguments)
+transition-timing-function()
+  vendor('transition-timing-function', arguments)
+transform-style()
+  vendor('transform-style', arguments)
+backface-visibility()
+  vendor('backface-visibility', arguments)
+transition-delay()
+  vendor('transition-delay', arguments)
+
+animation()
+  vendor('animation', arguments)
+animation-name()
+  vendor('animation-name', arguments)
+animation-duration()
+  vendor('animation-duration', arguments)
+animation-timing-function()
+  vendor('animation-timing-function', arguments)
+animation-delay()
+  vendor('animation-delay', arguments)
+animation-direction()
+  vendor('animation-direction', arguments)
+animation-name()
+  vendor('animation-name', arguments)
+
+
