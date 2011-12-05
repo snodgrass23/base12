@@ -2,12 +2,23 @@
   "name":"newproject",
   "version":"0.0.1",
   "dependencies":{
-    "jade":">=0.13.0",
-    "express":">=2.4.3",
-    "stylus":">=0.13.7",
-    "connect-timeout":">=0.0.1",
-    "cluster":">=0.4.2",
-    "express-messages":">=0.0.1"
+    "jade":"latest",
+    "express":"latest",
+    "stylus":"latest",
+    "connect":"latest",
+    "connect-redis":"latest",
+    "connect-timeout":"latest",
+    "connect-form":"latest",
+    "express-resource":"latest",
+    "express-messages":"latest",
+    "redis":"latest",
+    "mongodb":"latest",
+    "mongoose":"latest",
+    "async":"latest",
+    "underscore":"latest",
+    "passport":"latest",
+    "passport-local":"latest",
+    "password-hash":"latest"
   },
   "directories":{}
 }

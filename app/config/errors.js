@@ -1,4 +1,4 @@
-exports = module.exports = function(server) {
+exports = module.exports = function() {
   
   // Handle uncaught exceptions
 

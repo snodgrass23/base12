@@ -1,0 +1,24 @@
+!!! 5
+html
+  != partial("components/layout/head")
+    
+  body
+    header
+      h1 
+        a(href="/") Node Boilerplate
+      #account
+        - if (is_logged_in)
+          aside
+            p Welcome #{current_user.name}
+              | &nbsp; - &nbsp; 
+              a(href="/logout") Logout
+        - else
+          aside
+            p
+              a(href="/login") Log in
+              | &nbsp; or &nbsp; 
+              a(href="/register") Create Account
+    section
+      != body  
+    != partial("components/layout/foot")
+    

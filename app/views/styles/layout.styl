@@ -1,12 +1,31 @@
 @import 'mixins'
-@import 'reset'
+@import 'normalize'
+
+page_width = 800px
+text_color = #333
 
 html
   background-color #ddd
 body
-  width 800px
+  width page_width
   margin 10px auto
-  background-color #fff
-  border 1px solid #999
-  border-radius 5px
-  padding 20px
+  color text_color
+  section
+    padding 20px
+    background-color #fff
+    border 1px solid #999
+    border-radius 5px 
+header
+  position relative
+  h1
+    padding 0 5px
+    color text_color
+    a, a:visited
+      text-decoration none
+      color text_color
+  #account
+    position absolute
+    right 0px
+    top 5px
+footer
+  text-align center

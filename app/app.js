@@ -1,101 +1,47 @@
-// Establish a working directory
-
-var root = require('path').normalize(__dirname + '/..');
-
-// Modules
-
-var express = require('express'),
-    connectTimeout = require('connect-timeout'),
-    stylus = require('stylus'),
-    context = require('../lib/context');
-
-require('../lib/mathlib.uuid');
-
-// Server export
+// server export
 
 exports = module.exports = (function() {
-  
-  var server = express.createServer(),
-      options = require('./config/constants')([server.set('env')]);
 
-  console.log("Environment: " + server.set('env'));
-  
+  environment = process.env.NODE_ENV || 'development';
+  options = require('./config/options')([environment]);
+  server = require('express').createServer();
+  models = {};
+  controllers = {};
+
+  console.log("Environment in server: " + environment);
+
   // Config (all)
-  
+
   server.configure(function() {
-    
+
     // Settings
-    
-    server.set('app root', root + '/app')
-    server.set('view engine', options.view_engine || 'jade')
-    server.set('views', server.set('app root') + '/views')
-    server.set('public', server.set('app root') + '/public');
-    server.set('port', options.port);
-    server.set('host', options.host);
-    
+
+    require('./config/setup_server')();
+
     // Middleware
+
+    require('./config/middleware')(require('express'));
+
+    // Models
     
-    server.use(connectTimeout({ time: options.reqTimeout }));
-    server.use(stylus.middleware({
-      src: server.set('views'),
-      dest: server.set('public'),
-      debug: false,
-      compileMethod: function(str) {
-        return stylus(str, path)
-          .set('compress', options.compressCss)
-          .set('filename', path);
-      },
-      force: true
-    }));
-    server.use(express.static(server.set('app root') + '/public'));
-    server.use(express.cookieParser());
-    server.use(express.session({
-      secret: Math.uuidFast(),
-      key: options.sessionKey,
-      store: new express.session.MemoryStore({
-        reapInterval: options.reapInterval,
-        maxAge: options.maxAge
-      })
-    }))
-    server.use(express.bodyParser())
-    server.use(context);
-    server.use(server.router)
-    server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}));
+    require('./config/setup_models')();
+    
+    // Initialize controllers global
+    
+    require('./config/setup_controllers')();    
     
     // Helpers
-    
-    require('./config/helpers')(server)
-    
+
+    require('./config/helpers')();
+
     // Map routes
-    
-    require('./config/routes')(server)
 
-  })
-  
-  // Config (development)
-  
-  server.configure('development', function() {
-    server.use(express.logger({ format: ':method :url :status' }));
-  });
-      
-  // Config (staging)
-  
-  server.configure('staging', function() {
-    server.use(express.logger({ format: ':method :url :status' }));
-  });
-      
-  // Config (production)
-  
-  server.configure('production', function() {
+    require('./config/routes')();
 
   });
-  
+
   // Handle errors
-  
-  require('./config/errors.js')(server)
-    
-  // Export the server
-  
-  return server;
-  
+
+  require('./config/errors.js')();
+
 })();
