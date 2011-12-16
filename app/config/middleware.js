@@ -1,18 +1,17 @@
 var connectTimeout  = require('connect-timeout'),
+    express         = require('express'),
     form            = require('connect-form'),
     resource        = require('express-resource'),
     mongoose        = require('mongoose'),
     stylus          = require('stylus'),
     util            = require('util'),
     passport        = require('passport'),
-    connectRedis    = require('connect-redis')(require('connect'))
+    connectRedis    = require('connect-redis')(require('connect')),
     redis           = require('redis');
-
-require('../../lib/mathlib.uuid');
 
 // Middleware
 
-exports = module.exports = function(express) {
+exports = module.exports = function() {
   
   //server.use(express.logger({ format: ':method :url' }));
   server.use(connectTimeout({ time: options.reqTimeout }));
@@ -30,7 +29,7 @@ exports = module.exports = function(express) {
   server.use(express['static'](server.set('public')));
   server.use(express.cookieParser());
   server.use(express.session({
-    secret: Math.uuidFast(),
+    secret: 'my_secret_session',
     key: options.sessionKey,
     store: new connectRedis({
       maxAge: options.maxAge,
@@ -40,8 +39,24 @@ exports = module.exports = function(express) {
   }));
   server.use(form({ keepExtensions: true }));
   server.use(express.bodyParser());
+  server.use(addFilesToBody);
   server.use(passport.initialize());
   server.use(passport.session());
   server.use(server.router);
   server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}));
 };
+
+
+function addFilesToBody(req, res, next) {
+  if (req.body && req.files) {
+    
+    for (var f in req.files) {
+      if (req.files[f].size > 0) {
+        _.extend(req.body, req.files);
+        break;    
+      }
+    }
+    
+  }
+  next();
+}

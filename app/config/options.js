@@ -6,22 +6,23 @@ exports = module.exports = function(env) {
   
   var option_tables = {
     development: function() {
+      this.appname = 'boilerplate';
       this.maxAge = TWO_WEEKS;
       this.shortSession = TWO_WEEKS;
       this.reqTimeout = 30000;
       this.sessionKey = 'b0ilerplate';
       this.logged_in_homepage = '/users/show';
-      this.host = 'http://localhost:3100';
-      this.port = 3100;
+      this.host = 'http://localhost';
+      this.port = 80;
       this.dumpExceptions = true;
       this.showStack = true;
       this.errorToHtml = true;
-      this.redis = { host: 'localhost', port: 6379, db: 'boilerplate' }
-      this.mongo = { db: 'mongodb://localhost/boilerplate'}
+      this.redis = { host: 'localhost', port: 6379, db: this.appname };
+      this.mongo = { db: 'mongodb://localhost/'+this.appname};
     },
     test: function() {
       this.mongo = { db: 'mongodb://localhost/boilerplate_test' };
-      this.redis = { host: 'localhost', port: 6379, db: 'boilerplate_test' };
+      this.redis = { host: 'localhost', port: 6379, db: this.appname +'_test' };
       this.port = 8000;
     },
     staging: function() {
@@ -31,7 +32,7 @@ exports = module.exports = function(env) {
     production: function() {
 
     }
-  }
+  };
   
   // Cascade options
   

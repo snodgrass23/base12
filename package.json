@@ -18,7 +18,8 @@
     "underscore":"latest",
     "passport":"latest",
     "passport-local":"latest",
-    "password-hash":"latest"
+    "password-hash":"latest",
+    "imagemagick":"git://github.com/Skookum/node-imagemagick.git"
   },
   "directories":{}
 }

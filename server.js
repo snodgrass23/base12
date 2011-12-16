@@ -37,5 +37,5 @@ var start = {
 var start_type = process.argv[2] || start_options.default_start_type;
 console.log("Starting in mode '" + start_type + "'...");
 
-console.log("Opening server on port " + options.port + "...");
+console.log("************\n"+options.appname+" worker listening at: "  + options.host + ' on port ' + options.port + "\n************");
 start[start_type]();

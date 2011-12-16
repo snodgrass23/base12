@@ -9,7 +9,7 @@ passport.use(new LocalStrategy({
     usernameField: 'email'
   },
   function(email, password, done) {
-    models.user.findOne({ email: email}, function (err, user) {
+    models.user.find_by_login({ email: email, password: password}, function (err, user) {
       if (err) return done(err);
       if (!user) return done(undefined, false);
       return done(undefined, user);

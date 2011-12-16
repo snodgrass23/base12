@@ -4,33 +4,58 @@
  * @author Jim Snodgrass <jim@skookum.com>
  */
 
-var password_hash = require('password-hash');
+// custom validators
+var valid = {
+  length: function (v) {
+    return v && v.length > 3;
+  },
+  email: function (email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return email.match(re) !== null;
+  }
+};
+
+
 
 var User = new server.mongoose.Schema({
   reg_ts    : Number,
-  email     : { type: String, index: true, trim:true },
-  name      : { type: String, trim: true },
-  password  : { type: String, trim: true },
-  created_at: { type: Date, 'default': Date.now },
-  updated_at: { type: Date, 'default': Date.now }
+  email     : { type: String, index: true, required:true, lowercase: true, trim:true, unique: true, validate: [valid.email, 'not valid'] },
+  name      : { type: String, trim: true, required:true },
+  about     : { type: String, trim: true },
+  avatar    : [models.schemas.user_avatar],
+  password  : { type: String, trim: true, required:true, validate: [valid.length, 'required to be at least 4 characters'] }
 });
+
+// Plugins
+
+User.plugin(models.plugins.timestamps);
+User.plugin(models.plugins.whitelist);
 
 // Getters and Setters
 
-User.path('password').set(function(clear) {
-  var hashed = password_hash.generate(clear, { algorithm: 'sha256', saltLength: 12 });
-  return hashed;
+User.path('password').set(function(password) {
+  var hashed = require('password-hash').generate(password, { algorithm: 'sha256', saltLength: 12 });
+  if (valid.length(password)) return hashed;
+  // pass short chars to fail length validation
+  else return "f";
 });
 
-// Methods
+// Statics
 
-User.statics.speak = function() {
-  console.log("Hello World!!");
+User.statics.find_by_login = function(props, callback) {
+  return this.findOne({ email: props.email }, function(err, user) {
+    if(user && !err && require('password-hash').verify(props.password, user.password)) {
+        return callback(undefined, user);
+    }
+    else {
+      return callback('Unable to login');
+    }
+  });
 };
+
+// Export
 
 var UserModel = server.mongoose.model('User', User);
 module.exports = UserModel;
-
-
 
 
