@@ -7,6 +7,8 @@ exports = module.exports = (function() {
   server = require('express').createServer();
   models = {};
   controllers = {};
+  _ = require('underscore');
+  async = require('async');
 
   console.log("Environment in server: " + environment);
 
@@ -16,19 +18,19 @@ exports = module.exports = (function() {
 
     // Settings
 
-    require('./config/setup_server')();
+    require('./config/server')();
 
     // Middleware
 
-    require('./config/middleware')(require('express'));
+    require('./config/middleware')();
 
     // Models
     
-    require('./config/setup_models')();
+    require('./config/models')();
     
     // Initialize controllers global
     
-    require('./config/setup_controllers')();    
+    require('./config/controllers')();    
     
     // Helpers
 
