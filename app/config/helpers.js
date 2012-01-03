@@ -85,12 +85,6 @@ exports = module.exports = function() {
         return '/users/' + req.user._id;
       }
       return '/';
-    },
-    edit_account_route: function(req, res) {
-      if (req.user) {
-        return '/users/' + req.user._id + '/edit';
-      }
-      return '/';
     }
   });
 
