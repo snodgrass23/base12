@@ -1,7 +1,11 @@
-h2 #{current_user.name}, welcome to your homepage
-p 
-  -if (typeof current_user.avatar != "undefined")
-    img(src=current_user.avatar.path, style="float:left;margin: 0 10px 10px 0")
-  =current_user.about
+- if (is_self)
+  h2 #{current_user.name}, welcome to your homepage
+  p 
+    -if (typeof current_user.avatar != "undefined")
+      img(src=current_user.avatar.path, style="float:left;margin: 0 10px 10px 0")
+    =current_user.about
+- else
+  h2 Profile of #{profile.name}
+  p #{profile.about}
 
 br(style="clear:both")

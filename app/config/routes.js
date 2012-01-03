@@ -10,6 +10,6 @@ exports = module.exports = function() {
     .map('all', '/logout', 'destroy');
 
   // Users
-  server.resource('users', controllers.user);
+  server.resource('profiles', controllers.user);
 
 };

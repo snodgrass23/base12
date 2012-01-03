@@ -6,7 +6,7 @@ exports = module.exports = function() {
       var map = {
         'login': '/sessions/login',
         'logout': '/sessions/logout',
-        'register': '/users/new'
+        'register': '/profiles/new'
       };
       return (map[action] ? map[action] : '');
     },
@@ -82,7 +82,7 @@ exports = module.exports = function() {
     },
     account_route: function(req, res) {
       if (req.user) {
-        return '/users/' + req.user._id;
+        return '/profiles/' + req.user._id;
       }
       return '/';
     }
