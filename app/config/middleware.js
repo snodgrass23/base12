@@ -39,6 +39,7 @@ exports = module.exports = function() {
   }));
   server.use(form({ keepExtensions: true }));
   server.use(express.bodyParser());
+  server.use(express.methodOverride());
   server.use(addFilesToBody);
   server.use(passport.initialize());
   server.use(passport.session());

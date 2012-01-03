@@ -1,5 +1,6 @@
 h2 Account Settings
-form(action="/users/update", method="post", enctype="multipart/form-data")
+form(action=account_route, method="post", enctype="multipart/form-data")
+  input(type='hidden', name='_method', value='PUT')
   ul
     li
       label(for="name") Name
