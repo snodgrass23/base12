@@ -1,0 +1,258 @@
+#!/usr/bin/env bash
+
+VERSION="0.1.0"
+CONFIG=scripts/provision.conf
+LOG=/tmp/provision.log
+KEYS=scripts/keys/
+FILES=scripts/provisioning/
+TEST=1
+REF=
+ENV=
+
+#
+# Output usage information.
+#
+
+usage() {
+  cat <<-EOF
+
+  Usage: provision [options] <user> <remote> [command]
+
+  Example: provision root staging
+  				 provision john production keys
+
+  <remote> should match a [remote] section in provision.conf
+
+  Options:
+
+  	-C, --chdir	<path>		change the working directory to <path>
+  	-h, --help						output help information
+  	-v, --version 				output version
+
+  Commands:
+
+  	all (default)					runs all provisioning scripts
+  	environment						updates linux, pulls common apt packages
+  	keys									updates public keys
+  	node									installs node and npm
+  	mongo									installs mongodb
+  	redis									installs redis
+  	mysql									installs mysql
+
+EOF
+}
+
+#
+# Abort with <msg>
+#
+
+abort() {
+  echo
+  echo "  $@" 1>&2
+  echo
+  exit 1
+}
+
+#
+# Log <msg>.
+#
+
+log() {
+  echo "  ○ $@"
+}
+
+#
+# Check if config <section> exists.
+#
+
+config_section() {
+  grep "^\[$1" $CONFIG &> /dev/null
+}
+
+#
+# Get config value by <key>.
+#
+
+config_get() {
+  local key=$1
+  test -n "$key" \
+    && grep "^\[$ENV" -A 20 $CONFIG \
+    | grep "^$key" \
+    | head -n 1 \
+    | cut -d ' ' -f 2-999
+}
+
+#
+# Output version.
+#
+
+version() {
+  echo $VERSION
+}
+
+#
+# Run the given remote <cmd>.
+#
+
+run() {
+  local url="`config_get user`@`config_get host`"
+  local key=`config_get key`
+  if test -n "$key"; then
+    local shell="ssh -i $key $url"
+  else
+    local shell="ssh $url"
+  fi
+  echo $shell "\"$@\"" >> $LOG
+  $shell $@
+}
+
+#
+# Launch an interactive ssh console session.
+#
+
+console() {
+  local url="`config_get user`@`config_get host`"
+  local key=`config_get key`
+  if test -n "$key"; then
+    local shell="ssh -i $key $url"
+  else
+    local shell="ssh $url"
+  fi
+  echo $shell
+  exec $shell
+}
+
+#
+# Output config or [key].
+#
+
+config() {
+  if test $# -eq 0; then
+    cat $CONFIG
+  else
+    config_get $1
+  fi
+}
+
+#
+# Execute hook <name> relative to the path configured.
+#
+
+hook() {
+  test -n "$1" || abort hook name required
+  local hook=$1
+  local path=`config_get path`
+  local cmd=`config_get $hook`
+  if test -n "$cmd"; then
+    log "executing $hook \`$cmd\`"
+    run "cd $path/current; \
+      SHARED=\"$path/shared\" \
+      $cmd 2>&1 | tee -a $LOG; \
+      exit \${PIPESTATUS[0]}"
+    test $? -eq 0
+  else
+    log hook $hook
+  fi
+}
+
+#
+# Provision the environment
+#
+
+environment() {
+	log "updating linux environment"
+	run "cd /root"
+	run "apt-get update --yes"
+	run "apt-get upgrade --yes"
+	run "ulimit -n 64000"
+	run "sysctl -w fs.file-max=100000"
+	run "apt-get install --yes build-essential git-core libssl-dev curl python-setuptools sendmail"
+}
+
+#
+# Add users and public keys
+#
+
+keys() {
+	
+}
+
+#
+# Install node
+#
+
+node() {
+	log "installing node 0.6.2 and npm"	
+	run "cd /tmp"
+	run "rm -rf node"
+	run "git clone git://github.com/joyent/node.git"
+	run "cd node"
+	run "git checkout v0.6.11"
+	run "export JOBS=4"
+	run "./configure"
+	run "make"
+	run "make install"
+	run "curl http://npmjs.org/install.sh | clean=no sh"
+	send "node_upstart" "/etc/init/node.conf"
+}
+
+#
+# Run all provisioning scripts
+#
+
+all() {
+	environment
+	keys
+	node
+	#mongo
+	#redis
+	#mysql
+}
+
+#
+# Provision
+#
+
+provision() {
+	all
+}
+
+#
+# Require environment arg.
+#
+
+require_env() {
+  config_section $ENV || abort "[$ENV] config section not defined"
+  test -z "$ENV" && abort "<env> required"
+}
+
+# parse argv
+
+while test $# -ne 0; do
+  arg=$1; shift
+  case $arg in
+    -h|--help) usage; exit ;;
+    -V|--version) version; exit ;;
+    -C|--chdir) log cd $1; cd $1; shift ;;
+    all) require_env; all; exit ;;
+    environment) require_env; environment; exit ;;
+    keys) require_env; keys; exit ;;
+    node) require_env; node; exit ;;
+    mongo) require_env; mongo; exit ;;
+    redis) require_env; redis; exit ;;
+    mysql) require_env; mysql; exit ;;
+    config) config $@; exit ;;
+    *)
+      if test -z "$ENV"; then
+        ENV=$arg;
+      else
+        REF="$REF $arg";
+      fi
+      ;;
+  esac
+done
+
+require_env
+
+# provision
+provision
