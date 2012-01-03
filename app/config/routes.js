@@ -1,9 +1,24 @@
+
 /**
  * Setup routes
  */
 
 exports = module.exports = function() {
   
+  // Home
+  server.resource('homes', controllers.home);
+  server.all('/', controllers.auth.is_not_user, controllers.home.index);
+
+  // Login Sessions
+  server.resource('sessions', controllers.session)
+    .map('all', '/login', controllers.session['new'])
+    .map('all', '/logout', controllers.session.destroy);
+
+  // Users
+  server.resource('users', controllers.user)
+    .map('all', '/account', controllers.user.edit);
+
+  /*
   server.get('/', controllers.auth.is_not_user, controllers.home.index);
   server.get('/login', controllers.users.login);
   server.post('/login', controllers.auth.create_session);
@@ -20,29 +35,6 @@ exports = module.exports = function() {
   // route not found, send to error page
 
   server.all('/:a/:b?/:c?/:d?/:e?/:f?', pageNotFound);
+  */
 
 };
-
-
-// function to find controller and action matching route
-// if not found, send to 404 page
-function findControllerAction(req, res, next) {
-  var controller = req.params.controller,
-      action = req.params.action || 'index',
-      id = req.params.id;
-  
-  // check if route is using 'get' and trying to access an action that shouldn't accept them
-  var no_gets = ['create', 'update', 'destroy'];
-  if (req.route.method == 'get' && no_gets.indexOf(action) > -1) return next();
-
-  if (controllers[controller] && controllers[controller][action]) {
-    controllers[controller][action](req, res, next);
-  }
-  else {
-    next();
-  }
-}
-
-function pageNotFound(req, res, next) {
-  controllers.home.error(req, res);
-}

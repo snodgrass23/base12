@@ -13,7 +13,7 @@ exports = module.exports = function() {
   server.set('view options', {layout: 'layouts/layout'});
   server.set('views', server.set('app root') + '/views');
   server.set('public', server.set('app root') + '/public');
-  
+    
   var redis = require('redis');
   server.redis = redis;
   server.redisClient = redis.createClient(options.redis.port, options.redis.host);
