@@ -8,9 +8,6 @@ form(action="/users/update", method="post", enctype="multipart/form-data")
       label(for="email") Email
       input(type='email', name='email', placeholder='email', value=current_user.email)
     li
-      label(for="avatar") Avatar
-      input(type="file", name="avatar")
-    li
       label(for="about") About Me
       textarea(name='about', placeholder='a little about myself...') #{current_user.about}
     li

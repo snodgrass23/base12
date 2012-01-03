@@ -12,8 +12,11 @@ html
       #account
         - if (is_logged_in)
           aside
-            p 
-              a(href=account_route) Welcome #{current_user.name}
+            p Welcome #{current_user.name}
+              | &nbsp; - &nbsp; 
+              a(href=account_route) Profile
+              | &nbsp; - &nbsp; 
+              a(href=edit_account_route) Account Settings
               | &nbsp; - &nbsp; 
               a(href=route('logout')) Logout
         - else

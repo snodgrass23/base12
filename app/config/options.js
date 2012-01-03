@@ -3,7 +3,7 @@ exports = module.exports = function(env) {
   // Options
   
   var TWO_WEEKS = 14 * 24 * 60 * 60 * 1000;
-  
+
   var option_tables = {
     development: function() {
       this.appTitle = 'Node Boilerplate';
@@ -12,7 +12,6 @@ exports = module.exports = function(env) {
       this.shortSession = TWO_WEEKS;
       this.reqTimeout = 30000;
       this.sessionKey = 'b0ilerplate';
-      this.logged_in_homepage = '/users/show';
       this.host = 'http://localhost';
       this.port = 80;
       this.dumpExceptions = true;

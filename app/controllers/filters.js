@@ -6,7 +6,6 @@ module.exports = {
   },
   is_not_user: function(req, res, next) {
     if (!req.user) return next();
-    //else res.redirect(options.logged_in_homepage);
-    return next();
+    return res.redirect(server.dynamicViewHelpers.account_route(req));
   }
 };

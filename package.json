@@ -15,6 +15,7 @@
     "redis":"latest",
     "mongodb":"latest",
     "mongoose":"latest",
+    "mongoose-skookum":"https://github.com/hunterloftis/mongoose-skookum/tarball/master",
     "async":"latest",
     "underscore":"latest",
     "passport":"latest",

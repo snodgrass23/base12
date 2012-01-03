@@ -20,7 +20,7 @@ exports = module.exports = {
      }
       else {
         req.flash('info', "Account created. Welcome to " + options.appTitle + "!");
-        controllers.auth.create_session(req, res);
+        controllers.session.create(req, res);
       }
     });
   },
@@ -51,13 +51,6 @@ exports = module.exports = {
       req.flash('info', "Bad request to user update.");
       res.redirect('/account');
     }
-  },
-
-  // List users
-  index: function(req, res) {
-    models.user.find({}, function(err, result){
-      res.render('users/index', {err:err, result:result});
-    });
   },
 
   // User profile

@@ -1,7 +1,7 @@
 h2 #{current_user.name}, welcome to your homepage
 p 
-  -if (typeof current_user.avatar[0] != "undefined")
-    img(src=current_user.avatar[0].path, style="float:left;margin: 0 10px 10px 0")
+  -if (typeof current_user.avatar != "undefined")
+    img(src=current_user.avatar.path, style="float:left;margin: 0 10px 10px 0")
   =current_user.about
 
 br(style="clear:both")

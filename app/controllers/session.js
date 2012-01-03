@@ -25,7 +25,7 @@ module.exports = {
         console.log("User found, logging in...");
         return req.login(user, function(err) {
           console.log("Done.");
-          res.redirect(options.logged_in_homepage);
+          res.redirect(server.dynamicViewHelpers.account_route(req));
         });
       }
       else {

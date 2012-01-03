@@ -1,3 +1,5 @@
+var plugins = require('mongoose-skookum').plugins;
+
 /**
  * User model to interact with users collection in mongo using the Mongoose ORM
  *
@@ -22,14 +24,13 @@ var User = new server.mongoose.Schema({
   email     : { type: String, index: true, required:true, lowercase: true, trim:true, unique: true, validate: [valid.email, 'not valid'] },
   name      : { type: String, trim: true, required:true },
   about     : { type: String, trim: true },
-  avatar    : [models.schemas.user_avatar],
   password  : { type: String, trim: true, required:true, validate: [valid.length, 'required to be at least 4 characters'] }
-});
+}, {strict: true});
 
 // Plugins
 
-User.plugin(models.plugins.timestamps);
-User.plugin(models.plugins.whitelist);
+User.plugin(plugins.timestamps);
+User.plugin(plugins.crud);
 
 // Getters and Setters
 
