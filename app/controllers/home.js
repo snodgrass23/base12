@@ -7,7 +7,7 @@ exports = module.exports = {
 
   // Landing page
   index: [
-    controllers.filters.is_not_user,
+    controllers.filters.require_not_user,
     function(req, res, next) {
       res.render('home/index');
     }

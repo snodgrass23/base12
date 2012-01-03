@@ -12,11 +12,15 @@ var passport = require('passport'),
 module.exports = {
   
   // Login form
-  'new': function(req, res) {
-    res.render('sessions/new');
-  },
+  'new': [
+    controllers.filters.is_user,
+    function(req, res) {
+      res.render('sessions/new');
+    }
+  ],
 
   // Login POST
+  // TODO: Check referrer to prevent login attacks
   create: function(req, res) {
     console.log("========");
     passport.authenticate('local', function(err, user, profile) {
@@ -37,7 +41,6 @@ module.exports = {
 
   // Logout
   destroy: function(req, res) {
-    console.log("DESTROY");
     req.logout();
     res.redirect('/');
   }
