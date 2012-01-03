@@ -2,6 +2,15 @@ exports = module.exports = function() {
   
   server.helpers({
     
+    route: function(action) {
+      var map = {
+        'login': '/sessions/login',
+        'logout': '/sessions/logout',
+        'register': '/users/new'
+      };
+      return (map[action] ? map[action] : '');
+    },
+
     embed_json: function(obj, name) {
       var escaped = JSON.stringify(obj).replace(/\\/g, '\\\\').replace(/<\/script>/g, '');
       return "<script> " + name + " = " + escaped + "; </script>";
@@ -70,6 +79,12 @@ exports = module.exports = function() {
     },
     is_logged_in: function(req, res) {
       return (typeof req.user != 'undefined');
+    },
+    account_route: function(req, res) {
+      if (req.user) {
+        return '/users/' + req.user._id;
+      }
+      return '/';
     }
   });
 };

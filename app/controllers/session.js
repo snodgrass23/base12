@@ -6,22 +6,6 @@ var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
 /**
- * Filters
- */
-
-var filters = {
-  is_user: function(req, res, next) {
-    if (req.user) return next();
-    console.log("not logged in, redirecting");
-    res.redirect('/login');
-  },
-  is_not_user: function(req, res, next) {
-    if (!req.user) return next();
-    res.redirect(options.logged_in_homepage);
-  }
-};
-
-/**
  * Actions
  */
 
@@ -29,7 +13,7 @@ module.exports = {
   
   // Login form
   'new': function(req, res) {
-    res.render('sessions/login');
+    res.render('sessions/new');
   },
 
   // Login POST
@@ -53,12 +37,10 @@ module.exports = {
 
   // Logout
   destroy: function(req, res) {
+    console.log("DESTROY");
     req.logout();
     res.redirect('/');
-  },
-
-  // Export filters
-  filters: filters
+  }
 };
 
 /**

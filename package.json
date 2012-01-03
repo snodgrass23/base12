@@ -9,7 +9,7 @@
     "connect-redis":"latest",
     "connect-timeout":"latest",
     "connect-form":"latest",
-    "express-resource":"https://github.com/hunterloftis/express-resource/tarball/req.format-middleware",
+    "express-resource":"https://github.com/hunterloftis/express-resource/tarball/custom-mapping-strings",
     "lingo":"latest",
     "express-messages":"latest",
     "redis":"latest",

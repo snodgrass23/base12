@@ -40,8 +40,8 @@ exports = module.exports = function() {
   server.use(form({ keepExtensions: true }));
   server.use(express.bodyParser());
   server.use(addFilesToBody);
-  //server.use(passport.initialize());
-  //server.use(passport.session());
+  server.use(passport.initialize());
+  server.use(passport.session());
   server.use(server.router);
   server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}));
 };

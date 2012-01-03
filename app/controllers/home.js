@@ -1,27 +1,15 @@
+console.log("FILTER:", controllers.filters);
+
 /**
- * Home Controller
- *
- * @author David Becher <david@skookum.com>
+ * Actions
  */
- 
 exports = module.exports = {
 
-  /**
-   * Render the landing page
-   *
-   */
-  index: function(req, res, next) {
-    res.render('home/index');
-  },
-
-  'new': [
+  // Landing page
+  index: [
+    controllers.filters.is_not_user,
     function(req, res, next) {
-      console.log("New 1");
-      next();
-    },
-    function(req, res, next) {
-      console.log("New 2");
-      res.send("new 2");
+      res.render('home/index');
     }
   ],
   

@@ -13,15 +13,15 @@ html
         - if (is_logged_in)
           aside
             p 
-              a(href="/account") Welcome #{current_user.name}
+              a(href=account_route) Welcome #{current_user.name}
               | &nbsp; - &nbsp; 
-              a(href="/logout") Logout
+              a(href=route('logout')) Logout
         - else
           aside
             p
-              a(href="/sessions/new") Log in
+              a(href=route('login')) Log in
               | &nbsp; or &nbsp; 
-              a(href="/users/new") Create Account
+              a(href=route('register')) Create Account
     section
       != body  
     != partial("components/layout/foot")

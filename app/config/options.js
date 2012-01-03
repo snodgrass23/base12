@@ -6,7 +6,8 @@ exports = module.exports = function(env) {
   
   var option_tables = {
     development: function() {
-      this.appname = 'Node Boilerplate';
+      this.appTitle = 'Node Boilerplate';
+      this.appname = 'boilerplate';
       this.maxAge = TWO_WEEKS;
       this.shortSession = TWO_WEEKS;
       this.reqTimeout = 30000;

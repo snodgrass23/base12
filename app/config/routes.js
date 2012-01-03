@@ -6,17 +6,15 @@
 exports = module.exports = function() {
   
   // Home
-  server.resource('homes', controllers.home);
-  server.all('/', controllers.auth.is_not_user, controllers.home.index);
+  server.resource(controllers.home);
 
   // Login Sessions
   server.resource('sessions', controllers.session)
-    .map('all', '/login', controllers.session['new'])
-    .map('all', '/logout', controllers.session.destroy);
+    .map('all', '/login', 'new')
+    .map('all', '/logout', 'destroy');
 
   // Users
-  server.resource('users', controllers.user)
-    .map('all', '/account', controllers.user.edit);
+  server.resource('users', controllers.user);
 
   /*
   server.get('/', controllers.auth.is_not_user, controllers.home.index);

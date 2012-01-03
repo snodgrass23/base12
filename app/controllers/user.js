@@ -19,7 +19,7 @@ exports = module.exports = {
         res.redirect('/users/new');
      }
       else {
-        req.flash('info', "Account created. Welcome to " + options.appname + "!");
+        req.flash('info', "Account created. Welcome to " + options.appTitle + "!");
         controllers.auth.create_session(req, res);
       }
     });
