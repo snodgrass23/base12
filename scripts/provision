@@ -105,8 +105,8 @@ run() {
   #loud:
   #expectprogram="set timeout 5 ; spawn ssh $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact"
   #current:
-  expectprogram="log_user 0 ; set timeout 5 ; spawn -noecho ssh -q -o \"PubkeyAuthentication no\" $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact"
-  expect -c "$expectprogram"
+  expectprogram="log_user 0 ; set timeout 5 ; spawn -noecho ssh -o \"PubkeyAuthentication no\" $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact" 
+  expect -c "$expectprogram" > /dev/null 2>&1
 }
 
 #
