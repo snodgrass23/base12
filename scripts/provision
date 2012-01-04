@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
 VERSION="0.1.0"
-CONFIG=scripts/provision.conf
+CONFIG=./deploy.conf
 LOG=/tmp/provision.log
-KEYS=scripts/keys/
-FILES=scripts/provisioning/
+KEYS=./keys
+SCRIPTS=./provisioning
 TEST=1
 REF=
 ENV=
+
+adminpass=""
 
 #
 # Output usage information.
@@ -19,25 +21,25 @@ usage() {
   Usage: provision [options] <user> <remote> [command]
 
   Example: provision root staging
-  				 provision john production keys
+           provision john production keys
 
-  <remote> should match a [remote] section in provision.conf
+  <remote> should match a [remote] section in deploy.conf
 
   Options:
 
-  	-C, --chdir	<path>		change the working directory to <path>
-  	-h, --help						output help information
-  	-v, --version 				output version
+    -C, --chdir <path>    change the working directory to <path>
+    -h, --help            output help information
+    -v, --version         output version
 
   Commands:
 
-  	all (default)					runs all provisioning scripts
-  	environment						updates linux, pulls common apt packages
-  	keys									updates public keys
-  	node									installs node and npm
-  	mongo									installs mongodb
-  	redis									installs redis
-  	mysql									installs mysql
+    all (default)         runs all provisioning scripts
+    environment           updates linux, pulls common apt packages
+    keys                  updates public keys
+    node                  installs node (and npm, part of node now)
+    mongo                 installs mongodb
+    redis                 installs redis
+    mysql                 installs mysql
 
 EOF
 }
@@ -95,15 +97,23 @@ version() {
 #
 
 run() {
-  local url="`config_get user`@`config_get host`"
+  local url="`config_get admin`@`config_get host`"
+  expect -c "spawn ssh $url ; expect assword ; send \"$rootpass\n\" ; send \"$@\""
+}
+
+#
+# Run a script remotely
+#
+
+script() {
+  local url="`config_get admin`@`config_get host`"
   local key=`config_get key`
   if test -n "$key"; then
     local shell="ssh -i $key $url"
   else
     local shell="ssh $url"
   fi
-  echo $shell "\"$@\"" >> $LOG
-  $shell $@
+  $shell 'bash -s' < $SCRIPTS/$@
 }
 
 #
@@ -160,13 +170,8 @@ hook() {
 #
 
 environment() {
-	log "updating linux environment"
-	run "cd /root"
-	run "apt-get update --yes"
-	run "apt-get upgrade --yes"
-	run "ulimit -n 64000"
-	run "sysctl -w fs.file-max=100000"
-	run "apt-get install --yes build-essential git-core libssl-dev curl python-setuptools sendmail"
+  log "setting up the environment"
+  script "environment.sh"
 }
 
 #
@@ -174,7 +179,13 @@ environment() {
 #
 
 keys() {
-	
+  log "adding public keys"
+  # copy all the public keys over
+  local url="`config_get admin`@`config_get host`"
+  allkeys=`cat $KEYS/*.pub`
+  run 'mkdir -p /root/.ssh'
+  run "echo $allkeys >> /root/.ssh/authorized_keys"
+  run 'chmod 0700 /root/.ssh'
 }
 
 #
@@ -182,18 +193,10 @@ keys() {
 #
 
 node() {
-	log "installing node 0.6.2 and npm"	
-	run "cd /tmp"
-	run "rm -rf node"
-	run "git clone git://github.com/joyent/node.git"
-	run "cd node"
-	run "git checkout v0.6.11"
-	run "export JOBS=4"
-	run "./configure"
-	run "make"
-	run "make install"
-	run "curl http://npmjs.org/install.sh | clean=no sh"
-	send "node_upstart" "/etc/init/node.conf"
+  log "installing node 0.6.6" 
+  script "node.sh"
+  #send "node_upstart" "/etc/init/node.conf"
+  # scp the upstart conf file over in the script?
 }
 
 #
@@ -201,12 +204,12 @@ node() {
 #
 
 all() {
-	environment
-	keys
-	node
-	#mongo
-	#redis
-	#mysql
+  #environment
+  keys
+  #node
+  #mongo
+  #redis
+  #mysql
 }
 
 #
@@ -214,7 +217,7 @@ all() {
 #
 
 provision() {
-	all
+  all
 }
 
 #
@@ -224,6 +227,9 @@ provision() {
 require_env() {
   config_section $ENV || abort "[$ENV] config section not defined"
   test -z "$ENV" && abort "<env> required"
+
+  read -s -p "password for `config_get admin`: " adminpass
+  echo ""
 }
 
 # parse argv
