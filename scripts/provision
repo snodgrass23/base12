@@ -98,13 +98,15 @@ version() {
 
 run() {
   local url="`config_get admin`@`config_get host`"
-  echo "adminpass:$adminpass"
-  expectprogram="spawn -noecho ssh $url ; log_user 0 ; expect assword ; send \"$adminpass\r\" ; log_user 1 ; send \"$@\r\" ; interact"
-  echo '------------'
-  echo "$expectprogram"
-  echo '------------'  
-  expect -c "$expectprogram"
+  #login only:
   #expect -c "spawn ssh $url ; expect assword ; send \"$adminpass\n\" ; interact"
+  #old:
+  #expectprogram="spawn -noecho ssh $url ; log_user 0 ; expect assword ; send \"$adminpass\r\" ; log_user 1 ; send \"$@\r\" ; close"
+  #loud:
+  #expectprogram="set timeout 5 ; spawn ssh $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact"
+  #current:
+  expectprogram="log_user 0 ; set timeout 5 ; spawn -noecho ssh -q -o \"PubkeyAuthentication no\" $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact"
+  expect -c "$expectprogram"
 }
 
 #
@@ -185,7 +187,7 @@ environment() {
 #
 
 keys() {
-  log "adding public keys"
+  log "adding public keys (this might take a while)"
   # copy all the public keys over
   local url="`config_get admin`@`config_get host`"
   for filename in $KEYS/*.pub; do
@@ -196,14 +198,7 @@ keys() {
   allkeys=`echo $allkeys`
   quote="'"
   allkeys=$quote$allkeys$quote
-  #allkeys=`awk 'FNR==1{print "\\\n"}1' $KEYS/*.pub`
-  #allkeys=`echo $allkeys`
   keycmd="echo $allkeys > /root/.ssh/authorized_keys"
-  #keycmd="echo 'testing' > /root/.ssh/authorized_keys"
-  #exit
-  echo "=========="
-  echo "$keycmd"
-  echo "=========="
   run 'mkdir -p /root/.ssh'
   run $keycmd
   run 'chmod 0700 /root/.ssh'
