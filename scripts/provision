@@ -98,7 +98,13 @@ version() {
 
 run() {
   local url="`config_get admin`@`config_get host`"
-  expect -c "spawn ssh $url ; expect assword ; send \"$rootpass\n\" ; send \"$@\""
+  echo "adminpass:$adminpass"
+  expectprogram="spawn -noecho ssh $url ; log_user 0 ; expect assword ; send \"$adminpass\r\" ; log_user 1 ; send \"$@\r\" ; interact"
+  echo '------------'
+  echo "$expectprogram"
+  echo '------------'  
+  expect -c "$expectprogram"
+  #expect -c "spawn ssh $url ; expect assword ; send \"$adminpass\n\" ; interact"
 }
 
 #
@@ -182,9 +188,24 @@ keys() {
   log "adding public keys"
   # copy all the public keys over
   local url="`config_get admin`@`config_get host`"
-  allkeys=`cat $KEYS/*.pub`
+  for filename in $KEYS/*.pub; do
+    cat "$filename"
+    echo '\r\r'
+  done > /tmp/allkeys
+  allkeys=`cat /tmp/allkeys`
+  allkeys=`echo $allkeys`
+  quote="'"
+  allkeys=$quote$allkeys$quote
+  #allkeys=`awk 'FNR==1{print "\\\n"}1' $KEYS/*.pub`
+  #allkeys=`echo $allkeys`
+  keycmd="echo $allkeys > /root/.ssh/authorized_keys"
+  #keycmd="echo 'testing' > /root/.ssh/authorized_keys"
+  #exit
+  echo "=========="
+  echo "$keycmd"
+  echo "=========="
   run 'mkdir -p /root/.ssh'
-  run "echo $allkeys >> /root/.ssh/authorized_keys"
+  run $keycmd
   run 'chmod 0700 /root/.ssh'
 }
 
@@ -228,7 +249,7 @@ require_env() {
   config_section $ENV || abort "[$ENV] config section not defined"
   test -z "$ENV" && abort "<env> required"
 
-  read -s -p "password for `config_get admin`: " adminpass
+  read -s -p "`config_get admin`@`config_get host`'s password: " adminpass
   echo ""
 }
 
