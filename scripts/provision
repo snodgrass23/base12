@@ -55,12 +55,18 @@ abort() {
   exit 1
 }
 
+hr() {
+  echo "============================================================="
+}
+
 #
 # Log <msg>.
 #
 
 log() {
+  echo ""
   echo "  ○ $@"
+  echo ""
 }
 
 #
@@ -103,10 +109,10 @@ run() {
   #old:
   #expectprogram="spawn -noecho ssh $url ; log_user 0 ; expect assword ; send \"$adminpass\r\" ; log_user 1 ; send \"$@\r\" ; close"
   #loud:
-  #expectprogram="set timeout 5 ; spawn ssh $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact"
+  expectprogram="set timeout 5 ; spawn ssh $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact"
   #current:
-  expectprogram="log_user 0 ; set timeout 5 ; spawn -noecho ssh -o \"PubkeyAuthentication no\" $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact" 
-  expect -c "$expectprogram" > /dev/null 2>&1
+  #expectprogram="log_user 1 ; set timeout 5 ; spawn -noecho ssh -o \"PubkeyAuthentication no\" $url ; expect assword ; send \"$adminpass\r\" ; sleep 1 ; send \"$@\r\" ; sleep 1 ; send \"exit\r\" ; interact" 
+  expect -c "$expectprogram" > $LOG 2>&1
 }
 
 #
@@ -178,8 +184,10 @@ hook() {
 #
 
 environment() {
+  hr
   log "setting up the environment"
   script "environment.sh"
+  log "environment built"
 }
 
 #
@@ -187,6 +195,7 @@ environment() {
 #
 
 keys() {
+  hr
   log "adding public keys (this might take a while)"
   # copy all the public keys over
   local url="`config_get admin`@`config_get host`"
@@ -200,6 +209,7 @@ keys() {
   allkeys=$quote$allkeys$quote
   keycmd="mkdir -p /root/.ssh && echo $allkeys > /root/.ssh/authorized_keys && chmod 0700 /root/.ssh"
   run $keycmd
+  log "key added (I hope - TODO: pipe errors back from the server)"
 }
 
 #
@@ -207,6 +217,7 @@ keys() {
 #
 
 node() {
+  hr
   log "installing node 0.6.6" 
   script "node.sh"
   #send "node_upstart" "/etc/init/node.conf"
@@ -218,7 +229,7 @@ node() {
 #
 
 all() {
-  #environment
+  environment
   keys
   #node
   #mongo
