@@ -8,10 +8,13 @@
 
   ```shell
   mkdir projectname
-  git clone git://github.com/skookum/node-boilerplate.git projectname && cd projectname
+  git clone git://github.com/hunterloftis/node-boilerplate.git projectname && cd projectname
   sudo npm install
   sudo node server
   ```
+
+  - code, code, code
+  - set up git repository hosting your project (eg, on Github)
 
 ## 2. Provision
   
@@ -27,9 +30,10 @@
   ```
 
 ## 3. Deploy
+  
+  Also within /scripts:
 
   ```
-  cd scripts
   ./deploy staging setup
   ./deploy staging
   ```
