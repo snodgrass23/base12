@@ -230,6 +230,16 @@ upstart() {
 }
 
 #
+# Install mongo
+#
+
+mongo() {
+  hr
+  log "installing mongo"
+  script "$SCRIPTS/mongo.sh"
+}
+
+#
 # Run all provisioning scripts
 #
 
