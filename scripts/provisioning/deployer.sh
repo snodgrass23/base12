@@ -25,9 +25,9 @@ chown -R $deployer:$deployer /home/$deployer/
 # sudoers
 # TODO: Make sure this is limited enough
 cat <<EOF > /etc/sudoers.d/node
-$deployer     ALL=NOPASSWD: /sbin/restart node
-$deployer     ALL=NOPASSWD: /sbin/stop node
-$deployer     ALL=NOPASSWD: /sbin/start node
+$deployer     ALL=NOPASSWD: /sbin/restart $project
+$deployer     ALL=NOPASSWD: /sbin/stop $project
+$deployer     ALL=NOPASSWD: /sbin/start $project
 EOF
 chmod 0440 /etc/sudoers.d/node
 

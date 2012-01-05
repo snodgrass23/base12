@@ -129,9 +129,7 @@ template() {
    cat "$@"
    echo "EOFNOREALLY"
   } | sh > "/tmp/templated.sh"
-}
 
-runtemplate() {
   script "/tmp/templated.sh"
   rm /tmp/templated.sh
 }
@@ -208,7 +206,6 @@ keys() {
   export allkeys="`awk 'FNR==1{print ""}1' $KEYS/*.pub`"
   export admin=`config_get admin`
   template "$SCRIPTS/keys.sh"
-  runtemplate
 }
 
 #
@@ -223,8 +220,8 @@ deployer() {
   export privatekeypath=`config_get private`
   export privatekey=`cat $privatekeypath`
   export environment=`config_get environment`
+  export project=`config_get project`
   template "$SCRIPTS/deployer.sh"
-  runtemplate
 }
 
 #
@@ -235,8 +232,17 @@ node() {
   hr
   log "installing node" 
   script "$SCRIPTS/node.sh"
-  #send "node_upstart" "/etc/init/node.conf"
-  # scp the upstart conf file over in the script?
+}
+
+#
+# Install upstart script
+#
+
+upstart() {
+  hr
+  log "configuring upstart"
+  export project=`config_get project`
+  template "$SCRIPTS/upstart.sh"
 }
 
 #
@@ -248,6 +254,7 @@ all() {
   deployer  
   environment
   node
+  upstart
   #mongo
   #redis
   #mysql
