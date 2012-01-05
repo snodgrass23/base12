@@ -6,8 +6,6 @@
 
   Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org) & [redis](http://redis.io)
 
-  get the project:
-
   ```shell
   mkdir projectname
   git clone git://github.com/hunterloftis/node-boilerplate.git projectname && cd projectname
@@ -19,8 +17,8 @@
   scripts/requirements
   ```
 
-  test it locally:
-  
+  start mongod and redis-server and test locally:
+
   ```shell
   sudo npm install
   sudo node server
