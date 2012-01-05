@@ -8,7 +8,7 @@
 
 ## 1. Develop
 
-  ### Linux/OSX with mongodb, redis
+  Linux/OSX with mongodb, redis
 
   ```shell
   mkdir projectname
@@ -19,7 +19,7 @@
 
 ## 2. Provision
   
-  ### Ubuntu VPS (eg, Linode)
+  Ubuntu VPS (eg, Linode)
 
   - fill out `scripts/deploy.conf`
   - add developers' public keys to `scripts/provisioning/keys`
