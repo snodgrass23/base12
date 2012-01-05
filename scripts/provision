@@ -240,6 +240,16 @@ mongo() {
 }
 
 #
+# Install redis
+#
+
+redis() {
+  hr
+  log "installing redis"
+  script "$SCRIPTS/redis.sh"
+}
+
+#
 # Run all provisioning scripts
 #
 
@@ -249,8 +259,8 @@ all() {
   environment
   node
   upstart
-  #mongo
-  #redis
+  mongo
+  redis
   #mysql
 }
 

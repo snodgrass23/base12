@@ -1,8 +1,17 @@
+version=`redis-server --version`
+if [ "$version" = 'Redis server version 2.4.5 (00000000:0)' ]
+then
+  echo "redis 2.2.12 is already installed"
+  exit
+fi
+
+stop redis
+
 # Install Redis
 cd /tmp
-wget http://redis.googlecode.com/files/redis-2.4.3.tar.gz
-tar -zxf redis-2.4.3.tar.gz
-cd redis-2.4.3
+wget http://redis.googlecode.com/files/redis-2.4.5.tar.gz
+tar -zxf redis-2.4.5.tar.gz
+cd redis-2.4.5
 make
 sudo make install
 
