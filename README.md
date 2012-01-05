@@ -19,6 +19,7 @@
 
   - specify scripts/deploy.conf
   - add developers' public keys to scripts/provisioning/keys
+  - add deploy user's private key outside the repository
   ```
   cd scripts
   ./provision staging root
