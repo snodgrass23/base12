@@ -3,13 +3,11 @@
 VERSION="0.1.0"
 CONFIG=./deploy.conf
 LOG=/tmp/provision.log
-KEYS=./keys
+KEYS=./provisioning/keys
 SCRIPTS=./provisioning
 TEST=1
 REF=
 ENV=
-
-adminpass=""
 
 #
 # Output usage information.
@@ -35,7 +33,8 @@ usage() {
 
     all (default)         runs all provisioning scripts
     environment           updates linux, pulls common apt packages
-    keys                  updates public keys
+    keys                  adds /keys/* to root and deploy users
+    deployer              configures deploy user based on /deployer/*
     node                  installs node (and npm, part of node now)
     mongo                 installs mongodb
     redis                 installs redis
@@ -121,13 +120,20 @@ run() {
 
 script() {
   local url="`config_get admin`@`config_get host`"
-  local key=`config_get key`
-  if test -n "$key"; then
-    local shell="ssh -i $key $url"
-  else
-    local shell="ssh $url"
-  fi
-  $shell 'bash -s' < $SCRIPTS/$@
+  local shell="ssh $url"
+  $shell 'bash -s' < $@
+}
+
+template() {
+  { echo "cat <<EOFNOREALLY"
+   cat "$@"
+   echo "EOFNOREALLY"
+  } | sh > "/tmp/templated.sh"
+}
+
+runtemplate() {
+  script "/tmp/templated.sh"
+  rm /tmp/templated.sh
 }
 
 #
@@ -186,30 +192,39 @@ hook() {
 environment() {
   hr
   log "setting up the environment"
-  script "environment.sh"
-  log "environment built"
+  script "$SCRIPTS/environment.sh"
 }
 
 #
 # Add users and public keys
 #
 
+# TODO: Pipe errors from the server back. Right now I think it will fail silently.
 keys() {
   hr
-  log "adding public keys (this might take a while)"
+  log "adding admin public keys"
   # copy all the public keys over
   local url="`config_get admin`@`config_get host`"
-  for filename in $KEYS/*.pub; do
-    cat "$filename"
-    echo '\r\r'
-  done > /tmp/allkeys
-  allkeys=`cat /tmp/allkeys`
-  allkeys=`echo $allkeys`
-  quote="'"
-  allkeys=$quote$allkeys$quote
-  keycmd="mkdir -p /root/.ssh && echo $allkeys > /root/.ssh/authorized_keys && chmod 0700 /root/.ssh"
-  run $keycmd
-  log "key added (I hope - TODO: pipe errors back from the server)"
+  export allkeys="`awk 'FNR==1{print ""}1' $KEYS/*.pub`"
+  export admin=`config_get admin`
+  template "$SCRIPTS/keys.sh"
+  runtemplate
+}
+
+#
+# Add deploy user
+#
+
+deployer() {
+  hr
+  log "setting up deployer user `config_get user`@`config_get host`"
+  export deployer=`config_get user`
+  export allkeys="`awk 'FNR==1{print ""}1' $KEYS/*.pub`"
+  export privatekeypath=`config_get private`
+  export privatekey=`cat $privatekeypath`
+  export environment=`config_get environment`
+  template "$SCRIPTS/deployer.sh"
+  runtemplate
 }
 
 #
@@ -219,7 +234,7 @@ keys() {
 node() {
   hr
   log "installing node 0.6.6" 
-  script "node.sh"
+  script "$SCRIPTS/node.sh"
   #send "node_upstart" "/etc/init/node.conf"
   # scp the upstart conf file over in the script?
 }
@@ -229,8 +244,9 @@ node() {
 #
 
 all() {
-  environment
   keys
+  environment
+  deployer
   #node
   #mongo
   #redis
@@ -252,9 +268,6 @@ provision() {
 require_env() {
   config_section $ENV || abort "[$ENV] config section not defined"
   test -z "$ENV" && abort "<env> required"
-
-  read -s -p "`config_get admin`@`config_get host`'s password: " adminpass
-  echo ""
 }
 
 # parse argv

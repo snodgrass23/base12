@@ -7,4 +7,3 @@ export JOBS=4
 ./configure
 make
 make install
-#node_upstart /etc/init/node.conf
