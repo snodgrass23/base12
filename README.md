@@ -9,8 +9,8 @@
 ## 1. Develop
 
   ```shell
-  git clone git://github.com/skookum/node-boilerplate.git
-  cd node-boilerplate
+  mkdir projectname
+  git clone git://github.com/skookum/node-boilerplate.git projectname && cd node-boilerplate
   sudo npm install
   sudo node server
   ```
