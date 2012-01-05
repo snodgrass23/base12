@@ -10,7 +10,7 @@
 
   ```shell
   mkdir projectname
-  git clone git://github.com/skookum/node-boilerplate.git projectname && cd node-boilerplate
+  git clone git://github.com/skookum/node-boilerplate.git projectname && cd projectname
   sudo npm install
   sudo node server
   ```
