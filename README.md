@@ -2,10 +2,6 @@
       
   Structure for your non-trivial [node.js](http://nodejs.org) project.
 
-  required: linux/osx, node 0.6.x
-
-  on by default: mongodb, redis
-
 ## 1. Develop
 
   Linux/OSX running mongodb & redis
