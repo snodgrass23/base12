@@ -8,7 +8,7 @@
 
 ## 1. Develop
 
-  Linux/OSX with mongodb, redis
+  Linux/OSX running mongodb & redis
 
   ```shell
   mkdir projectname
