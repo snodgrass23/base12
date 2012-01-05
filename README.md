@@ -8,7 +8,8 @@
 
   ```shell
   mkdir projectname
-  git clone git://github.com/hunterloftis/node-boilerplate.git projectname && cd projectname
+  git clone git://github.com/hunterloftis/node-boilerplate.git projectname
+  cd projectname
   ```
 
   check your system requirements and start local databases:
