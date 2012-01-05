@@ -7,17 +7,20 @@
   Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org) & [redis](http://redis.io)
 
   get the project:
+
   ```shell
   mkdir projectname
   git clone git://github.com/hunterloftis/node-boilerplate.git projectname && cd projectname
   ```
 
   check your system requirements:
+
   ```shell
   scripts/requirements
   ```
 
   test it locally:
+  
   ```shell
   sudo npm install
   sudo node server
