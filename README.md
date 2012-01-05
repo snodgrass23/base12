@@ -19,7 +19,7 @@
 
   - fill out `scripts/deploy.conf`
   - add developers' public keys to `scripts/provisioning/keys`
-  - add deploy user's private key outside the repository
+  - add deploy user's private key outside the repository (TODO: make this optional since it's only necessary for private repos)
   
   ```
   cd scripts
