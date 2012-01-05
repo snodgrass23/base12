@@ -4,9 +4,10 @@
 
 ## Prerequisites
 
-  linux/osx, node 0.6.x; optional (but on by default): mongodb, redis
+  required: linux/osx, node 0.6.x
+  default options: mongodb, redis
 
-## 1. Development
+## 1. Develop
 
   ```shell
   git clone git://github.com/skookum/node-boilerplate.git
@@ -15,17 +16,18 @@
   sudo node server
   ```
 
-## 2. Provisioning
+## 2. Provision
 
-  - specify scripts/deploy.conf
-  - add developers' public keys to scripts/provisioning/keys
+  - fill out `scripts/deploy.conf`
+  - add developers' public keys to `scripts/provisioning/keys`
   - add deploy user's private key outside the repository
+  
   ```
   cd scripts
   ./provision staging root
   ```
 
-## 3. Deployment
+## 3. Deploy
 
   ```
   cd scripts
