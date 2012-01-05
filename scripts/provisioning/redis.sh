@@ -56,10 +56,10 @@ exec sudo -u redis /usr/local/bin/redis-server /etc/redis.conf
 respawn
 EOF
 
-start redis
-
 # create redis user
 adduser --system --no-create-home --disabled-login --disabled-password --group redis
 chown -R redis:redis /db/redis
 touch /var/log/redis.log
 chown redis:redis /var/log/redis.log
+
+start redis
