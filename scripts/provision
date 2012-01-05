@@ -8,6 +8,7 @@ SCRIPTS=./provisioning
 TEST=1
 REF=
 ENV=
+USER=$2
 
 #
 # Output usage information.
@@ -16,10 +17,10 @@ ENV=
 usage() {
   cat <<-EOF
 
-  Usage: provision [options] <user> <remote> [command]
+  Usage: provision <server> <user> [command]
 
-  Example: provision root staging
-           provision john production keys
+  Example: provision staging root
+           provision production john keys
 
   <remote> should match a [remote] section in deploy.conf
 
@@ -32,10 +33,11 @@ usage() {
   Commands:
 
     all (default)         runs all provisioning scripts
-    environment           updates linux, pulls common apt packages
-    keys                  adds /keys/* to root and deploy users
-    deployer              configures deploy user based on /deployer/*
+    keys                  adds keys/* to root and deploy /.ssh
+    deployer              creates deploy user
+    environment           updates ubuntu, pulls common apt packages
     node                  installs node (and npm, part of node now)
+    upstart               creates upstart script in /etc/init
     mongo                 installs mongodb
     redis                 installs redis
     mysql                 installs mysql
@@ -102,7 +104,7 @@ version() {
 #
 
 run() {
-  local url="`config_get admin`@`config_get host`"
+  local url="$USER@`config_get host`"
   #login only:
   #expect -c "spawn ssh $url ; expect assword ; send \"$adminpass\n\" ; interact"
   #old:
@@ -119,7 +121,7 @@ run() {
 #
 
 script() {
-  local url="`config_get admin`@`config_get host`"
+  local url="$USER@`config_get host`"
   local shell="ssh $url"
   $shell 'bash -s' < $@
 }
@@ -132,22 +134,6 @@ template() {
 
   script "/tmp/templated.sh"
   rm /tmp/templated.sh
-}
-
-#
-# Launch an interactive ssh console session.
-#
-
-console() {
-  local url="`config_get user`@`config_get host`"
-  local key=`config_get key`
-  if test -n "$key"; then
-    local shell="ssh -i $key $url"
-  else
-    local shell="ssh $url"
-  fi
-  echo $shell
-  exec $shell
 }
 
 #
@@ -201,8 +187,6 @@ environment() {
 keys() {
   hr
   log "adding admin public keys"
-  # copy all the public keys over
-  local url="`config_get admin`@`config_get host`"
   export allkeys="`awk 'FNR==1{print ""}1' $KEYS/*.pub`"
   export admin=`config_get admin`
   template "$SCRIPTS/keys.sh"
@@ -273,8 +257,9 @@ provision() {
 #
 
 require_env() {
-  config_section $ENV || abort "[$ENV] config section not defined"
-  test -z "$ENV" && abort "<env> required"
+  config_section $ENV || abort "[$ENV] config section not found in deploy.conf"
+  test -z "$ENV" && usage && exit
+  test -z "$USER" && usage && exit
 }
 
 # parse argv
@@ -286,9 +271,11 @@ while test $# -ne 0; do
     -V|--version) version; exit ;;
     -C|--chdir) log cd $1; cd $1; shift ;;
     all) require_env; all; exit ;;
-    environment) require_env; environment; exit ;;
     keys) require_env; keys; exit ;;
+    deployer) require_env; deployer; exit ;;
+    environment) require_env; environment; exit ;;    
     node) require_env; node; exit ;;
+    upstart) require_env; upstart; exit;;
     mongo) require_env; mongo; exit ;;
     redis) require_env; redis; exit ;;
     mysql) require_env; mysql; exit ;;
