@@ -15,7 +15,7 @@
 
 ## 2. Provision
   
-  Ubuntu VPS (eg, Linode)
+  Ubuntu VPS (eg, [Linode](http://linode.com))
 
   - fill out `scripts/deploy.conf`
   - add developers' public keys to `scripts/provisioning/keys`
