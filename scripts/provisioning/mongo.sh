@@ -1,3 +1,10 @@
+version=`mongo --version`
+if [ "$version" = 'MongoDB shell version: 2.0.2' ]
+then
+  echo "mongo 2.0.2 is already installed"
+  exit
+fi
+
 # Install mongodb
 apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" >> /etc/apt/sources.list

@@ -10,9 +10,8 @@ respawn limit 10 5
 umask 022
 
 script
-  HOME=/home/$deployer
-  . $HOME/.profile
-  exec /usr/local/bin/node $HOME/app/current/server.js >> /var/log/$project.log 2>&1
+  . /home/$deployer/.profile
+  exec /usr/local/bin/node $path/current/server.js >> /var/log/$project.log 2>&1
 end script
 
 post-start script

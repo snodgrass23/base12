@@ -225,6 +225,8 @@ upstart() {
   hr
   log "configuring upstart"
   export project=`config_get project`
+  export deployer=`config_get user`
+  export path=`config_get path`
   template "$SCRIPTS/upstart.sh"
 }
 
