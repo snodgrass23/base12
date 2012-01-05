@@ -9,6 +9,8 @@ TEST=1
 REF=
 ENV=
 USER=$2
+REMOTEPATH=
+POSTDEPLOY=
 
 #
 # Output usage information.
@@ -281,6 +283,12 @@ require_env() {
   config_section $ENV || abort "[$ENV] config section not found in deploy.conf"
   test -z "$ENV" && usage && exit
   test -z "$USER" && usage && exit
+
+  # settings that can be computed from the deploy.conf vars
+  deployer=`config_get user`
+  project=`config_get project`
+  REMOTEPATH="/home/$deployer/$project"
+  POSTDEPLOY="post-deploy npm install && [ -e /var/run/$project.pid ] && sudo restart $project || sudo start $project"
 }
 
 # parse argv

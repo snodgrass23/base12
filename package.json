@@ -1,6 +1,11 @@
 {
   "name":"newproject",
   "version":"0.0.1",
+  "directories":{},
+  "engines" : {
+      "node" : ">=0.6.6",
+      "npm" : ">=1.0" 
+  },
   "dependencies":{
     "jade":"latest",
     "express":"latest",
@@ -22,6 +27,5 @@
     "passport-local":"latest",
     "password-hash":"latest",
     "imagemagick":"git://github.com/Skookum/node-imagemagick.git"
-  },
-  "directories":{}
+  }
 }
