@@ -1,3 +1,10 @@
+version=`node --version`
+if [ $version = "v0.6.6" ]
+then
+  echo "node v0.6.6 is already installed"
+  exit
+fi
+
 cd /tmp
 rm -rf node
 wget http://nodejs.org/dist/v0.6.6/node-v0.6.6.tar.gz

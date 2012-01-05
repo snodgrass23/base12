@@ -233,7 +233,7 @@ deployer() {
 
 node() {
   hr
-  log "installing node 0.6.6" 
+  log "installing node" 
   script "$SCRIPTS/node.sh"
   #send "node_upstart" "/etc/init/node.conf"
   # scp the upstart conf file over in the script?
@@ -245,9 +245,9 @@ node() {
 
 all() {
   keys
+  deployer  
   environment
-  deployer
-  #node
+  node
   #mongo
   #redis
   #mysql
