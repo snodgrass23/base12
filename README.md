@@ -33,11 +33,3 @@
   ./deploy staging setup
   ./deploy staging
   ```
-
-## Adding libraries
-
-  Add to 'dependencies' in /package.json, then:
-  
-  ```shell
-  sudo npm install
-  ```
