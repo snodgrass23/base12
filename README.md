@@ -4,7 +4,7 @@
 
 ## 1. Develop
 
-  Linux/OSX running mongodb & redis
+  Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org) & [redis](http://redis.io)
 
   ```shell
   mkdir projectname
