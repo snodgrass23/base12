@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="0.1.0"
+VERSION="0.1.1"
 CONFIG=./deploy.conf
 LOG=/tmp/provision.log
 KEYS=./provisioning/keys
@@ -40,7 +40,6 @@ usage() {
     upstart               creates upstart script in /etc/init
     mongo                 installs mongodb
     redis                 installs redis
-    mysql                 installs mysql
 
 EOF
 }
