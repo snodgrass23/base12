@@ -298,7 +298,7 @@ require_env() {
   PROJECTNAME=`config_get project`
   test -z "$PROJECTNAME" && abort "project name must be specified in deploy.conf"
   REMOTEPATH="/home/$PROJECTNAME/app"
-  POSTDEPLOY="post-deploy npm install && [ -e /var/run/$PROJECTNAME.pid ] && sudo restart $PROJECTNAME || sudo start $PROJECTNAME"
+  POSTDEPLOY="npm install && [ -e /var/run/$PROJECTNAME.pid ] && sudo restart $PROJECTNAME || sudo start $PROJECTNAME"
 }
 
 #
