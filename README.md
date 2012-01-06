@@ -35,6 +35,7 @@
   Ubuntu VPS (eg, [Linode](http://linode.com))
 
   a. fill out `scripts/deploy.conf`:
+    
     - **project**: the name of your project (eg, 'boilerplate')
     - **repo**: your git repository (eg, git://github.com/hunterloftis/node-boilerplate.git)
     - **host**: the IP address of your server
