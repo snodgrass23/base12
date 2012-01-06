@@ -47,7 +47,8 @@ Ubuntu VPS (eg, [Linode](http://linode.com))
   - **environment (staging)**: a string that sets NODE_ENV
   - **ref (origin/master)**: the default git ref to deploy from
   
-2. add developers' public keys to `scripts/provisioning/keys` (they will be authorized for 'root')
+2. put your & other developers' public keys in `scripts/provisioning/keys`
+   (these public keys will have root access)
   
     ```
     cd scripts
