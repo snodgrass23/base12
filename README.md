@@ -34,7 +34,7 @@
   
   Ubuntu VPS (eg, [Linode](http://linode.com))
 
-  a. fill out `scripts/deploy.conf`:
+  ### fill out `scripts/deploy.conf`:
     
   - **project**: the name of your project (eg, 'boilerplate')
   - **repo**: your git repository (eg, git://github.com/hunterloftis/node-boilerplate.git)
@@ -43,7 +43,7 @@
   - **environment (staging)**: a string that sets NODE_ENV
   - **ref (origin/master)**: the default git ref to deploy from
   
-  b. add developers' public keys to `scripts/provisioning/keys` (they will be authorized for 'root')
+  ### add developers' public keys to `scripts/provisioning/keys` (they will be authorized for 'root')
   
   ```
   cd scripts
