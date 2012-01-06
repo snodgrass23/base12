@@ -2,7 +2,7 @@
       
 Structure for your non-trivial [node.js](http://nodejs.org) project.
 
-## Develop
+### Develop
 
 Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org) & [redis](http://redis.io)
 
@@ -32,7 +32,7 @@ Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org
 4. code, code, code
 5. set up git repository hosting your project (eg, on Github)
 
-## Provision
+### Provision
   
 Ubuntu VPS (eg, [Linode](http://linode.com))
 
@@ -52,7 +52,7 @@ Ubuntu VPS (eg, [Linode](http://linode.com))
     ./provision staging root
     ```
 
-Deploy
+### Deploy
   
 3. Run within /scripts:
 
