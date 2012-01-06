@@ -39,9 +39,9 @@
   - **project**: the name of your project (eg, 'boilerplate')
   - **repo**: your git repository (eg, git://github.com/hunterloftis/node-boilerplate.git)
   - **host**: the IP address of your server
-  - private (optional): the absolute path to a private key for your deploy user (to access a private git repository)
-  - environment: a string that sets NODE_ENV
-  - ref: the default git ref to deploy from
+  - ***private (/dev/null)***: the absolute path to a private key for your deploy user (to access a private git repository)
+  - ***environment (staging)***: a string that sets NODE_ENV
+  - ***ref (origin/master)***: the default git ref to deploy from
   
   b. add developers' public keys to `scripts/provisioning/keys` (they will be authorized for 'root')
   
