@@ -34,9 +34,15 @@
   
   Ubuntu VPS (eg, [Linode](http://linode.com))
 
-  - fill out `scripts/deploy.conf`
-  - add developers' public keys to `scripts/provisioning/keys`
-  - add deploy user's private key outside the repository (TODO: make this optional since it's only necessary for private repos)
+  a. fill out `scripts/deploy.conf`:
+    - **project**: the name of your project (eg, 'boilerplate')
+    - **repo**: your git repository (eg, git://github.com/hunterloftis/node-boilerplate.git)
+    - **host**: the IP address of your server
+    - private (optional): the absolute path to a private key for your deploy user (to access a private git repository)
+    - environment: a string that sets NODE_ENV
+    - ref: the default git ref to deploy from
+  
+  b. add developers' public keys to `scripts/provisioning/keys` (they will be authorized for 'root')
   
   ```
   cd scripts
