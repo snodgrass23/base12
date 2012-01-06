@@ -40,9 +40,9 @@ Ubuntu VPS (eg, [Linode](http://linode.com))
 
 1. fill out `scripts/deploy.conf`:
     
-  - **project**: the name of your project (eg, 'boilerplate')
-  - **repo**: your git repository (eg, git://github.com/hunterloftis/node-boilerplate.git)
-  - **host**: the IP address of your server
+  - **project**: the name of your project (boilerplate)
+  - **repo**: your git repository (git://github.com/hunterloftis/node-boilerplate.git)
+  - **host**: the IP address of your server (1.2.3.4)
   - **private (/dev/null)**: the absolute path to a private key for your deploy user (to access a private git repository)
   - **environment (staging)**: a string that sets NODE_ENV
   - **ref (origin/master)**: the default git ref to deploy from
