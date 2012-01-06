@@ -2,6 +2,8 @@
       
 Structure for your non-trivial [node.js](http://nodejs.org) project.
 
+## Quick Start
+
 ### Develop
 
 Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org) & [redis](http://redis.io)
