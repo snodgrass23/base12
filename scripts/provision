@@ -10,7 +10,7 @@ REF=
 ENV=
 USER=$2
 REMOTEPATH=
-POSTDEPLOY=
+PROJECTNAME=
 
 #
 # Output usage information.
@@ -156,7 +156,7 @@ config() {
 hook() {
   test -n "$1" || abort hook name required
   local hook=$1
-  local path=`config_get path`
+  local path=$REMOTEPATH
   local cmd=`config_get $hook`
   if test -n "$cmd"; then
     log "executing $hook \`$cmd\`"
@@ -199,8 +199,8 @@ keys() {
 
 deployer() {
   hr
-  log "setting up deployer user `config_get user`@`config_get host`"
-  export deployer=`config_get user`
+  log "setting up deployer user $PROJECTNAME@`config_get host`"
+  export deployer=$PROJECTNAME
   export allkeys="`awk 'FNR==1{print ""}1' $KEYS/*.pub`"
   export privatekeypath=`config_get private`
   test -n "$privatekeypath" && export privatekey=`cat $privatekeypath` || export privatekey=""
@@ -227,8 +227,8 @@ upstart() {
   hr
   log "configuring upstart"
   export project=`config_get project`
-  export deployer=`config_get user`
-  export path=`config_get path`
+  export deployer=$PROJECTNAME
+  export path=$REMOTEPATH
   template "$SCRIPTS/upstart.sh"
 }
 
@@ -285,10 +285,9 @@ require_env() {
   test -z "$USER" && usage && exit
 
   # settings that can be computed from the deploy.conf vars
-  deployer=`config_get user`
-  project=`config_get project`
-  REMOTEPATH="/home/$deployer/$project"
-  POSTDEPLOY="post-deploy npm install && [ -e /var/run/$project.pid ] && sudo restart $project || sudo start $project"
+  PROJECTNAME=`config_get project`
+  test -z "$PROJECTNAME" && abort "project name must be specified in deploy.conf"
+  REMOTEPATH="/home/$PROJECTNAME/app"
 }
 
 # parse argv
