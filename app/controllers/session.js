@@ -1,9 +1,4 @@
-/**
- * Auth Controller
- */
-
-var passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport');
 
 /**
  * Actions
