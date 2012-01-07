@@ -15,11 +15,12 @@ exports = module.exports = {
   // Sign up POST
   create: function(req, res) {
     var user = new models.user(req.body);
+    console.log('req.body:', req.body);
     user.save(function(err){
       if (err) {
         console.log(err);
-        models.flashErrors(err, req);
-        res.redirect('/users/new');
+        req.flash('err');
+        res.redirect('/profiles/new');
      }
       else {
         req.flash('info', "Account created. Welcome to " + options.appTitle + "!");

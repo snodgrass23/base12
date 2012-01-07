@@ -11,7 +11,7 @@ module.exports = function() {
       usernameField: 'email'
     },
     function(email, password, done) {
-      models.user.find_with_password({ email: email, password: password}, function (err, user) {
+      models.user.find_with_password({ email: email }, password, function (err, user) {
         if (!user) return done(err);
         else return done(undefined, user);
       });
