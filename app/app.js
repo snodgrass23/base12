@@ -30,8 +30,12 @@ exports = module.exports = (function() {
     
     // Initialize controllers global
     
-    require('./config/controllers')();    
+    require('./config/controllers')();
     
+    // Authentication
+
+    require('./config/authentication')();
+
     // Helpers
 
     require('./config/helpers')();
@@ -40,10 +44,10 @@ exports = module.exports = (function() {
 
     require('./config/routes')();
 
+    // Handle errors
+
+    require('./config/errors.js')();
+
   });
-
-  // Handle errors
-
-  require('./config/errors.js')();
 
 })();
