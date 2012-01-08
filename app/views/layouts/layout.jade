@@ -1,6 +1,12 @@
 !!! 5
 html
-  != partial("components/layout/head")
+  head
+    meta(charset="utf-8")
+    title
+      block title
+        | New node project
+    block styles
+      link(rel='stylesheet', href='/styles/layout.css' )
     
   body(class = (is_logged_in) ? "logged-in" : "not-logged-in")
     
@@ -25,7 +31,9 @@ html
               a(href=route('login')) Log in
               | &nbsp; or &nbsp; 
               a(href=route('register')) Create Account
-    section
-      != body  
-    != partial("components/layout/foot")
     
+    block content
+
+    block foot
+      footer
+        p &copy;2011 Yeah, great footer!

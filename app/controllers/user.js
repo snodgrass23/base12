@@ -1,3 +1,5 @@
+var passport = require('passport');
+
 var filters = require('../lib/filters');
 
 /**
@@ -15,21 +17,25 @@ exports = module.exports = {
   ],
 
   // Sign up POST
-  create: function(req, res) {
-    var user = new models.user(req.body);
-    console.log('req.body:', req.body);
-    user.save(function(err){
-      if (err) {
-        console.log(err);
-        req.flash('err');
-        res.redirect('/users/new');
-     }
-      else {
-        req.flash('info', "Account created. Welcome to " + options.appTitle + "!");
-        controllers.session.create(req, res);
-      }
-    });
-  },
+  create: [
+    function(req, res, next) {
+      var user = new models.user(req.body);
+      console.log('req.body:', req.body);
+      user.save(function(err){
+        if (err) {
+          console.log(err);
+          req.flash(err);
+          return next();
+       }
+        else {
+          req.flash('info', "Account created. Welcome to " + options.appTitle + "!");
+          return next();
+        }
+      });
+    },
+    passport.authenticate('local', { failureRedirect: '/sessions/login' }),
+    function (req, res) { res.redirect('/'); }
+  ],
 
   // Account edit form
   edit: [
