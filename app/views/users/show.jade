@@ -1,11 +1,15 @@
-- if (is_self)
-  h2 #{current_user.name}, welcome to your homepage
-  p 
-    -if (typeof current_user.avatar != "undefined")
-      img(src=current_user.avatar.path, style="float:left;margin: 0 10px 10px 0")
-    =current_user.about
-- else
-  h2 Profile of #{user.name}
-  p #{user.about}
+extends ../layouts/layout
 
-br(style="clear:both")
+block content
+  section#main
+    - if (is_self)
+      h2 #{current_user.name}, welcome to your homepage
+      p 
+        -if (typeof current_user.avatar != "undefined")
+          img(src=current_user.avatar.path, style="float:left;margin: 0 10px 10px 0")
+        =current_user.about
+    - else
+      h2 Profile of #{user.name}
+      p #{user.about}
+
+    br(style="clear:both")
