@@ -10,7 +10,7 @@ exports = module.exports = function() {
   server.set('app root', root + '/app');
   server.set('logs', root + '/logs');
   server.set('view engine', options.view_engine || 'jade');
-  server.set('view options', {layout: 'layouts/layout'});
+  server.set('view options', {layout: false});
   server.set('views', server.set('app root') + '/views');
   server.set('public', server.set('app root') + '/public');
     
