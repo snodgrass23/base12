@@ -23,7 +23,7 @@
     "mongoose-skookum":"https://github.com/hunterloftis/mongoose-skookum/tarball/master",
     "async":"latest",
     "underscore":"latest",
-    "passport":"latest",
+    "passport":"git://github.com/hunterloftis/passport.git",
     "passport-local":"latest",
     "password-hash":"latest",
     "imagemagick":"git://github.com/Skookum/node-imagemagick.git"

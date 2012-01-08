@@ -22,7 +22,7 @@ exports = module.exports = {
       if (err) {
         console.log(err);
         req.flash('err');
-        res.redirect('/profiles/new');
+        res.redirect('/users/new');
      }
       else {
         req.flash('info', "Account created. Welcome to " + options.appTitle + "!");
@@ -69,7 +69,7 @@ exports = module.exports = {
   show: [
     filters.is_self,
     function(req, res) {
-      res.render('users/show', {profile: req.profile, is_self: req.is_self, section: 'profile'});
+      res.render('users/show', {user: req.user, is_self: req.is_self, section: 'user'});
     }
   ],
 

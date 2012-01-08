@@ -20,7 +20,7 @@ module.exports = {
   // TODO: Check referrer to prevent login attacks
   create: function(req, res) {
     console.log("========");
-    passport.authenticate('local', function(err, user, profile) {
+    passport.authenticate('local', function(err, user) {
       console.log("Authentication complete...");
       if (!err && user) {
         console.log("User found, logging in...");
