@@ -49,25 +49,17 @@ exports = module.exports = {
   update: [
     filters.require_self,
     function(req, res) {
-      if (req.user && req.user.id) {
-        var user = models.user.findById(req.user.id, function(err, user) {
-          
-          if (err || !user) {
-            req.flash("user not found to update");
-            return res.redirect('/account');
-          }
-          _.extend(user, req.body);
-          user.save(function(err) {
-            if (err) models.flashErrors(err, req);
-            else req.flash('info', "Account updated");
-            res.redirect('/');
-          });
-        });
-      }
-      else {
-        req.flash('info', "Bad request to user update.");
-        res.redirect('/account');
-      }
+      console.log('req.user = ', req.user);
+      models.user.updateById(req.user._id, req.body, function(err, updated_user) {
+        if (updated_user) {
+          req.flash('info', 'Account updated');
+          return res.redirect('/');
+        }
+        else {
+          req.flash('error', 'Unable to update user');
+          return res.redirect('/');
+        }
+      });
     }
   ],
 
@@ -80,6 +72,6 @@ exports = module.exports = {
   ],
 
   load: function(id, callback) {
-    callback(undefined, {name: 'Username'});
+    models.user.findById(id, callback);
   }
 };

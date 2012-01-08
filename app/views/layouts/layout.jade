@@ -7,33 +7,22 @@ html
         | New node project
     block styles
       link(rel='stylesheet', href='/styles/layout.css' )
-    
-  body(class = (is_logged_in) ? "logged-in" : "not-logged-in")
-    
-    != messages()
+  
+body(class = (is_logged_in) ? "logged-in" : "not-logged-in")
+  
+  block navbar
+    include ../includes/navbar
 
-    header
-      h1 
-        a(href="/") Node Boilerplate
-      #account
-        - if (is_logged_in)
-          aside
-            p Welcome #{current_user.name}
-              | &nbsp; - &nbsp; 
-              a(href=account_route) Profile
-              | &nbsp; - &nbsp; 
-              a(href=account_route+'/edit') Account Settings
-              | &nbsp; - &nbsp; 
-              a(href=route('logout')) Logout
-        - else
-          aside
-            p
-              a(href=route('login')) Log in
-              | &nbsp; or &nbsp; 
-              a(href=route('register')) Create Account
-    
-    block content
+  != messages()
 
-    block foot
-      footer
-        p &copy;2011 Yeah, great footer!
+  block subject
+    header#subject.wrap
+      h1 Node Boilerplate
+  
+  block content
+
+  block foot
+    footer.wrap
+      p &copy;2011 Yeah, great footer!
+
+  block scripts

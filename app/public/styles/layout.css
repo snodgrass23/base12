@@ -349,20 +349,28 @@ td {
     page-break-after: avoid;
   }
 }
+ul {
+  list-style-type: none;
+}
+ul.menu li {
+  display: inline-block;
+}
+h1 {
+  font-size: 2.8em;
+}
+#subject h1 {
+  line-height: 1.8em;
+  border-bottom: solid 3px #000;
+}
 #messages ul {
   text-align: center;
   margin: 0;
   padding: 5px;
-  background: #7eff3c;
+  background: #9eff5c;
   color: #222;
   font-weight: bold;
   border: 1px solid #999;
   border-top: none;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
   margin: 0 auto;
   -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.50);
   -moz-box-shadow: 0 2px 5px rgba(0,0,0,0.50);
@@ -380,41 +388,56 @@ td {
   background: #ff2011;
   color: #eee;
 }
-html {
-  background-color: #ddd;
+#navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.9em;
+  line-height: 0.9em;
+  text-align: right;
+}
+#navbar h1 {
+  position: absolute;
+  font-size: 1.1em;
+  display: block;
+  margin: 0;
+  padding: 0.7em 0;
+}
+#navbar h1 a {
+  color: #fff;
+  text-decoration: none;
+}
+#navbar ul.menu {
+  display: inline-block;
+}
+#navbar ul.menu .label {
+  padding-left: 15px;
+}
+#navbar ul.menu a {
+  color: #bbb;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.9em 15px;
+}
+#navbar ul.menu a:hover {
+  background-color: #333;
 }
 body {
-  width: 800px;
-  margin: 10px auto;
-  color: #333;
+  padding-top: 30px;
 }
-body section {
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #999;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-}
-header {
+.wrap {
+  max-width: 930px;
   position: relative;
-}
-header h1 {
-  padding: 0 5px;
-  color: #333;
-}
-header h1 a,
-header h1 a:visited {
-  text-decoration: none;
-  color: #333;
-}
-header #account {
-  position: absolute;
-  right: 0px;
-  top: 5px;
+  margin: 0 auto;
 }
 footer {
-  text-align: center;
+  background-color: #eee;
+  border: solid 1px #ccc;
+  padding: 0;
+}
+footer p {
+  padding: 5px 30px;
 }
