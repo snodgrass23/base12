@@ -56,7 +56,7 @@ exports = module.exports = {
           return res.redirect('/');
         }
         else {
-          req.flash('info', 'Unable to update user');
+          req.flash('error', 'Unable to update user');
           return res.redirect('/');
         }
       });

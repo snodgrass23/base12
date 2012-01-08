@@ -366,16 +366,11 @@ h1 {
   text-align: center;
   margin: 0;
   padding: 5px;
-  background: #7eff3c;
+  background: #9eff5c;
   color: #222;
   font-weight: bold;
   border: 1px solid #999;
   border-top: none;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
   margin: 0 auto;
   -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.50);
   -moz-box-shadow: 0 2px 5px rgba(0,0,0,0.50);
