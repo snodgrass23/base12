@@ -1,27 +1,27 @@
 module.exports = {
   require_user: function(req, res, next) {
-    if (req.user) return next();
+    if (req.currentUser) return next();
     res.redirect(server._locals.route('login'));
   },
   require_self: function(req, res, next) {
-    var target_user = req.param('profile');
-    var active_user = req.user ? req.user._id + '' : undefined;
+    var target_user = req.param('user');
+    var active_user = req.currentUser ? req.currentUser._id + '' : undefined;
     if ((target_user && active_user) && (target_user === active_user)) {
       return next();
     }
     return next(new Error('Not authorized'));
   },
   require_not_user: function(req, res, next) {
-    if (!req.user) return next();
+    if (!req.currentUser) return next();
     return res.redirect(server.dynamicViewHelpers.account_route(req));
   },
   is_user: function(req, res, next) {
-    if (req.user) req.is_user = true;
+    if (req.currentUser) req.is_user = true;
     return next();
   },
   is_self: function(req, res, next) {
-    var target_user = req.param('profile');
-    var active_user = req.user ? req.user._id + '' : undefined;
+    var target_user = req.param('user');
+    var active_user = req.currentUser ? req.currentUser._id + '' : undefined;
     if ((target_user && active_user) && (target_user === active_user)) {
       req.is_self = true;
     }

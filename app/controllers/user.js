@@ -1,3 +1,5 @@
+var filters = require('../lib/filters');
+
 /**
  * Users Controller
  */
@@ -6,7 +8,7 @@ exports = module.exports = {
 
   // Sign up form
   'new': [
-    controllers.filters.is_user,
+    filters.is_user,
     function(req, res) {
       res.render('users/new');
     }
@@ -15,10 +17,11 @@ exports = module.exports = {
   // Sign up POST
   create: function(req, res) {
     var user = new models.user(req.body);
+    console.log('req.body:', req.body);
     user.save(function(err){
       if (err) {
         console.log(err);
-        models.flashErrors(err, req);
+        req.flash('err');
         res.redirect('/users/new');
      }
       else {
@@ -30,7 +33,7 @@ exports = module.exports = {
 
   // Account edit form
   edit: [
-    controllers.filters.require_self,
+    filters.require_self,
     function(req, res) {
       res.render('users/edit');
     }
@@ -38,7 +41,7 @@ exports = module.exports = {
 
   // Account edit POST
   update: [
-    controllers.filters.require_self,
+    filters.require_self,
     function(req, res) {
       if (req.user && req.user.id) {
         var user = models.user.findById(req.user.id, function(err, user) {
@@ -64,9 +67,9 @@ exports = module.exports = {
 
   // User profile
   show: [
-    controllers.filters.is_self,
+    filters.is_self,
     function(req, res) {
-      res.render('users/show', {profile: req.profile, is_self: req.is_self, section: 'profile'});
+      res.render('users/show', {user: req.user, is_self: req.is_self, section: 'user'});
     }
   ],
 

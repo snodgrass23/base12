@@ -1,4 +1,4 @@
-console.log("FILTER:", controllers.filters);
+var filters = require('../lib/filters');
 
 /**
  * Actions
@@ -7,7 +7,7 @@ exports = module.exports = {
 
   // Landing page
   index: [
-    controllers.filters.require_not_user,
+    filters.require_not_user,
     function(req, res, next) {
       res.render('home/index');
     }
