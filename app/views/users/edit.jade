@@ -1,8 +1,13 @@
 extends ../layouts/layout
 
+block subject
+  header#subject.wrap
+    h1 Account
+
 block content
-  section#main
-    h2 Account Settings
+  section#main.wrap
+  
+    h2 Public Profile
     form(action=account_route, method="post", enctype="multipart/form-data")
       input(type='hidden', name='_method', value='PUT')
       ul
@@ -10,10 +15,17 @@ block content
           label(for="name") Name
           input(type='text', name='name', placeholder='name', value=current_user.name)
         li
-          label(for="email") Email
-          input(type='email', name='email', placeholder='email', value=current_user.email)
-        li
           label(for="about") About Me
           textarea(name='about', placeholder='a little about myself...') #{current_user.about}
         li
-          input(type="submit") Submit
+          input(type="submit", value="Save")
+
+    h2 User Settings
+    form(action=account_route, method="post", enctype="multipart/form-data")
+      input(type='hidden', name='_method', value='PUT')
+      ul
+        li
+          label(for="email") Email
+          input(type='email', name='email', placeholder='email', value=current_user.email)
+        li
+          input(type="submit", value="Save")

@@ -1,15 +1,12 @@
 extends ../layouts/layout
 
-block content
-  section#main
+block subject
+  header#subject.wrap
     - if (is_self)
-      h2 #{current_user.name}, welcome to your homepage
-      p 
-        -if (typeof current_user.avatar != "undefined")
-          img(src=current_user.avatar.path, style="float:left;margin: 0 10px 10px 0")
-        =current_user.about
+      h1 Profile
     - else
-      h2 Profile of #{user.name}
-      p #{user.about}
+      h1 Profile of #{user.name}
 
-    br(style="clear:both")
+block content
+  section#main.wrap
+    p #{user.about}

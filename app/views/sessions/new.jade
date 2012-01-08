@@ -1,7 +1,11 @@
 extends ../layouts/layout
 
+block subject
+  header#subject.wrap
+    h1 Sign in
+
 block content
-  section#main
+  section#main.wrap
     form(action="/sessions", method="post")
       ul
         li
