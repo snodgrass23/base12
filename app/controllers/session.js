@@ -1,5 +1,7 @@
 var passport = require('passport');
 
+var filters = require('../lib/filters');
+
 /**
  * Actions
  */
@@ -8,7 +10,7 @@ module.exports = {
   
   // Login form
   'new': [
-    controllers.filters.is_user,
+    filters.is_user,
     function(req, res) {
       res.render('sessions/new');
     }
