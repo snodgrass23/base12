@@ -32,5 +32,15 @@ EOF
 chmod 0440 /etc/sudoers.d/node
 
 # set node environment
-echo 'export NODE_ENV=$environment' >> /home/$deployer/.profile
+echo 'export NODE_ENV=$environment' > /home/$deployer/.profile
 
+# don't use strict known_hosts checking (so we can pull from wherever we want to host our git repo)
+cat <<'EOF' > /etc/ssh/ssh_config
+Host *
+  SendEnv LANG LC_*
+  HashKnownHosts yes
+  GSSAPIAuthentication yes
+  GSSAPIDelegateCredentials no
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+EOF
