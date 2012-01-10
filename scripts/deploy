@@ -149,6 +149,7 @@ config() {
 #
 
 hook() {
+  if [[ `config_get stack` != 'node' ]]; then return 0; fi
   local path=$REMOTEPATH
   local cmd=$1
   test -n "$cmd" || abort hook name required

@@ -61,5 +61,5 @@ Ubuntu VPS (eg, [Linode](http://linode.com))
 
     ```
     ./deploy staging setup
-    ./deploy staging
+    ./deploy -T staging
     ```

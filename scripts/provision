@@ -42,6 +42,7 @@ usage() {
     upstart               creates upstart script in /etc/init
     mongo                 installs mongodb
     redis                 installs redis
+    nginx                 installs nginx
 
 EOF
 }
@@ -213,6 +214,7 @@ deployer() {
 #
 
 node() {
+  if [[ `config_get stack` != 'node' ]]; then return 0; fi
   hr
   log "installing node" 
   script "$SCRIPTS/node.sh"
@@ -223,6 +225,7 @@ node() {
 #
 
 upstart() {
+  if [[ `config_get stack` != 'node' ]]; then return 0; fi
   hr
   log "configuring upstart"
   export project=`config_get project`
@@ -236,6 +239,7 @@ upstart() {
 #
 
 mongo() {
+  if [[ `config_get stack` != 'node' ]]; then return 0; fi
   hr
   log "installing mongo"
   script "$SCRIPTS/mongo.sh"
@@ -246,9 +250,21 @@ mongo() {
 #
 
 redis() {
+  if [[ `config_get stack` != 'node' ]]; then return 0; fi
   hr
   log "installing redis"
   script "$SCRIPTS/redis.sh"
+}
+
+#
+# Install nginx
+#
+
+nginx() {
+  if [[ `config_get stack` != 'nginx' ]]; then return 0; fi
+  log "installing nginx"
+  export deployer=$PROJECTNAME
+  template "$SCRIPTS/nginx.sh"
 }
 
 #
@@ -263,6 +279,7 @@ all() {
   upstart
   mongo
   redis
+  nginx
   #mysql
 }
 
@@ -305,7 +322,7 @@ while test $# -ne 0; do
     upstart) require_env; upstart; exit;;
     mongo) require_env; mongo; exit ;;
     redis) require_env; redis; exit ;;
-    mysql) require_env; mysql; exit ;;
+    nginx) require_env; nginx; exit ;;
     config) config $@; exit ;;
     *)
       if test -z "$ENV"; then

@@ -18,7 +18,7 @@ chmod 600 /home/$deployer/.ssh/authorized_keys
 echo "$privatekey" > /home/$deployer/.ssh/id_rsa
 
 # chmod keys
-chmod 600 /home/$deployer/.ssh/id_rsa.pub
+#chmod 600 /home/$deployer/.ssh/id_rsa.pub
 chmod 600 /home/$deployer/.ssh/id_rsa
 chown -R $deployer:$deployer /home/$deployer/
 
