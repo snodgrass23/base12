@@ -31,16 +31,17 @@ Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org
     sudo node server
     ```
 
-4. code, code, code
+4. _code, code, code_
 5. set up git repository hosting your project (eg, on Github)
 
 ### Provision
   
 Ubuntu VPS (eg, [Linode](http://linode.com))
 
-1. fill out `scripts/deploy.conf` - [more](#configuration)  
-2. put your & other developers' public keys in `scripts/provisioning/keys`
+1. Fill out `scripts/deploy.conf` - [more](#configuration)  
+2. Put your & other developers' public keys in `scripts/provisioning/keys`
    (these public keys will have root access)
+3. Provision your server as root:
   
     ```
     cd scripts
