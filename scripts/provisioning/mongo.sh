@@ -11,6 +11,9 @@ echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" >>
 apt-get update
 apt-get install mongodb-10gen
 
+# stop mongo so we can configure it (otherwise until reboot it will run with /var/lib/mongodb)
+stop mongodb
+
 # Configure mongodb
 mkdir -p /db/mongodb
 sudo chown mongodb:mongodb /db/mongodb
@@ -24,3 +27,6 @@ EOF
 touch /var/log/mongodb.log
 chown mongodb:mongodb /var/log/mongodb.log
 chown -R mongodb:mongodb /db/mongodb
+
+# start mongo
+start mongodb
