@@ -24,7 +24,7 @@ Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org
     mongod
     ```
 
-3. Rry it:
+3. Try it:
 
     ```shell
     sudo npm install
