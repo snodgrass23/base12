@@ -6,23 +6,27 @@ html
       block title
         | New node project
     block styles
-      link(rel='stylesheet', href='/styles/layout.css' )
-  
+      //link(rel='stylesheet', href='/styles/layout.css' )
+      link(rel='stylesheet', href='/vendor/bootstrap/bootstrap.css' )
+      link(rel='stylesheet', href='/styles/main.css' )
+
 body(class = (is_logged_in) ? "logged-in" : "not-logged-in")
-  
-  block navbar
-    include ../includes/navbar
 
-  != messages()
+  #binder.container
 
-  block subject
-    header#subject.wrap
-      h1 Node Boilerplate
-  
-  block content
+    block navbar
+      include ../includes/navbar
 
-  block foot
-    footer.wrap
-      p &copy;2011 Yeah, great footer!
+    != messages()
 
-  block scripts
+    block subject
+      header#subject
+        h1 Node Boilerplate
+
+    block content
+
+    block foot
+      footer
+        p &copy;2011 Yeah, great footer!
+
+    block scripts

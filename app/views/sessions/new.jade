@@ -1,16 +1,15 @@
 extends ../layouts/layout
 
 block subject
-  header#subject.wrap
+  header#subject
     h1 Sign in
 
 block content
-  section#main.wrap
+  section#main
     form(action="/sessions", method="post")
-      ul
-        li
-          input(type='email', name='email', placeholder='email')
-        li
-          input(type='password', name='password', placeholder='password')
-        li
-          input(type="submit") Submit
+      .clearfix
+        input(type='email', name='email', placeholder='email')
+      .clearfix
+        input(type='password', name='password', placeholder='password')
+      .clearfix
+        input.btn.primary(type="submit") Submit
