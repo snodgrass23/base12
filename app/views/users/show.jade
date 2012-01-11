@@ -1,14 +1,14 @@
 extends ../layouts/layout
 
 block subject
-  header#subject.wrap
+  header#subject
     - if (is_self)
       h1 Profile
     - else
       h1 Profile of #{user.name}
 
 block content
-  section#main.wrap
+  section#main
     dl
       dt Name:
       dd #{user.name}
