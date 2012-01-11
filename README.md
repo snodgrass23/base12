@@ -56,7 +56,7 @@ Ubuntu VPS (eg, [Linode](http://linode.com))
     ./deploy -T staging
     ```
 
-<a id="configuration">
+<a name="configuration" />
 ## deploy.conf
 
 A sharp fork of [visionmedia/deploy](https://github.com/visionmedia/deploy) to be used for provisioning *and* deployment.
