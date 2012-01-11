@@ -1,3 +1,5 @@
 body { padding-top:40px; }
 
 #binder { padding-top:20px; }
+
+.topbar span.plain { padding:10px 10px 11px; line-height:19px; color:#aaa; }
