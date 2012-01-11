@@ -7,12 +7,11 @@ block subject
 block content
   section#main.wrap
     form(action="/users", method="post")
-      ul
-        li
-          input(type='text', name='name', placeholder='name')
-        li
-          input(type='email', name='email', placeholder='email')
-        li
-          input(type='password', name='password', placeholder='password')
-        li
-          input(type="submit") Submit
+      .clearfix
+        input(type='text', name='name', placeholder='name')
+      .clearfix
+        input(type='email', name='email', placeholder='email')
+      .clearfix
+        input(type='password', name='password', placeholder='password')
+      .clearfix
+        input.btn.primary(type="submit") Submit

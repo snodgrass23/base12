@@ -9,4 +9,8 @@ block subject
 
 block content
   section#main.wrap
-    p #{user.about}
+    dl
+      dt Name:
+      dd #{user.name}
+      dt About:
+      dd #{user.about}
