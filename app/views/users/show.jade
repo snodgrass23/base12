@@ -1,7 +1,18 @@
-h2 #{current_user.name}, welcome to your homepage
-p 
-  -if (typeof current_user.avatar[0] != "undefined")
-    img(src=current_user.avatar[0].path, style="float:left;margin: 0 10px 10px 0")
-  =current_user.about
+extends ../layouts/layout
 
-br(style="clear:both")
+block subject
+  header#subject.wrap
+    - if (is_self)
+      h1 Your Profile
+    - else
+      h1 #{user.name}'s Profile
+
+
+block content
+  section#main.wrap
+    .row
+      .span4
+        img(src = "http://placehold.it/220x220")
+      .span12
+        h6 About:
+        #{user.about}

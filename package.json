@@ -1,6 +1,11 @@
 {
   "name":"newproject",
   "version":"0.0.1",
+  "directories":{},
+  "engines" : {
+      "node" : ">=0.6.6",
+      "npm" : ">=1.0" 
+  },
   "dependencies":{
     "jade":"latest",
     "express":"latest",
@@ -9,17 +14,18 @@
     "connect-redis":"latest",
     "connect-timeout":"latest",
     "connect-form":"latest",
-    "express-resource":"latest",
+    "express-resource":"https://github.com/hunterloftis/express-resource/tarball/custom-mapping-strings",
+    "lingo":"latest",
     "express-messages":"latest",
     "redis":"latest",
     "mongodb":"latest",
     "mongoose":"latest",
+    "mongoose-skookum":"https://github.com/hunterloftis/mongoose-skookum/tarball/master",
     "async":"latest",
     "underscore":"latest",
-    "passport":"latest",
+    "passport":"git://github.com/hunterloftis/passport.git",
     "passport-local":"latest",
     "password-hash":"latest",
     "imagemagick":"git://github.com/Skookum/node-imagemagick.git"
-  },
-  "directories":{}
+  }
 }

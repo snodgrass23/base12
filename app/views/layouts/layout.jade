@@ -1,28 +1,32 @@
 !!! 5
 html
-  != partial("components/layout/head")
-    
-  body(class = (is_logged_in) ? "logged-in" : "not-logged-in")
-    
+  head
+    meta(charset="utf-8")
+    title
+      block title
+        | New node project
+    block styles
+      //link(rel='stylesheet', href='/styles/layout.css' )
+      link(rel='stylesheet', href='/vendor/bootstrap/bootstrap.css' )
+      link(rel='stylesheet', href='/styles/main.css' )
+
+body(class = (is_logged_in) ? "logged-in" : "not-logged-in")
+
+  #binder.container
+
+    block navbar
+      include ../includes/navbar
+
     != messages()
 
-    header
-      h1 
-        a(href="/") Node Boilerplate
-      #account
-        - if (is_logged_in)
-          aside
-            p 
-              a(href="/account") Welcome #{current_user.name}
-              | &nbsp; - &nbsp; 
-              a(href="/logout") Logout
-        - else
-          aside
-            p
-              a(href="/login") Log in
-              | &nbsp; or &nbsp; 
-              a(href="/register") Create Account
-    section
-      != body  
-    != partial("components/layout/foot")
-    
+    block subject
+      header#subject
+        h1 Node Boilerplate
+
+    block content
+
+    block foot
+      footer
+        p &copy;2011 Yeah, great footer!
+
+    block scripts

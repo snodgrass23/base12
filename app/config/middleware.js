@@ -39,24 +39,9 @@ exports = module.exports = function() {
   }));
   server.use(form({ keepExtensions: true }));
   server.use(express.bodyParser());
-  server.use(addFilesToBody);
-  server.use(passport.initialize());
+  server.use(express.methodOverride());
+  server.use(passport.initialize('currentUser'));
   server.use(passport.session());
   server.use(server.router);
   server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}));
 };
-
-
-function addFilesToBody(req, res, next) {
-  if (req.body && req.files) {
-    
-    for (var f in req.files) {
-      if (req.files[f].size > 0) {
-        _.extend(req.body, req.files);
-        break;    
-      }
-    }
-    
-  }
-  next();
-}

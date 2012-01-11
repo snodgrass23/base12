@@ -1,17 +1,41 @@
-h2 Account Settings
-form(action="/users/update", method="post", enctype="multipart/form-data")
-  ul
-    li
-      label(for="name") Name
-      input(type='text', name='name', placeholder='name', value=current_user.name)
-    li
-      label(for="email") Email
-      input(type='email', name='email', placeholder='email', value=current_user.email)
-    li
-      label(for="avatar") Avatar
-      input(type="file", name="avatar")
-    li
-      label(for="about") About Me
-      textarea(name='about', placeholder='a little about myself...') #{current_user.about}
-    li
-      input(type="submit") Submit
+extends ../layouts/layout
+
+block subject
+  header#subject
+    h1 Account
+
+block content
+  section#main.users-env
+
+    .row
+      .span3
+        h4 Public Profile
+      .span13
+        form(action=account_route, method="post", enctype="multipart/form-data")
+          input(type='hidden', name='_method', value='PUT')
+
+          .clearfix
+            label(for="name") Name
+            .input: input(type='text', name='name', placeholder='name', value=current_user.name)
+          .clearfix
+            label(for="about") About Me
+            .input
+              textarea.xxlarge(name='about') #{current_user.about}
+              span.help-block Give us a reason to remember you
+          .clearfix
+            .input
+              input.btn.primary(type="submit", value="Save")
+
+    .row
+      .span3
+        h4 User Settings
+      .span13
+        form(action=account_route, method="post", enctype="multipart/form-data")
+          input(type='hidden', name='_method', value='PUT')
+
+          .clearfix
+            label(for="email") Email
+            .input: input(type='email', name='email', placeholder='email', value=current_user.email)
+          .clearfix
+            .input
+              input.btn.primary(type="submit", value="Save")

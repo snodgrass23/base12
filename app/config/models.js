@@ -1,6 +1,6 @@
 
 var dir = server.set('app root') + '/models/',
-    autoloader = require('../../lib/loader');
+    autoloader = require('../lib/loader');
 
 exports = module.exports = function() {
   

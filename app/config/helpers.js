@@ -2,6 +2,15 @@ exports = module.exports = function() {
   
   server.helpers({
     
+    route: function(action) {
+      var map = {
+        'login': '/sessions/login',
+        'logout': '/sessions/logout',
+        'register': '/users/new'
+      };
+      return (map[action] ? map[action] : '');
+    },
+
     embed_json: function(obj, name) {
       var escaped = JSON.stringify(obj).replace(/\\/g, '\\\\').replace(/<\/script>/g, '');
       return "<script> " + name + " = " + escaped + "; </script>";
@@ -63,13 +72,21 @@ exports = module.exports = function() {
   server.dynamicHelpers({
     messages: require('express-messages'),
     current_user: function(req, res) {     
-      if (req.user) {
-        return req.user;
+      if (req.currentUser) {
+        return req.currentUser;
       }
       else return null;
     },
     is_logged_in: function(req, res) {
-      return (typeof req.user != 'undefined');
+      return (typeof req.currentUser != 'undefined');
+    },
+    account_route: function(req, res) {
+      if (req.currentUser) {
+        return '/users/' + req.currentUser._id;
+      }
+      return '/';
     }
   });
+
+  console.log("Server helpers test:", server.helpers.route);
 };

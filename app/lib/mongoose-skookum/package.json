@@ -1,0 +1,12 @@
+{   "name": "mongoose-skookum"
+  , "description": "Rapid model development for mongoose"
+  , "version": "0.0.1"
+  , "author": "Hunter Loftis <hunter@skookum.com>"
+  , "contributors": [
+    { "name": "Jim Snodgrass", "email": "jim@skookum.com" }
+  ]
+  , "dependencies": { "async": ">= 0.1.10" }
+  , "keywords": ["mongoose", "plugin", "skookum"]
+  , "main": "index"
+  , "engines": { "node": ">= 0.4.0" }
+}
