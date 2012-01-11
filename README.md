@@ -8,7 +8,7 @@ Structure for your non-trivial [node.js](http://nodejs.org) project.
 
 Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org) & [redis](http://redis.io)
 
-1. get the boilerplate:
+1. Get the boilerplate:
 
     ```shell
     mkdir projectname
@@ -16,7 +16,7 @@ Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org
     cd projectname
     ```
 
-2. check your system requirements and start local databases:
+2. Check your system requirements and start local databases:
 
     ```shell
     scripts/requirements
@@ -24,7 +24,7 @@ Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org
     mongod
     ```
 
-3. try it:
+3. Rry it:
 
     ```shell
     sudo npm install
@@ -32,7 +32,7 @@ Linux/OSX running [node](http://nodejs.org) v0.6.x, [mongodb](http://mongodb.org
     ```
 
 4. _code, code, code_
-5. set up git repository hosting your project (eg, on Github)
+5. Set up a git repository hosting your project (eg, on Github)
 
 ### Provision
   
