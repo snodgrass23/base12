@@ -1,5 +1,9 @@
 extends ../layouts/layout
 
+block subject
+  header#subject.wrap
+    h1 Create an account
+
 block content
   section#main.wrap
     form(action="/users", method="post")
