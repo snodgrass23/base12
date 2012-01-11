@@ -45,7 +45,7 @@ Ubuntu VPS (eg, [Linode](http://linode.com))
   
     ```
     cd scripts
-    ./provision staging root
+    sudo ./provision staging root
     ```
 
 ### Deploy
