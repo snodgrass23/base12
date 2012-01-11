@@ -35,10 +35,7 @@ block content
 
           .clearfix
             label(for="email") Email
-            .input
-              .input-prepend
-                span.add-on @
-                input(type='email', name='email', placeholder='email', value=current_user.email)
+            .input: input(type='email', name='email', placeholder='email', value=current_user.email)
           .clearfix
             .input
               input.btn.primary(type="submit", value="Save")
