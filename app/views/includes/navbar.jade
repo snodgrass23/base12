@@ -1,12 +1,15 @@
-nav#navbar
-  .wrap
-    h1: a(href='/') Boilerplate
-    ul.menu
-      - if (is_logged_in)
-        li: a(href=account_route) Your profile
-        li: a(href=account_route+'/edit') Account
-        li: a(href=route('logout')) Logout
-        li.label #{current_user.name}
-      - else
-        li: a(href=route('register')) Create an account
-        li: a(href=route('login')) Sign in
+nav.topbar-wrapper
+  .topbar
+    .topbar-inner
+      .container
+        h3: a(href='/') Boilerplate
+        ul.nav.secondary-nav
+          - if (is_logged_in)
+            li: a(href=account_route) Your profile
+            li: a(href=account_route+'/edit') Account
+            li: a(href=route('logout')) Logout
+          - else
+            li: a(href=route('register')) Create an account
+            li: a(href=route('login')) Sign in
+        - if (is_logged_in)
+          span.plain.pull-right Welcome back, #{current_user.name}
