@@ -122,3 +122,10 @@ stack nginx
   The default git ref from which to deploy. Defaults to origin/master.
 
     ref origin/staging
+
+### stack
+  
+  One of: `node` or `nginx`.
+  The stack determines what type of server deployment you'd like to do. Node deploys a node server, while nginx deploys a very simple, fast, static file server that hosts your `app/public` directory. It's designed to deploy media.yoursite.com.
+
+    stack node
