@@ -39,16 +39,14 @@ function AttachmentPlugin(schema, options) {
 
   // Check for pending attachments before saving
   schema.pre('save', function(next) {
-    async.whilst(
-      function() { return pending_attachments.length > 0; },
-      function(callback) { process_pending(pending_attachments, callback); },
-      next
-    );
+    async.forEach(pending_attachments, process_pending, function(err) {
+      pending_attachments = [];
+      next(err);
+    });
   });
 
   // Process and attach a file
-  function process_pending(attachments, callback) {
-    var attachment = attachments.shift();
+  function process_pending(attachment, callback) {
     async.forEachSeries([ options[key].before, move, store, options[key].after ],
       function(fn, callback) {
         if (fn) return fn(attachment, callback);
