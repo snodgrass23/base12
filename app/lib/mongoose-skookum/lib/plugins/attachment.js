@@ -33,14 +33,16 @@ function AttachmentPlugin(schema, options) {
 
   // Create a schema method to mark newly uploaded files for processing on 'save'
   schema.methods.attach = function(files) {
+    console.log("ATTACHING:", files);
     for (var prop in files) {
-      pending_attachments.push({ prop: prop, file: files[prop], options: options[prop] });
+      if (files[prop].size > 0) pending_attachments.push({ prop: prop, file: files[prop], options: options[prop] });
     }
   };
 
   // Check for pending attachments before saving
   schema.pre('save', function(next) {
     var self = this;
+    console.log("SAVE with pending attachments:", pending_attachments);
     async.forEach(pending_attachments,
       function(attachment, callback) {
         process_pending.call(self, attachment, callback);
