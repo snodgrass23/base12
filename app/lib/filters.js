@@ -1,4 +1,11 @@
 module.exports = {
+  update: function(model) {
+    return function(req, res, next) {
+      req[model].set(req.body);
+      req[model].attach(req.files);
+      req[model].save(next);
+    };
+  },
   require_user: function(req, res, next) {
     if (req.currentUser) return next();
     res.redirect(server._locals.route('login'));

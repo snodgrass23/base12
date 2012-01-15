@@ -49,11 +49,7 @@ exports = module.exports = {
   // Account edit POST
   update: [
     filters.require_self,
-    function(req, res, next) {
-      req.user.set(req.body);
-      req.user.attach(req.files);
-      req.user.save(next);
-    },
+    filters.update('user'),
     function(req, res) {
       req.flash('info', 'Account updated.');
       res.redirect('/');
