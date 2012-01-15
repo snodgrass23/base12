@@ -3,6 +3,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
 var async = require('async');
+var imagemagick = require('imagemagick');
 
 var AttachmentSchema = new mongoose.Schema({
   path: { type: String },
@@ -31,22 +32,19 @@ function AttachmentPlugin(schema, options) {
 
   // Create a schema method to mark newly uploaded files for processing on 'save'
   schema.methods.attach = function(files) {
-    console.log("ATTACH:", files);
     for (var prop in files) {
-      pending_attachments.push({ prop: prop, file: files[prop], options: options });
+      pending_attachments.push({ prop: prop, file: files[prop], options: options[prop] });
     }
   };
 
   // Check for pending attachments before saving
   schema.pre('save', function(next) {
-    console.log("PRE-SAVE");
     async.forEach(pending_attachments, process_pending, next);
   });
 
   // Process and attach a file
   function process_pending(attachment, callback) {
-    console.log("PROCESSING ATTACHMENT:", attachment);
-    async.forEachSeries([ move, options[key].before, options[key].after, store ],
+    async.forEachSeries([ options[key].before, move, store, options[key].after ],
       function(fn, callback) {
         if (fn) return fn(attachment, callback);
         else return callback();
@@ -86,10 +84,21 @@ function AttachmentPlugin(schema, options) {
 }
 
 AttachmentPlugin.image = function(src, callback) {
-  console.log("IMAGE process");
-  var filename = 'get_from_src.path' + '.jpg';
-  src.destination = 'some_base' + '/uploads/' + filename;
-  return callback();
+  console.log("IMAGE process:", src);
+  var ext = path.extname(src.file.name);
+  var filename = path.basename(src.file.path);
+  src.destination = src.options.dest + '/' + filename + ext;
+  imagemagick.crop({
+    srcPath: src.file.path,
+    dstPath: src.destination,
+    width: src.options.width,
+    height: src.options.height
+  }, complete);
+  function complete(err) {
+    if (err) return callback(err);
+    fs.unlink(src.file.path);
+    return callback();
+  }
 };
 
 module.exports = AttachmentPlugin;

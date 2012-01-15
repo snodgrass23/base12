@@ -20,8 +20,10 @@ User.plugin(skookum.plugins.crud);
 User.plugin(skookum.plugins.attachments, {
   photo: {
     ref: 'UserPhoto',
+    dest: server.set('uploads'),
     before: skookum.plugins.attachments.image,
-    width: 220
+    width: 220,
+    height: 220
   }
 });
 
