@@ -22,7 +22,7 @@ User.plugin(skookum.plugins.attachment, {
   ref: 'UserPhoto',
   root: '/tmp',       // TODO: Check that all files are in here
   before: skookum.plugins.attachment.image,
-  width: 300
+  width: 220
 });
 
 // Export

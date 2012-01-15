@@ -36,42 +36,64 @@ var AttachmentSchema = new mongoose.Schema({
 function AttachmentPlugin(schema, options) {
 
   // Create a new model (collection) to store these attachments
-  mongoose.model(options.ref, AttachmentSchema);
+  var AttachmentModel = mongoose.model(options.ref, AttachmentSchema);
 
   var property = options.property; // get: returns dbref's value, set: updates dbref/flag
   var flag = options.property + '_flag'; // flags new attachments for processing
   var dbref = options.property + '_dbref'; // stores our attachment ObjectId (dbref), or null when we have no attachment
 
   var properties = {};
-  properties[flag] = { type: String };
+  properties[flag] = {};
   properties[dbref] = { type: ObjectId, ref: options.ref };
+
+  // Move newly uploaded files
+  function move(src, options, callback) {
+    console.log("MOVE process on:", src);
+    if (src.destination) {
+      // move file from src.path to src.destination
+    }
+    return callback();
+  }
+
+  // Store new files in the db as AttachmentModels
+  function store(src, options, callback) {
+    console.log("STORING file in db");
+    return callback();
+  }
 
   // Add our properties to the schema
   schema.add(properties);
 
   // Build our processing list
-  var fns = [AttachmentPlugin.move];
-  if (options.before) fns.unshift(options.before);
-  if (options.after) fns.push(options.after);
+  var fns = (function(steps) {
+    var ret = [];
+    steps.forEach(function(step) { if (step) ret.push(step); });
+    return ret;
+  })([move, options.before, options.after, store]);
+
+  if (!schema.methods.attach) schema.methods.attach = function(files) {
+    files.forEach(function(file) {
+      
+    });
+  };
 
   // Intercept saves to check for new attachments to process
   schema.pre('save', function(next) {
-    var src, i = 0;
+    var src, i = 0, self = this;
     function process_file(err) {
       if (err) return next(new Error(err));
       if (fns[i]) return fns[i++].apply(this, [src, options, process_file]);
       else return next(new Error('Wow that worked'));
     }
     if (this[flag]) {
-      src = {
-        path: this[flag]
-      };
-      this[flag] = '';
+      src = { path: this[flag].path, name: this[flag].name };
+      this[flag] = {};
       return process_file();
     }
     else return next(new Error('Not saving to avoid users'));
   });
 
+  // Define a virtual property to sniff sets and to passthrough the dbref
   schema
     .virtual(property)
     .get(function() {
@@ -83,29 +105,21 @@ function AttachmentPlugin(schema, options) {
         this[dbref] = file;
         return this[flag] = null;
       }
-      else if (typeof(file) === 'string') {
-        if (~file.indexOf('/')) {             // path
-          return this[flag] = file;
-        }
-        else if (file.length === '12') {      // hexstring id
-          this[dbref] = file;
+      else if (typeof(file) === 'string' && file.length === '12') { // hexstring id
+        this[dbref] = file;
+        return this[flag] = null;
+      }
+      else if (typeof(file) === 'object') {
+        if (file._id) {
+          this[dbref] = file._id;
           return this[flag] = null;
         }
-      }
-      else if (typeof(file) === 'object' && file._id) {   // A document that has already been saved
-        this[dbref] = file._id;
-        return this[flag] = null;
+        else if (file.path && file.name) {
+          return this[flag] = file;
+        }
       }
     });
 }
-
-AttachmentPlugin.move = function(src, options, callback) {
-  console.log("MOVE process");
-  if (src.destination) {
-    // move file from src.path to src.destination
-  }
-  return callback();
-};
 
 AttachmentPlugin.image = function(src, options, callback) {
   console.log("IMAGE process");

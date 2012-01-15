@@ -23,6 +23,9 @@ block content
               textarea.xxlarge(name='about') #{current_user.about}
               span.help-block Give us a reason to remember you
           .clearfix
+            label(for="avatar") Photo
+            .input: input(type='file', name='photo')
+          .clearfix
             .input
               input.btn.primary(type="submit", value="Save")
 
