@@ -1,62 +1,109 @@
 var fs = require('fs');
 var path = require('path');
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.ObjectId;
+var async = require('async');
+var imagemagick = require('imagemagick');
 
-var attachment_props = {
-  path      : { type: String }, // Path to the saved file, including filename
-  filename  : { type: String }, // Original filename of upload
-  filetype  : { type: String }, // MIME type
-  size      : { type: Number }  // Filesize
-};
+var AttachmentSchema = new mongoose.Schema({
+  path: String,
+  name: String,
+  filetype: String,
+  size: Number,
+  url: String
+}, {strict: true});
 
-var handlers = {
-  'default': function(file, options, callback) {
-    console.log("Handling FILE:", file);
-    var filename = path.basename(file.path);
-    var extension = path.extname(file.filename);
-    var save_path = server.set('uploads') + '/' + filename + extension;
-  
-    console.log(file.path + ' --> ' + save_path);
+function AttachmentPlugin(schema, options) {
 
-    function complete(err) {
-      if (err) console.error(err);
-      fs.unlink(file.path);
-      callback(err);
+  // Track attachments that must be processed on save
+  var pending_attachments = [];
+
+  /**   For each attachment:
+   *    - Create a new collection to store its file information
+   *    - Create a dbref property on the schema to point to the new collection
+   */
+  var AttachmentModels = {};
+  var properties = {};
+  for (var key in options) {
+    AttachmentModels[key] = mongoose.model(options[key].ref, AttachmentSchema);
+    schema.methods[key] = AttachmentModels[key];
+    properties[key] = { type: ObjectId, ref: options[key].ref };
+  }
+  schema.add(properties);
+
+  // Create a schema method to mark newly uploaded files for processing on 'save'
+  schema.methods.attach = function(files) {
+    for (var prop in files) {
+      pending_attachments.push({ prop: prop, file: files[prop], options: options[prop] });
     }
+  };
 
-    fs.rename(file.path, save_path, complete);
-  },
-  'image': function(file, options, callback) {
-    //if (!_(['.jpg', '.jpeg', '.png', '.gif']).include(extension)) return callback('Unsupported filetype');
+  // Check for pending attachments before saving
+  schema.pre('save', function(next) {
+    var self = this;
+    async.forEach(pending_attachments,
+      function(attachment, callback) {
+        process_pending.call(self, attachment, callback);
+      },
+      function(err) {
+        pending_attachments = [];
+        if (err) return next(new Error(err));
+        else return next();   // TODO: figure out why return next(err) doesn't work by itself
+      }
+    );
+  });
+
+  // Process and attach a file
+  function process_pending(attachment, callback) {
+    var self = this;
+    async.forEachSeries([ options[key].before, move, store, options[key].after ],
+      function(fn, callback) {
+        if (fn) return fn.call(self, attachment, callback);
+        else return callback();
+      }, callback);
+  }
+
+  // Move newly uploaded files
+  function move(src, callback) {
+    console.log("MOVE process on:", src);
+    var ext = path.extname(src.file.name);
+    var filename = path.basename(src.file.path);
+    src.destination = src.options.dest + '/' + filename + ext;
+    src.url = '/uploads/' + filename + ext; // TODO: don't hardcode this
+    fs.rename(src.file.path, src.destination, callback);
+  }
+
+  // Store new files in the db as AttachmentModels
+  function store(src, callback) {
+    console.log("STORING file in db");
+    var self = this;
+    console.log("THIS = ", this);
+    var new_attachment = new AttachmentModels[src.prop]({
+      path: src.destination,
+      name: src.file.name,
+      filetype: src.file.type,
+      size: src.file.size,
+      url: src.url
+    });
+    new_attachment.save(function(err, doc) {
+      if (doc) self[src.prop] = doc._id;        // Link to dbref
+      return callback(err);
+    });
+  }
+}
+
+AttachmentPlugin.image = function(src, callback) {
+  imagemagick.crop({
+    srcPath: src.file.path,
+    dstPath: src.file.path,
+    width: src.options.width,
+    height: src.options.height
+  }, callback);
+  function complete(err) {
+    if (err) return callback(err);
+    fs.unlink(src.file.path);
+    return callback();
   }
 };
 
-module.exports = function AttachmentPlugin (schema, options) {
-  options = options || {};
-  options.property = options.property || false;
-  options.handler = options.handler || 'default';
-  options.schema = schema;
-
-  schema.add(attachment_props, options.property + '.');
-
-  schema.pre('save', function(next) {
-    var is_modified;
-
-    if (options.property) {
-      is_modified = this.isModified(options.property);
-    }
-    else {
-      is_modified = !!Object.keys(this._activePaths.states.modify).length;
-    }
-
-    console.log("IS MODIFIED? ", is_modified);
-    if (is_modified) {
-      var file_handler = handlers[options.handler];
-      var file_data = options.property ? this.toObject()[options.property] : this.toObject();
-
-      file_handler(file_data, options, function(err, res) {
-        return next(err);
-      });
-    }
-    else return next();
-  });
-};
+module.exports = AttachmentPlugin;

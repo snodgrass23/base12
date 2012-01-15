@@ -20,7 +20,8 @@ exports = module.exports = {
   create: [
     function(req, res, next) {
       var user = new models.user(req.body);
-      console.log('req.body:', req.body);
+      user.attach(req.files);
+      console.log('user data:', data);
       user.save(function(err){
         if (err) {
           console.log(err);
@@ -48,18 +49,10 @@ exports = module.exports = {
   // Account edit POST
   update: [
     filters.require_self,
+    filters.update('user'),
     function(req, res) {
-      console.log('req.user = ', req.user);
-      models.user.updateById(req.user._id, req.body, function(err, updated_user) {
-        if (updated_user) {
-          req.flash('info', 'Account updated');
-          return res.redirect('/');
-        }
-        else {
-          req.flash('error', 'Unable to update user');
-          return res.redirect('/');
-        }
-      });
+      req.flash('info', 'Account updated.');
+      res.redirect('/');
     }
   ],
 
@@ -72,6 +65,6 @@ exports = module.exports = {
   ],
 
   load: function(id, callback) {
-    models.user.findById(id, callback);
+    models.user.findById(id, callback).populate('photo');
   }
 };
