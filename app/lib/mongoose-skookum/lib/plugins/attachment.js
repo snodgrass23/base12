@@ -38,71 +38,80 @@ function AttachmentPlugin(schema, options) {
   // Create a new model (collection) to store these attachments
   mongoose.model(options.ref, AttachmentSchema);
 
-  var property = options.property; // get: returns dbrefprop's value, set: updates dbrefprop/flagprop
-  var flagprop = options.property + '_flag'; // flags new attachments for processing
-  var dbrefprop = options.property + '_dbref'; // stores our attachment ObjectId (dbref), or null when we have no attachment
+  var property = options.property; // get: returns dbref's value, set: updates dbref/flag
+  var flag = options.property + '_flag'; // flags new attachments for processing
+  var dbref = options.property + '_dbref'; // stores our attachment ObjectId (dbref), or null when we have no attachment
 
   var properties = {};
-  properties[flagprop] = { type: String };
-  properties[dbrefprop] = { type: ObjectId, ref: options.ref };
+  properties[flag] = { type: String };
+  properties[dbref] = { type: ObjectId, ref: options.ref };
 
   // Add our properties to the schema
   schema.add(properties);
 
+  // Build our processing list
+  var fns = [AttachmentPlugin.move];
+  if (options.before) fns.unshift(options.before);
+  if (options.after) fns.push(options.after);
+
   // Intercept saves to check for new attachments to process
   schema.pre('save', function(next) {
-    if (this[flagprop]) {
-      console.log("I should be processing the image at " + this[flagprop]);
+    var src, i = 0;
+    function process_file(err) {
+      if (err) return next(new Error(err));
+      if (fns[i]) return fns[i++].apply(this, [src, options, process_file]);
+      else return next(new Error('Wow that worked'));
     }
-    return next(new Error('Not saving to avoid users'));
+    if (this[flag]) {
+      src = {
+        path: this[flag]
+      };
+      this[flag] = '';
+      return process_file();
+    }
+    else return next(new Error('Not saving to avoid users'));
   });
 
-  console.log("Setting up virtuals on " + property);
-  schema.virtual(property)
+  schema
+    .virtual(property)
     .get(function() {
-      console.log("virtual getter");
-      // property always returns the dbref
-      return this[dbrefprop];
+      return this[dbref];
     })
-    .set(function(file) {
+    .set(function(file) {               // file = a path ('/tmp/1234') an Object ({ ... }) or an ObjectId (string or obj)
       console.log("SETTER:", file);
-      // file = a path ('/tmp/1234') an Object ({ ... }) or an ObjectId (string or obj)
-      if (file instanceof ObjectId) {
-        // ObjectId
-        // file already in the DB, must be attached to the '_property' dbref
-        this[dbrefprop] = file;
-        return this[flagprop] = null;
+      if (file instanceof ObjectId) {   // ObjectId
+        this[dbref] = file;
+        return this[flag] = null;
       }
       else if (typeof(file) === 'string') {
-        // path or ObjectId string
-        if (~file.indexOf('/')) {
-          // path
-          return this[flagprop] = file;
+        if (~file.indexOf('/')) {             // path
+          return this[flag] = file;
         }
-        else if (file.length === '12') {
-          // hexstring, mongoose will cast
-          this[dbrefprop] = file;
-          return this[flagprop] = null;
+        else if (file.length === '12') {      // hexstring id
+          this[dbref] = file;
+          return this[flag] = null;
         }
       }
-      else if (typeof(file) === 'object' && file._id) {
-        // An object that has already been saved
-        this[dbrefprop] = file._id;
-        return this[flagprop] = null;
+      else if (typeof(file) === 'object' && file._id) {   // A document that has already been saved
+        this[dbref] = file._id;
+        return this[flag] = null;
       }
     });
 }
 
-AttachmentPlugin.move = function(src, options, next) {
+AttachmentPlugin.move = function(src, options, callback) {
+  console.log("MOVE process");
   if (src.destination) {
     // move file from src.path to src.destination
   }
+  return callback();
 };
 
-AttachmentPlugin.image = function(src, options, next) {
+AttachmentPlugin.image = function(src, options, callback) {
+  console.log("IMAGE process");
   var filename = 'get_from_src.path' + '.jpg';
-  src.destination = base + '/uploads/' + filename;
-  return next();
+  src.destination = 'some_base' + '/uploads/' + filename;
+  return callback();
 };
 
 module.exports = AttachmentPlugin;

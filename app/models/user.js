@@ -20,7 +20,8 @@ User.plugin(skookum.plugins.crud);
 User.plugin(skookum.plugins.attachment, {
   property: 'photo',
   ref: 'UserPhoto',
-  preprocess: skookum.plugins.attachment.image,
+  root: '/tmp',       // TODO: Check that all files are in here
+  before: skookum.plugins.attachment.image,
   width: 300
 });
 
@@ -30,7 +31,7 @@ var UserModel = module.exports = server.mongoose.model('User', User);
 
 console.log("CREATING USER");
 var new_user = new UserModel({
-  email: 'huntertestingattachments3@skookum.com',
+  email: 'huntertestingattachments4@skookum.com',
   name: 'Hunter Loftis',
   password: 'password',
   photo: '/tmp/12345'
