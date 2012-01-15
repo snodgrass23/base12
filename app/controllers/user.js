@@ -18,21 +18,10 @@ exports = module.exports = {
 
   // Sign up POST
   create: [
+    filters.create(models.user),
     function(req, res, next) {
-      var user = new models.user(req.body);
-      user.attach(req.files);
-      console.log('user data:', data);
-      user.save(function(err){
-        if (err) {
-          console.log(err);
-          req.flash(err);
-          return next();
-       }
-        else {
-          req.flash('info', "Account created. Welcome to " + options.appTitle + "!");
-          return next();
-        }
-      });
+      req.flash('info', "<strong>Account created.</strong> Welcome to " + options.appTitle + "!");
+      return next();
     },
     passport.authenticate('local', { failureRedirect: '/sessions/login' }),
     function (req, res) { res.redirect('/'); }
@@ -51,7 +40,7 @@ exports = module.exports = {
     filters.require_self,
     filters.update('user'),
     function(req, res) {
-      req.flash('info', 'Account updated.');
+      req.flash('info', '<strong>Account updated.</strong> Nice!');
       res.redirect('/');
     }
   ],
