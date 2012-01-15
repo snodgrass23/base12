@@ -65,6 +65,6 @@ exports = module.exports = {
   ],
 
   load: function(id, callback) {
-    models.user.findById(id, callback);
+    models.user.findById(id, callback).populate('photo');
   }
 };

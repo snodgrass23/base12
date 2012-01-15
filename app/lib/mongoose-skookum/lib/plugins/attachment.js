@@ -6,10 +6,11 @@ var async = require('async');
 var imagemagick = require('imagemagick');
 
 var AttachmentSchema = new mongoose.Schema({
-  path: { type: String },
-  filename: { type: String},
-  filetype: { type: String },
-  size: { type: Number }
+  path: String,
+  name: String,
+  filetype: String,
+  size: Number,
+  url: String
 }, {strict: true});
 
 function AttachmentPlugin(schema, options) {
@@ -39,17 +40,25 @@ function AttachmentPlugin(schema, options) {
 
   // Check for pending attachments before saving
   schema.pre('save', function(next) {
-    async.forEach(pending_attachments, process_pending, function(err) {
-      pending_attachments = [];
-      next(err);
-    });
+    var self = this;
+    async.forEach(pending_attachments,
+      function(attachment, callback) {
+        process_pending.call(self, attachment, callback);
+      },
+      function(err) {
+        pending_attachments = [];
+        if (err) return next(new Error(err));
+        else return next();   // TODO: figure out why return next(err) doesn't work by itself
+      }
+    );
   });
 
   // Process and attach a file
   function process_pending(attachment, callback) {
+    var self = this;
     async.forEachSeries([ options[key].before, move, store, options[key].after ],
       function(fn, callback) {
-        if (fn) return fn(attachment, callback);
+        if (fn) return fn.call(self, attachment, callback);
         else return callback();
       }, callback);
   }
@@ -60,13 +69,26 @@ function AttachmentPlugin(schema, options) {
     var ext = path.extname(src.file.name);
     var filename = path.basename(src.file.path);
     src.destination = src.options.dest + '/' + filename + ext;
+    src.url = '/uploads/' + filename + ext; // TODO: don't hardcode this
     fs.rename(src.file.path, src.destination, callback);
   }
 
   // Store new files in the db as AttachmentModels
   function store(src, callback) {
     console.log("STORING file in db");
-    return callback();
+    var self = this;
+    console.log("THIS = ", this);
+    var new_attachment = new AttachmentModels[src.prop]({
+      path: src.destination,
+      name: src.file.name,
+      filetype: src.file.type,
+      size: src.file.size,
+      url: src.url
+    });
+    new_attachment.save(function(err, doc) {
+      if (doc) self[src.prop] = doc._id;        // Link to dbref
+      return callback(err);
+    });
   }
 }
 
