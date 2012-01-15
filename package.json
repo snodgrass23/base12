@@ -19,7 +19,7 @@
     "express-messages":"latest",
     "redis":"latest",
     "mongodb":"latest",
-    "mongoose":"latest",
+    "mongoose":"git://github.com/LearnBoost/mongoose.git",
     "mongoose-skookum":"https://github.com/hunterloftis/mongoose-skookum/tarball/master",
     "async":"latest",
     "underscore":"latest",
