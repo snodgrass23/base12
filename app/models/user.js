@@ -27,19 +27,7 @@ User.plugin(skookum.plugins.attachment, {
 
 // Export
 
-var UserModel = module.exports = server.mongoose.model('User', User);
-
-console.log("CREATING USER");
-var new_user = new UserModel({
-  email: 'huntertestingattachments4@skookum.com',
-  name: 'Hunter Loftis',
-  password: 'password',
-  photo: '/tmp/12345'
-});
-new_user.save(function(err, doc) {
-  console.log("err:", err);
-  console.log("doc:", doc);
-});
+module.exports = server.mongoose.model('User', User);
 
 /*
 // Will be saved like:
