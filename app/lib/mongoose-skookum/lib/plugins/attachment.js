@@ -54,26 +54,10 @@ function AttachmentPlugin(schema, options) {
   // Move newly uploaded files
   function move(src, callback) {
     console.log("MOVE process on:", src);
-    if (src.destination) {
-      // move file from src.path to src.destination
-      /*
-      console.log("Handling FILE:", file);
-    var filename = path.basename(file.path);
-    var extension = path.extname(file.filename);
-    var save_path = server.set('uploads') + '/' + filename + extension;
-  
-    console.log(file.path + ' --> ' + save_path);
-
-    function complete(err) {
-      if (err) console.error(err);
-      fs.unlink(file.path);
-      callback(err);
-    }
-
-    fs.rename(file.path, save_path, complete);
-    */
-    }
-    return callback();
+    var ext = path.extname(src.file.name);
+    var filename = path.basename(src.file.path);
+    src.destination = src.options.dest + '/' + filename + ext;
+    fs.rename(src.file.path, src.destination, callback);
   }
 
   // Store new files in the db as AttachmentModels
@@ -84,16 +68,12 @@ function AttachmentPlugin(schema, options) {
 }
 
 AttachmentPlugin.image = function(src, callback) {
-  console.log("IMAGE process:", src);
-  var ext = path.extname(src.file.name);
-  var filename = path.basename(src.file.path);
-  src.destination = src.options.dest + '/' + filename + ext;
   imagemagick.crop({
     srcPath: src.file.path,
-    dstPath: src.destination,
+    dstPath: src.file.path,
     width: src.options.width,
     height: src.options.height
-  }, complete);
+  }, callback);
   function complete(err) {
     if (err) return callback(err);
     fs.unlink(src.file.path);
