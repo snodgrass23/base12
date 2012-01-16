@@ -1,11 +1,19 @@
 var respond = require('./respond');
 
 module.exports = {
-  update: function(model) {
+  create: function(Model) {
     return function(req, res, next) {
-      req[model].set(req.body);
-      req[model].attach(req.files);
-      req[model].save(next);
+      var instance = new Model(req.body);
+      instance.attach(req.files);
+      instance.save(next);
+    };
+  },
+  update: function(m) {
+    return function(req, res, next) {
+      var model = req[m];
+      model.set(req.body);
+      model.attach(req.files);
+      model.save(next);
     };
   },
   ajaxupload: function(Model) {

@@ -48,6 +48,13 @@ exports = module.exports = (function() {
 
     require('./config/errors.js')();
 
+    // server reload on file changes
+    
+    if (environment == 'development') {
+      var reload = require('./lib/reload')();
+      reload();
+    }
+
   });
 
 })();
