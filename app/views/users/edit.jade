@@ -24,7 +24,8 @@ block content
               span.help-block Give us a reason to remember you
           .clearfix
             label(for="avatar") Photo
-            .input: input(type='file', name='photo')
+            span#async-file
+              .input: input(type='file', name='photo')
           .clearfix
             .input
               input.btn.primary(type="submit", value="Save")
@@ -42,3 +43,8 @@ block content
           .clearfix
             .input
               input.btn.primary(type="submit", value="Save")
+    
+append scripts
+  != embed_json(user, 'USER')
+  script(src='/js/lib/fileuploader.js')
+  script(src='/js/views/users/edit.js')

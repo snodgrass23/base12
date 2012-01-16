@@ -42,11 +42,11 @@ exports = module.exports = {
   edit: [
     filters.require_self,
     function(req, res) {
-      res.render('users/edit');
+      res.render('users/edit', {user: req.user});
     }
   ],
 
-  // Account edit POST
+  // Account edit PUT
   update: [
     filters.require_self,
     filters.update('user'),
@@ -55,6 +55,13 @@ exports = module.exports = {
       res.redirect('/');
     }
   ],
+
+  // Upload a new photo via ajax
+  photo: [
+    filters.require_user,
+    file_stream('application/octet-stream'),
+    
+  ]
 
   // User profile
   show: [

@@ -1,9 +1,26 @@
+var respond = require('./respond');
+
 module.exports = {
   update: function(model) {
     return function(req, res, next) {
       req[model].set(req.body);
       req[model].attach(req.files);
       req[model].save(next);
+    };
+  },
+  ajaxupload: function(Model) {
+    return function(req, res, next) {
+      var prop = req.query.ajaxupload;
+      if (prop && req.files[prop]) {
+        var AttachmentModel = Model[prop];
+        if (AttachmentModel) {
+          var attachment = new AttachmentModel(req.files[prop]);
+          attachment.save(function (err, doc) {
+            respond(err, req, res, doc);
+          });
+        }
+      }
+      else return next();
     };
   },
   require_user: function(req, res, next) {
