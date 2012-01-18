@@ -23,9 +23,11 @@ block content
               textarea.xxlarge(name='about') #{current_user.about}
               span.help-block Give us a reason to remember you
           .clearfix
-            label(for="avatar") Photo
-            span#async-file
-              .input: input(type='file', name='photo')
+            img#photopreview(src='')
+            label Photo
+            #filecontainer
+              a#choosefile(href='#') Select a file
+              a#uploadfile(href='#') Upload
           .clearfix
             .input
               input.btn.primary(type="submit", value="Save")
@@ -46,5 +48,5 @@ block content
     
 append scripts
   != embed_json(user, 'USER')
-  script(src='/js/lib/fileuploader.js')
+  script(src='/js/lib/plupload/plupload.full.js')
   script(src='/js/views/users/edit.js')

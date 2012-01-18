@@ -1,6 +1,13 @@
 var passport = require('passport');
 
 var filters = require('../lib/filters');
+var respond = require('../lib/respond');
+
+function file_stream(contentType) {
+  return function(req, res, next) {
+    return next();
+  };
+}
 
 /**
  * Users Controller
@@ -45,12 +52,15 @@ exports = module.exports = {
     }
   ],
 
-  // Upload a new photo via ajax
+  // Upload a new photo via xhr or iframe
   photo: [
     filters.require_user,
     file_stream('application/octet-stream'),
-    
-  ]
+    filters.create_file(models.user.photo, 'file'),
+    function(req, res) {
+      respond(undefined, req, res, req.docs.file);
+    }
+  ],
 
   // User profile
   show: [

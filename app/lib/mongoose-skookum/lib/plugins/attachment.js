@@ -26,7 +26,7 @@ function AttachmentPlugin(schema, options) {
   var properties = {};
   for (var key in options) {
     AttachmentModels[key] = mongoose.model(options[key].ref, AttachmentSchema);
-    schema.methods[key] = AttachmentModels[key];
+    schema.statics[key] = AttachmentModels[key];
     properties[key] = { type: ObjectId, ref: options[key].ref };
   }
   schema.add(properties);

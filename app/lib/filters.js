@@ -1,11 +1,36 @@
 var respond = require('./respond');
 
 module.exports = {
-  create: function(Model) {
+  create: function(Model, prop) {
+    prop = prop || 'body';
     return function(req, res, next) {
-      var instance = new Model(req.body);
+      var instance = new Model(req[prop]);
+      req.docs = req.docs || {};
       instance.attach(req.files);
-      instance.save(next);
+      instance.save(function(err, doc) {
+        if (doc) {
+          req.docs[prop] = doc;
+        }
+        return next(err);
+      });
+    };
+  },
+  create_file: function(Model, prop) {
+    return function(req, res, next) {
+      console.log('MODELS.USER.PHOTO=', models.user.photo);
+      console.log("create_file");
+      req.docs = req.docs || {};
+      console.log('req.files:', req.files);
+      if (req.files && req.files[prop]) {
+        console.log("ready with ", req.files[prop]);
+        var instance = new Model(req.files[prop]);
+        instance.save(function(err, doc) {
+          if (doc) {
+            req.docs[prop] = doc;
+          }
+          return next(err);
+        });
+      }
     };
   },
   update: function(m) {
@@ -14,21 +39,6 @@ module.exports = {
       model.set(req.body);
       model.attach(req.files);
       model.save(next);
-    };
-  },
-  ajaxupload: function(Model) {
-    return function(req, res, next) {
-      var prop = req.query.ajaxupload;
-      if (prop && req.files[prop]) {
-        var AttachmentModel = Model[prop];
-        if (AttachmentModel) {
-          var attachment = new AttachmentModel(req.files[prop]);
-          attachment.save(function (err, doc) {
-            respond(err, req, res, doc);
-          });
-        }
-      }
-      else return next();
     };
   },
   require_user: function(req, res, next) {
