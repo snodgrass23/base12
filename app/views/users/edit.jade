@@ -23,10 +23,14 @@ block content
               textarea.xxlarge(name='about') #{current_user.about}
               span.help-block Give us a reason to remember you
           .clearfix
-            img#photopreview(src='')
-            label Photo
+            label(for="photo") Photo
+            input(name='photo', type='file')
+          .clearfix
+            ul#docpreview
+            label Documents
             #filecontainer
-              a#choosefile(href='#') Select a file
+              a#choosefile(href='#') Select files
+              | 
               a#uploadfile(href='#') Upload
           .clearfix
             .input

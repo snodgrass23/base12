@@ -25,7 +25,7 @@ exports = module.exports = {
 
   // Sign up POST
   create: [
-    filters.create(models.user),
+    filters.create(models.user, 'user'),
     function(req, res, next) {
       req.flash('info', "<strong>Account created.</strong> Welcome to " + options.appTitle + "!");
       return next();
@@ -52,13 +52,13 @@ exports = module.exports = {
     }
   ],
 
-  // Upload a new photo via xhr or iframe
-  photo: [
+  // Upload new doc(s) via xhr or iframe
+  doc: [
     filters.require_user,
     file_stream('application/octet-stream'),
-    filters.create_file(models.user.photo, 'file'),
+    filters.create(models.userdoc, 'userdoc'),
     function(req, res) {
-      respond(undefined, req, res, req.docs.file);
+      respond(undefined, req, res, req.results.userdoc);
     }
   ],
 

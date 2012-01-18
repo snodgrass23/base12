@@ -3,50 +3,61 @@ var path = require('path');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
 var async = require('async');
-var imagemagick = require('imagemagick');
 
-var AttachmentProperties = new mongoose.Schema({
+var FileProperties = {
+  url: String,
   path: String,
   name: String,
-  filetype: String,
-  size: Number,
-  url: String
-}, {strict: true});
+  mime: String,
+  size: Number
+};
 
-function AttachmentPlugin(schema, options) {
+var PENDING_PROP = '_pending_attachments';
 
-  /**   For each attachment:
-   *    - Create a new collection to store its file information
-   *    - Create a dbref property on the schema to point to the new collection
-   */
-  var AttachmentModels = {};
-  var properties = {};
-  for (var key in options) {
-    AttachmentModels[key] = mongoose.model(options[key].ref, AttachmentSchema);
-    schema.statics[key] = AttachmentModels[key];
-    properties[key] = { type: ObjectId, ref: options[key].ref };
+module.exports = function FilePlugin(schema, options) {
+
+  // Create an array that can be manipulated via array methods in schema.methods.attach()
+  // but that cannot be overwritten by malicious client requests like UPDATE {_pending_files: ['/etc/passwd']}
+  // TODO: is there a hook to insert this object just when a model is created? Does pre-init run every time or just when loading from DB, and not on new Model(...)?
+  function ensurePendingOn(obj) {
+    if (obj.hasOwnProperty(PENDING_PROP)) return;
+    Object.defineProperty(obj, PENDING_PROP, {
+      value: [],
+      writable: false,
+      enumerable: false
+    });
   }
 
-  schema.add(properties);
+  // Add properties to the schema to track file information
+  for (var property in options) {
+    schema.add(FileProperties, property + '.');
+  }
 
   // Create a schema method to mark newly uploaded files for processing on 'save'
   schema.methods.attach = function(files) {
+    ensurePendingOn(this);
     console.log("ATTACHING:", files);
     for (var prop in files) {
-      if (files[prop].size > 0) pending_attachments.push({ prop: prop, file: files[prop], options: options[prop] });
+      if (files[prop].size > 0) {
+        this[PENDING_PROP].push({ prop: prop, file: files[prop], options: options[prop] });
+      }
     }
   };
 
   // Check for pending attachments before saving
   schema.pre('save', function(next) {
     var self = this;
+    var pending_attachments = this[PENDING_PROP];
     console.log("SAVE with pending attachments:", pending_attachments);
-    async.forEach(pending_attachments,
-      function(attachment, callback) {
-        process_pending.call(self, attachment, callback);
+    async.whilst(
+      function filesRemain() {
+        return panding_attachments.length;
       },
-      function(err) {
-        pending_attachments = [];
+      function processNextFile(callback) {
+        process_pending.call(self, pending_attachments, callback);
+      },
+      function complete(err) {
+        while(pending_attachments.length) panding_attachments.shift();  // Can't just set =[] because the property is not writeable
         if (err) return next(new Error(err));
         else return next();   // TODO: figure out why return next(err) doesn't work by itself
       }
@@ -54,11 +65,12 @@ function AttachmentPlugin(schema, options) {
   });
 
   // Process and attach a file
-  function process_pending(attachment, callback) {
+  function process_pending(property, attachments, callback) {
     var self = this;
+    var attachment = attachments.shift();
     async.forEachSeries([ options[key].before, move, store, options[key].after ],
       function(fn, callback) {
-        if (fn) return fn.call(self, attachment, callback);
+        if (fn) return fn.call(self, attachment.prop, attachment.file, callback);
         else return callback();
       }, callback);
   }
@@ -90,20 +102,4 @@ function AttachmentPlugin(schema, options) {
       return callback(err);
     });
   }
-}
-
-AttachmentPlugin.image = function(src, callback) {
-  imagemagick.crop({
-    srcPath: src.file.path,
-    dstPath: src.file.path,
-    width: src.options.width,
-    height: src.options.height
-  }, callback);
-  function complete(err) {
-    if (err) return callback(err);
-    fs.unlink(src.file.path);
-    return callback();
-  }
 };
-
-module.exports = AttachmentPlugin;
