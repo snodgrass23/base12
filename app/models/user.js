@@ -1,5 +1,5 @@
 var skookum = require('../lib/mongoose-skookum');
-var file = skookum.plugins.file;
+var file = require('../lib/mongoose-file');
 
 /**
  * User model to interact with users collection in mongo using the Mongoose ORM

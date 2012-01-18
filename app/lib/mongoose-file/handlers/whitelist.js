@@ -1,5 +1,5 @@
-module.exports = function Whitelist(options) {
-  return function(property, file, callback) {
+module.exports = function Whitelist(whitelist_options) {
+  return function(file, options, callback) {
     return callback();
   };
 };

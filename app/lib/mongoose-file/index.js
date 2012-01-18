@@ -1,4 +1,4 @@
-model.exports = {
+module.exports = {
   plugin: require('./plugin'),
 
   whitelist: require('./handlers/whitelist'),

@@ -5,8 +5,8 @@ var UserDoc = new server.mongoose.Schema({
   
 }, {strict: true});
 
-User.plugin(skookum.plugins.timestamps);
-User.plugin(file.plugin, {
+UserDoc.plugin(skookum.plugins.timestamps);
+UserDoc.plugin(file.plugin, {
   file: {
     dest: server.set('uploads'),
     before: file.whitelist(['.pdf', '.doc', '.txt', '.docx'])

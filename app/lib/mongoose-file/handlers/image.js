@@ -1,12 +1,12 @@
 var imagemagick = require('imagemagick');
 
-module.exports = function Image(options) {
-  return function(property, file, callback) {
+module.exports = function Image(image_options) {
+  return function(file, options, callback) {
     imagemagick.crop({
       srcPath: file.path,
       dstPath: file.path,
-      width: options.width,
-      height: options.height
+      width: image_options.width,
+      height: image_options.height
     }, callback);
   };
 };
