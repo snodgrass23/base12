@@ -1,29 +1,27 @@
 (function() {
 
   var uploader = new plupload.Uploader({
-    runtimes: 'html5,flash,silverlight',
+    runtimes: 'html5,flash,silverlight,html4',
     browse_button: 'choosefile',
     container: 'filecontainer',
     max_file_size: '5mb',
     url: '/users/docs',
-    flash_swf_url : '/js/lib/plupload/js/plupload.flash.swf',
-    silverlight_xap_url : '/js/lib/plupload/js/plupload.silverlight.xap',
+    flash_swf_url : '/js/lib/plupload/plupload.flash.swf',
+    silverlight_xap_url : '/js/lib/plupload/plupload.silverlight.xap',
+    urlstream_upload: true,
     filters : [
       { title : "Image files", extensions : "pdf,txt,doc,docx"}
     ]
-  });
-
-  $('#uploadfile').on('click', function(e) {
-    uploader.start();
-    e.preventDefault();
   });
 
   uploader.bind('Init', function(up, params) {
     console.log('Runtime:', params.runtime);
   });
 
+  uploader.init();
+
   uploader.bind('FilesAdded', function(up, files) {
-    console.log('Added:', files);
+    uploader.start();
   });
 
   uploader.bind('UploadProgress', function(up, file) {
@@ -40,12 +38,10 @@
     console.log('Response:', response);
 
     if (response.code === 200) {
-      var new_input = $('<input class="doc" name="docs" />');
+      var new_input = $('<input class="doc" name="docs" type="hidden" />');
       new_input.val(response.data._id);
       new_input.appendTo('#doclist');
     }
   });
-
-  uploader.init();
 
 })();
