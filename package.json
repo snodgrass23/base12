@@ -20,7 +20,6 @@
     "redis":"latest",
     "mongodb":"latest",
     "mongoose":"git://github.com/LearnBoost/mongoose.git",
-    "mongoose-skookum":"https://github.com/hunterloftis/mongoose-skookum/tarball/master",
     "async":"latest",
     "underscore":"latest",
     "passport":"git://github.com/hunterloftis/passport.git",

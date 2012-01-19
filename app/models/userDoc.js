@@ -1,11 +1,11 @@
-var skookum = require('../lib/mongoose-skookum');
+var util = require('../lib/mongoose-util');
 var file = require('../lib/mongoose-file');
 
 var UserDoc = new server.mongoose.Schema({
   
 }, {strict: true});
 
-UserDoc.plugin(skookum.plugins.timestamps);
+UserDoc.plugin(util.plugin.timestamps);
 UserDoc.plugin(file.plugin, {
   file: {
     dest: server.set('uploads'),

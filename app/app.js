@@ -1,14 +1,15 @@
-// server export
+var express = require('express');
+var options = require('./config/options');
 
+// server export
 exports = module.exports = (function() {
 
-  environment = process.env.NODE_ENV || 'development';
-  options = require('./config/options')([environment]);
-  server = require('express').createServer();
-  models = {};
-  controllers = {};
-  _ = require('underscore');
-  async = require('async');
+  // Globals
+  GLOBAL.environment = process.env.NODE_ENV || 'development';
+  GLOBAL.options = options([environment]);
+  GLOBAL.server = express.createServer();
+  GLOBAL.models = {};
+  GLOBAL.controllers = {};
 
   console.log("Environment in server: " + environment);
 

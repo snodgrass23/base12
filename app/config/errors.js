@@ -1,30 +1,23 @@
+var respond = require('../lib/express-respond');
+var express = require('express');
+
 exports = module.exports = function() {
   
   // Handle uncaught exceptions
 
   process.on("uncaughtException", function(err){
-    console.warn("caught unhandled exception:")
-    console.warn(err.stack || err)
-    console.log("Exiting process due to uncaught exception!")
-    process.exit()
-  })
-  
-  
-  // Respond to standard request errors
-  
-  server.error(function(err, req, res, next){
-    res.send("Internal Server Error", 500);
-    console.warn("Internal server error");
-    /*
-    if (!err || 2 !== err.errno)
-      return res.render("500.jade", { layout: "layout.error.jade" }, function(err, content){
-        res.send(content || "Internal Server Error", 500)  
-      })
-    
-    res.render("404.jade", { layout: "layout.error.jade" }, function(err, content){
-      res.send(content || "File Not Found", 404)  
-    })
-    */
+    console.warn("Exiting process due to uncaught exception!");
+    console.warn(err.stack || err);
+    process.exit();
   });
   
-}
+  // Log errors we send to users
+  server.error(respond.log);
+  
+  // If a route throws an error, handle it by providing an error flash or an error JSON code
+  server.error(respond.error);
+
+  // Then bounce the user back to the previous page & flash the message (if not JSON/xhr)
+  server.error(respond.bounce);
+  
+};

@@ -1,4 +1,4 @@
-var skookum = require('../lib/mongoose-skookum');
+var util = require('../lib/mongoose-util');
 var file = require('../lib/mongoose-file');
 
 /**
@@ -8,7 +8,7 @@ var file = require('../lib/mongoose-file');
  */
 
 var User = new server.mongoose.Schema({
-  email     : { type: String, index: true, required: true, lowercase: true, trim: true, unique: true, validate: [skookum.validators.email, 'not valid'] },
+  email     : { type: String, index: true, required: true, lowercase: true, trim: true, unique: true, validate: [util.validate.email, 'not valid'] },
   name      : { type: String, trim: true, required: true },
   about     : { type: String, trim: true },
   docs      : [{ type: server.mongoose.Schema.ObjectId, ref: 'UserDoc' }]
@@ -16,9 +16,8 @@ var User = new server.mongoose.Schema({
 
 // Plugins
 
-User.plugin(skookum.plugins.password, { required: true });
-User.plugin(skookum.plugins.timestamps);
-User.plugin(skookum.plugins.crud);
+User.plugin(util.plugin.password, { required: true });
+User.plugin(util.plugin.timestamps);
 User.plugin(file.plugin, {
   photo: {
     dest: server.set('uploads'),

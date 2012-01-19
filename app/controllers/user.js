@@ -1,13 +1,8 @@
 var passport = require('passport');
 
 var filters = require('../lib/filters');
-var respond = require('../lib/respond');
-
-function file_stream(contentType) {
-  return function(req, res, next) {
-    return next();
-  };
-}
+var crud = require('../lib/mongoose-crud');
+var respond = require('../lib/express-respond');
 
 /**
  * Users Controller
@@ -25,7 +20,7 @@ exports = module.exports = {
 
   // Sign up POST
   create: [
-    filters.create(models.user, 'user'),
+    crud.create(models.user, 'user'),
     function(req, res, next) {
       req.flash('info', "<strong>Account created.</strong> Welcome to " + options.appTitle + "!");
       return next();
@@ -45,7 +40,7 @@ exports = module.exports = {
   // Account edit PUT
   update: [
     filters.require_self,
-    filters.update('user'),
+    crud.update('user'),
     function(req, res) {
       req.flash('info', '<strong>Account updated.</strong> Nice!');
       res.redirect('/');
@@ -55,8 +50,7 @@ exports = module.exports = {
   // Upload new doc(s) via xhr or iframe
   doc: [
     filters.require_user,
-    file_stream('application/octet-stream'),
-    filters.create(models.userDoc, 'userdoc'),
+    crud.create(models.userDoc, 'userdoc'),
     function(req, res) {
       respond(undefined, req, res, req.results.userdoc);
     }
@@ -71,6 +65,8 @@ exports = module.exports = {
   ],
 
   load: function(id, callback) {
-    models.user.findById(id, callback).populate('docs');
+    models.user.findById(id).populate('docs').run(function(err, result) {
+      return callback(undefined, result);
+    });
   }
 };
