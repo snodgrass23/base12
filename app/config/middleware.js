@@ -43,5 +43,4 @@ exports = module.exports = function() {
   server.use(passport.initialize('currentUser'));
   server.use(passport.session());
   server.use(server.router);
-  server.use(express.errorHandler({ dumpExceptions: options.dumpExceptions, showStack: options.showStack}));
 };

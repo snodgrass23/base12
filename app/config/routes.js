@@ -7,9 +7,11 @@ exports = module.exports = function() {
   // Login Sessions
   server.resource('sessions', controllers.session)
     .map('all', '/login', 'new')
+    .map('all', '/fail', 'fail')
     .map('all', '/logout', 'destroy');
 
   // Users
-  server.resource('users', controllers.user);
+  server.resource('users', controllers.user)
+    .map('post', '/docs', 'doc');
 
 };

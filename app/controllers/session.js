@@ -19,8 +19,15 @@ module.exports = {
   // Login POST
   // TODO: Check referrer to prevent login attacks
   create: [
-    passport.authenticate('local', { failureRedirect: '/sessions/login' }),
+    passport.authenticate('local', { failureRedirect: '/sessions/fail' }),
     function (req, res) { res.redirect('/'); }
+  ],
+
+  fail: [
+    function(req, res, next) {
+      req.flash('error', '<strong>Login failed:</strong> Double-check and try again?');
+      res.redirect('/sessions/login');
+    }
   ],
 
   // Logout

@@ -1,19 +1,6 @@
+var respond = require('./express-respond').respond;
+
 module.exports = {
-  create: function(Model) {
-    return function(req, res, next) {
-      var instance = new Model(req.body);
-      instance.attach(req.files);
-      instance.save(next);
-    };
-  },
-  update: function(m) {
-    return function(req, res, next) {
-      var model = req[m];
-      model.set(req.body);
-      model.attach(req.files);
-      model.save(next);
-    };
-  },
   require_user: function(req, res, next) {
     if (req.currentUser) return next();
     res.redirect(server._locals.route('login'));
