@@ -5,11 +5,11 @@
     browse_button: 'choosefile',
     container: 'filecontainer',
     max_file_size: '5mb',
-    url: '/users/photos',
+    url: '/users/docs',
     flash_swf_url : '/js/lib/plupload/js/plupload.flash.swf',
     silverlight_xap_url : '/js/lib/plupload/js/plupload.silverlight.xap',
     filters : [
-      { title : "Image files", extensions : "jpg,gif,png,jpeg,psd,pdf"}
+      { title : "Image files", extensions : "pdf,txt,doc,docx"}
     ]
   });
 
@@ -40,7 +40,9 @@
     console.log('Response:', response);
 
     if (response.code === 200) {
-      
+      var new_input = $('<input class="doc" name="docs" />');
+      new_input.val(response.data._id);
+      new_input.appendTo('#doclist');
     }
   });
 

@@ -10,7 +10,7 @@ exports = module.exports = function() {
     .map('all', '/logout', 'destroy');
 
   // Users
-  server.post('/users/photos', controllers.user.photo);
+  server.post('/users/docs', controllers.user.doc);
   server.resource('users', controllers.user);
     //.map('post', '/photo', 'photo');
 

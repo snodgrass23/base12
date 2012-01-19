@@ -56,7 +56,7 @@ exports = module.exports = {
   doc: [
     filters.require_user,
     file_stream('application/octet-stream'),
-    filters.create(models.userdoc, 'userdoc'),
+    filters.create(models.userDoc, 'userdoc'),
     function(req, res) {
       respond(undefined, req, res, req.results.userdoc);
     }
@@ -71,6 +71,6 @@ exports = module.exports = {
   ],
 
   load: function(id, callback) {
-    models.user.findById(id, callback).populate('photo');
+    models.user.findById(id, callback).populate('docs');
   }
 };

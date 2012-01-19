@@ -6,7 +6,6 @@ var async = require('async');
 
 var FileProperties = {
   url: String,
-  path: String,
   name: String,
   mime: String,
   size: Number
@@ -89,7 +88,7 @@ function move(file, options, callback) {
   var ext = path.extname(file.name);
   var filename = path.basename(file.path);
   file.destination = options.dest + '/' + filename + ext;
-  file.url = '/uploads/' + filename + ext; // TODO: don't hardcode this
+  file.url = options.prefix + '/' + filename + ext; // TODO: don't hardcode this
   fs.rename(file.path, file.destination, callback);
 }
 

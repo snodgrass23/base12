@@ -22,10 +22,12 @@ User.plugin(skookum.plugins.crud);
 User.plugin(file.plugin, {
   photo: {
     dest: server.set('uploads'),
+    prefix: server.set('uploads url'),
     before: file.image({ width: 220, height: 220})
   },
   cv: {
     dest: server.set('uploads'),
+    prefix: server.set('uploads url'),
     before: file.whitelist(['.pdf', '.doc', '.txt', '.docx'])
   }
 });

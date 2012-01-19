@@ -9,6 +9,7 @@ UserDoc.plugin(skookum.plugins.timestamps);
 UserDoc.plugin(file.plugin, {
   file: {
     dest: server.set('uploads'),
+    prefix: server.set('uploads url'),
     before: file.whitelist(['.pdf', '.doc', '.txt', '.docx'])
   }
 });

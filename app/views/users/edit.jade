@@ -26,8 +26,18 @@ block content
             label(for="photo") Photo
             input(name='photo', type='file')
           .clearfix
+            label(for='cv') CV (Resume)
+            input(name='cv', type='file')
+          .clearfix
             ul#docpreview
             label Documents
+            ul
+              each doc in user.docs
+                li
+                  a(target='docs', href=doc.file.url) #{doc.file.name}
+            #doclist
+              each doc in user.docs
+                input.doc(name='docs', value=doc._id)
             #filecontainer
               a#choosefile(href='#') Select files
               | 
