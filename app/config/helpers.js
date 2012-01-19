@@ -87,6 +87,4 @@ exports = module.exports = function() {
       return '/';
     }
   });
-
-  console.log("Server helpers test:", server.helpers.route);
 };

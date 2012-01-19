@@ -1,51 +1,31 @@
-// initialize app including globals (server, options, etc)
+var cluster = require('cluster');
+var os = require('os');
+var app = require('./app/app');
 
+// Figure out how many workers to start
 var env = process.env.NODE_ENV || 'development';
+var num_workers = (env === 'development') ? 1 : os.cpus().length;
+if (process.argv[2]) num_workers = process.argv[2];
 
-var start_options = {
-  watched_files: undefined,
-  default_start_type: 'normal'
-};
+// initialize app including globals (server, options, etc)
+function start() {
+  if (cluster.isMaster) {
 
-var start = {
-  normal: function() {
-    var cluster = require('cluster'),
-        numCPUs = require('os').cpus().length,
-        num_workers = env == 'development' ? 1 : numCPUs;
+    // Monitor all workers
+    cluster.on('death', function(worker) {
+      console.warn('Worker ' + worker.pid + ' died, forking a replacement...');
+      cluster.fork();
+    });
 
-    if (cluster.isMaster) {
-      // Fork workers.
-
-      for (var i = 0; i < num_workers; i++) {
-        var worker = cluster.fork();
-      }
-
-      cluster.on('death', function(worker) {
-        console.log('worker ' + worker.pid + ' died');
-        cluster.fork();
-      });
-    }
-
-    else {
-      require('./app/app');
-      server.listen(options.port);
-      console.log("************\n"+options.appname+" worker listening at: "  + options.host + ' on port ' + options.port + "\n************");
-    }
-  },
-  single: function() {
-    require('./app/app');
-    server.listen(options.port);
-    console.log("************\n"+options.appname+" worker listening at: "  + options.host + ' on port ' + options.port + "\n************");
-  },
-  simple: function() {
-    require('./app/app');
-    server.listen(options.port);
-    console.log("************\n"+options.appname+" worker listening at: "  + options.host + ' on port ' + options.port + "\n************");
+    // Fork initial workers
+    var workers = num_workers;
+    while(workers--) { cluster.fork(); }
   }
-};
+  else {
+    app.init();
+    app.listen();
+  }
+}
 
-var start_type = process.argv[2] || start_options.default_start_type;
-console.log("Starting in mode '" + start_type + "'...");
-
-
-start[start_type]();
+// Let's DO IT LIVE
+start();

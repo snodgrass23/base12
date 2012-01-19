@@ -2,7 +2,7 @@ var passport = require('passport');
 
 var filters = require('../lib/filters');
 var crud = require('../lib/mongoose-crud');
-var respond = require('../lib/express-respond');
+var respond = require('../lib/express-respond').respond;
 
 /**
  * Users Controller
