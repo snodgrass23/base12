@@ -11,7 +11,7 @@ umask 022
 
 script
   . /home/$deployer/.profile
-  exec /usr/local/bin/node $path/current/server.js >> /var/log/$project.log 2>&1
+  exec \$HOME/local/bin/node $path/current/server.js >> /var/log/$project.log 2>&1
 end script
 
 post-start script
