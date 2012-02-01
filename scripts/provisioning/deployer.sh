@@ -18,12 +18,10 @@ chmod 600 /home/$deployer/.ssh/authorized_keys
 echo "$privatekey" > /home/$deployer/.ssh/id_rsa
 
 # chmod keys
-#chmod 600 /home/$deployer/.ssh/id_rsa.pub
 chmod 600 /home/$deployer/.ssh/id_rsa
 chown -R $deployer:$deployer /home/$deployer/
 
-# sudoers
-# TODO: Make sure this is limited enough
+# sudoer capability just for this project
 cat <<EOF > /etc/sudoers.d/node
 $deployer     ALL=NOPASSWD: /sbin/restart $project
 $deployer     ALL=NOPASSWD: /sbin/stop $project
@@ -33,6 +31,9 @@ chmod 0440 /etc/sudoers.d/node
 
 # set node environment
 echo 'export NODE_ENV=$environment' > /home/$deployer/.profile
+
+# use our locally installed node binary
+echo 'export PATH=\$HOME/local/node/bin:\$PATH' >> /home/$deployer/.profile
 
 # don't use strict known_hosts checking (so we can pull from wherever we want to host our git repo)
 cat <<'EOF' > /etc/ssh/ssh_config

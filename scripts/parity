@@ -34,6 +34,6 @@ check() {
 }
 
 echo "  ---"
-check "node" "node --version" "v0.6.6"
+check "node" "node --version" "v0.6.8"
 check "redis" "redis-server --version" "Redis server version 2.4.5 (00000000:0)"
 check "mongo" "mongo --version" "MongoDB shell version: 2.0.2"

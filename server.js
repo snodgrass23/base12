@@ -1,6 +1,5 @@
 var cluster = require('cluster');
 var os = require('os');
-var app = require('./app/app');
 
 // Figure out how many workers to start
 var env = process.env.NODE_ENV || 'development';
@@ -9,6 +8,8 @@ if (process.argv[2]) num_workers = process.argv[2];
 
 // initialize app including globals (server, options, etc)
 function start() {
+  var app = require('./app/app');
+
   if (cluster.isMaster) {
 
     // Monitor all workers
