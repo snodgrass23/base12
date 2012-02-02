@@ -1,9 +1,13 @@
-nav.topbar-wrapper
-  .topbar
-    .topbar-inner
-      .container
-        h3: a(href='/') Boilerplate
-        ul.nav.secondary-nav
+nav.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.brand(href='/') Boilerplate
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      .nav-collapse
+        ul.nav
           - if (is_logged_in)
             li: a(href=account_route) Profile
             li: a(href=account_route+'/edit') Account
