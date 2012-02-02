@@ -2,16 +2,27 @@ extends ../layouts/layout
 
 block subject
   header#subject
-    h1 Create an account
+    h1 Sign up
 
 block content
-  section#main
-    form(action="/users", method="post")
-      .clearfix
-        input(type='text', name='name', placeholder='name')
-      .clearfix
-        input(type='email', name='email', placeholder='email')
-      .clearfix
-        input(type='password', name='password', placeholder='password')
-      .clearfix
-        input.btn.primary(type="submit", value="Create account") Create account
+  .row
+    .span12
+      form.form-horizontal(action="/users", method="post")
+        fieldset
+          legend Already a user?
+            a(href='/users/new') &nbsp;Sign in.
+          .control-group
+            label.control-label name
+            .controls
+              input(type='text', name='name', placeholder='name')
+          .control-group
+            label.control-label email
+            .controls
+              input(type='email', name='email', placeholder='email')
+          .control-group
+            label.control-label password
+            .controls
+              input(type='password', name='password', placeholder='password')
+          .control-group
+            .controls
+              input.btn.btn-primary(type="submit", value="Create my account") Create my account
