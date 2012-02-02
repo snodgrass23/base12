@@ -1,17 +1,18 @@
 version=`node --version`
-if [ "$version" = "v0.6.6" ]
+if [ "$version" = "v0.6.9" ]
 then
-  echo "node v0.6.6 is already installed"
+  echo "node v0.6.9 is already installed"
   exit
 fi
 
-cd /tmp
-rm -rf node
-wget http://nodejs.org/dist/v0.6.6/node-v0.6.8.tar.gz
-tar xzvf node-v0.6.8.tar.gz
-cd node-v0.6.8
+mkdir ~/tmp
+cd ~/tmp
+rm -rf ./node-v0.6.9
+wget http://nodejs.org/dist/v0.6.9/node-v0.6.9.tar.gz
+tar xzvf node-v0.6.9.tar.gz
+cd node-v0.6.9
 export JOBS=4
-mkdir ~/local
-./configure --prefix=$HOME/local/node
+mkdir -p ~/local/node
+./configure --prefix=~/local/node
 make
 make install

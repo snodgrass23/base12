@@ -123,9 +123,9 @@ run() {
 #
 
 script() {
-  local url="$USER@`config_get host`"
+  local url="$1@`config_get host`"
   local shell="ssh $url"
-  $shell 'bash -s' < $@
+  $shell 'bash -s' < $2
 }
 
 template() {
@@ -134,7 +134,7 @@ template() {
    echo "EOFNOREALLY"
   } | sh > "/tmp/templated.sh"
 
-  script "/tmp/templated.sh"
+  script $USER "/tmp/templated.sh"
   rm /tmp/templated.sh
 }
 
@@ -217,7 +217,7 @@ node() {
   if [[ `config_get stack` != 'node' ]]; then return 0; fi
   hr
   log "installing node" 
-  script "$SCRIPTS/node.sh"
+  script $PROJECTNAME "$SCRIPTS/node.sh"
 }
 
 #
@@ -242,7 +242,7 @@ mongo() {
   if [[ `config_get stack` != 'node' ]]; then return 0; fi
   hr
   log "installing mongo"
-  script "$SCRIPTS/mongo.sh"
+  script $USER "$SCRIPTS/mongo.sh"
 }
 
 #
@@ -253,7 +253,7 @@ redis() {
   if [[ `config_get stack` != 'node' ]]; then return 0; fi
   hr
   log "installing redis"
-  script "$SCRIPTS/redis.sh"
+  script $USER "$SCRIPTS/redis.sh"
 }
 
 #
