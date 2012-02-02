@@ -1,4 +1,6 @@
 # node upstart script
+# TODO: execute this as the $deployer user rather than root
+
 cat <<'EOF' > /etc/init/$project.conf 
 description "$project server"
 
@@ -11,7 +13,7 @@ umask 022
 
 script
   . /home/$deployer/.profile
-  exec \$HOME/local/bin/node $path/current/server.js >> /var/log/$project.log 2>&1
+  exec /home/$deployer/local/node/bin/node $path/current/server.js >> /var/log/$project.log 2>&1
 end script
 
 post-start script
