@@ -7,13 +7,15 @@ var connectTimeout  = require('connect-timeout'),
     util            = require('util'),
     passport        = require('passport'),
     connectRedis    = require('connect-redis')(require('connect')),
-    redis           = require('redis');
+    redis           = require('redis'),
+    authentication  = require('./lib/authentication');
 
 // Middleware
 
-exports = module.exports = function() {
+module.exports = function(server, config) {
   
-  //server.use(express.logger({ format: ':method :url' }));
+  authentication();
+
   server.use(connectTimeout({ time: options.reqTimeout }));
   server.use(stylus.middleware({
     src: server.set('views'),
@@ -43,4 +45,13 @@ exports = module.exports = function() {
   server.use(passport.initialize('currentUser'));
   server.use(passport.session());
   server.use(server.router);
+
+  // Log errors we send to users
+  server.error(respond.log);
+  
+  // If a route throws an error, handle it by providing an error flash or an error JSON code
+  server.error(respond.error);
+
+  // Then bounce the user back to the previous page & flash the message (if not JSON/xhr)
+  server.error(respond.bounce);
 };

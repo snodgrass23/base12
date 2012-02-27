@@ -1,5 +1,5 @@
 
-exports = module.exports = function() {
+module.exports = function(server, config) {
   
   // Home
   server.resource(controllers.home);

@@ -1,4 +1,4 @@
-exports = module.exports = function() {
+module.exports = function(server, config) {
   
   server.helpers({
     
