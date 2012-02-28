@@ -1,14 +1,12 @@
 var ion = require('../lib/ion');
 
-var ONE_SECOND = 1000;
-var ONE_HOUR = ONE_SECOND * 60 * 60;
-var ONE_DAY = ONE_HOUR * 24;
-var TWO_WEEKS = ONE_DAY * 14;
+var options = require('./lib/options');
+var middleware = require('./lib/middleware');
+var authentication = require('./lib/authentication');
+var routes = require('./lib/routes');
 
-module.exports = new ion.App(__dirname, {
-  name: 'node12',
-  config: '~/local/etc/node12.js',
-  title: 'node.js 12-factor app',
-  session_length: TWO_WEEKS,
-  request_timeout: ONE_SECOND * 10
+module.exports = new ion.App({
+  dir: __dirname,                             // Load Models, Views, Controllers, Helpers
+  options: options,                           // Options that do not change between machines / deploys (config that changes should go in .env)
+  init: [middleware, authentication, routes]  // Steps to initialize your app
 });

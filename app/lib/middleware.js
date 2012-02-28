@@ -7,14 +7,11 @@ var connectTimeout  = require('connect-timeout'),
     util            = require('util'),
     passport        = require('passport'),
     connectRedis    = require('connect-redis')(require('connect')),
-    redis           = require('redis'),
-    authentication  = require('./lib/authentication');
+    redis           = require('redis');
 
 // Middleware
 
 module.exports = function(server, config) {
-  
-  authentication();
 
   server.use(connectTimeout({ time: options.reqTimeout }));
   server.use(stylus.middleware({

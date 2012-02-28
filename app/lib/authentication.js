@@ -1,7 +1,7 @@
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
     
-module.exports = function() {
+module.exports = function(server, config) {
 
   /**
    * Authentication strategies

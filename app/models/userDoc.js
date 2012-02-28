@@ -1,17 +1,20 @@
-var util = require('../lib/mongoose-util');
-var file = require('../lib/mongoose-file');
+var util = require('../../lib/mongoose-util');
+var file = require('../../lib/mongoose-file');
 
-var UserDoc = new server.mongoose.Schema({
-  
-}, {strict: true});
+module.exports = function(server, config) {
 
-UserDoc.plugin(util.plugin.timestamps);
-UserDoc.plugin(file.plugin, {
-  file: {
-    dest: server.set('uploads'),
-    prefix: server.set('uploads url'),
-    before: file.whitelist(['.pdf', '.doc', '.txt', '.docx'])
-  }
-});
+  var UserDoc = new server.mongoose.Schema({
+    
+  }, {strict: true});
 
-module.exports = server.mongoose.model('UserDoc', UserDoc);
+  UserDoc.plugin(util.plugin.timestamps);
+  UserDoc.plugin(file.plugin, {
+    file: {
+      dest: server.set('uploads'),
+      prefix: server.set('uploads url'),
+      before: file.whitelist(['.pdf', '.doc', '.txt', '.docx'])
+    }
+  });
+
+  return server.mongoose.model('UserDoc', UserDoc);
+};
