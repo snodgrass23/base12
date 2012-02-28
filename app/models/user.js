@@ -37,6 +37,6 @@ module.exports = function(server, config) {
 
   // Export
 
-  return server.mongoose.model('User', User);
+  return mongoose.model('User', User);
 
 };

@@ -1,9 +1,11 @@
+var mongoose = require('mongoose');
+
 var util = require('../../lib/mongoose-util');
 var file = require('../../lib/mongoose-file');
 
 module.exports = function(server, config) {
 
-  var UserDoc = new server.mongoose.Schema({
+  var UserDoc = new mongoose.Schema({
     
   }, {strict: true});
 
@@ -16,5 +18,5 @@ module.exports = function(server, config) {
     }
   });
 
-  return server.mongoose.model('UserDoc', UserDoc);
+  return mongoose.model('UserDoc', UserDoc);
 };
