@@ -5,3 +5,4 @@ logs/*.log
 nohup.out
 app/public/uploads/*
 !app/public/uploads/.gitme
+.env
