@@ -49,7 +49,9 @@ module.exports = function(app) {
   app.server.use(passport.session());
   app.server.use(app.server.router);
 
+  //app.server.error(app.middleware.errors.respond);
   app.server.error(function(err, req, res, next) {
     // Handle errors
+    throw err;
   });
 };
