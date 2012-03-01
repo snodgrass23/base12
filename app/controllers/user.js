@@ -1,6 +1,5 @@
 var passport = require('passport');
 
-var filters = require('../../lib/filters');
 var crud = require('../../lib/mongoose-crud');
 var respond = require('../../lib/express-respond').respond;
 
@@ -10,12 +9,10 @@ var respond = require('../../lib/express-respond').respond;
  
 module.exports = function(app) {
 
-  console.log("SERVER MODELS:", app.models);
-
   return {
     // Sign up form
     'new': [
-      filters.is_user,
+      app.middleware.user.is_user,
       function(req, res) {
         res.render('users/new');
       }
@@ -23,7 +20,6 @@ module.exports = function(app) {
 
     // Sign up POST
     create: [
-      function(req, res, next) { console.log("MODELS:", app.models); return next(); },
       crud.create(app.models.user, 'user'),
       function(req, res, next) {
         req.flash('info', "<strong>Account created.</strong> Welcome to " + options.appTitle + "!");
@@ -35,7 +31,7 @@ module.exports = function(app) {
 
     // Account edit form
     edit: [
-      filters.require_self,
+      app.middleware.user.require_self,
       function(req, res) {
         res.render('users/edit', {user: req.user});
       }
@@ -43,7 +39,7 @@ module.exports = function(app) {
 
     // Account edit PUT
     update: [
-      filters.require_self,
+      app.middleware.user.require_self,
       crud.update('user'),
       function(req, res) {
         req.flash('info', '<strong>Account updated.</strong> Nice!');
@@ -53,7 +49,7 @@ module.exports = function(app) {
 
     // Upload new doc(s) via xhr or iframe
     doc: [
-      filters.require_user,
+      app.middleware.user.require_user,
       crud.create(app.models.userDoc, 'userdoc'),
       function(req, res) {
         respond(undefined, req, res, req.results.userdoc);
@@ -62,8 +58,7 @@ module.exports = function(app) {
 
     // User profile
     show: [
-      //filters.log("USERS.SHOW"),
-      filters.is_self,
+      app.middleware.user.is_self,
       function(req, res) {
         res.render('users/show', {user: req.user, is_self: req.is_self, section: 'user'});
       }

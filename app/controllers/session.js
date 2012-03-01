@@ -1,14 +1,12 @@
 var passport = require('passport');
-var filters = require('../../lib/filters');
-
 
 module.exports = function(app) {
-  
+
   return {
 
     // Login form
     'new': [
-      filters.is_user,
+      app.middleware.user.is_user,
       function(req, res) {
         res.render('sessions/new');
       }
@@ -17,9 +15,8 @@ module.exports = function(app) {
     // Login POST
     // TODO: Check referrer to prevent login attacks
     create: [
-      function (req, res, next) { console.log("LOGGING IN"); return next(); },
+      function(req, res, next) { console.log("OKAY HERE"); return next(); },
       passport.authenticate('local', { failureRedirect: '/sessions/fail' }),
-      function (req, res, next) { console.log("LOGGED IN"); return next(); },
       function (req, res) { res.redirect('/'); }
     ],
 
