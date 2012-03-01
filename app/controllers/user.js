@@ -20,9 +20,7 @@ module.exports = function(app) {
 
     // Sign up POST
     create: [
-      app.middleware.debug.log('USER.CREATE'),
       crud.create(app.models.user, 'user'),
-      app.middleware.debug.log('AFTER CRUD'),
       function(req, res, next) {
         req.flash('info', "<strong>Account created.</strong> Welcome to " + app.constants.title + "!");
         return next();
