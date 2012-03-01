@@ -2,7 +2,7 @@ var passport = require('passport');
 var filters = require('../../lib/filters');
 
 
-module.exports = function(server, config) {
+module.exports = function(app) {
   
   return {
 
@@ -17,7 +17,9 @@ module.exports = function(server, config) {
     // Login POST
     // TODO: Check referrer to prevent login attacks
     create: [
+      function (req, res, next) { console.log("LOGGING IN"); return next(); },
       passport.authenticate('local', { failureRedirect: '/sessions/fail' }),
+      function (req, res, next) { console.log("LOGGED IN"); return next(); },
       function (req, res) { res.redirect('/'); }
     ],
 

@@ -1,7 +1,7 @@
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
     
-module.exports = function(server, config) {
+module.exports = function(app) {
 
   /**
    * Authentication strategies
@@ -11,7 +11,9 @@ module.exports = function(server, config) {
       usernameField: 'email'
     },
     function(email, password, done) {
-      models.user.find_with_password({ email: email }, password, function (err, user) {
+      console.log("WTF");
+      app.models.user.find_with_password({ email: email }, password, function (err, user) {
+        console.log("OK");
         if (!user) return done(err);
         else return done(undefined, user);
       });
@@ -27,7 +29,7 @@ module.exports = function(server, config) {
   });
 
   passport.deserializeUser(function(id, done) {
-    models.user.findById(id, function(err, found_user) {
+    app.models.user.findById(id, function(err, found_user) {
       done(err, found_user);
     });
   });

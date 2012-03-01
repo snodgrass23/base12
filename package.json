@@ -22,7 +22,7 @@
     "mongoose":"git://github.com/LearnBoost/mongoose.git",
     "async":"latest",
     "underscore":"latest",
-    "passport":"git://github.com/hunterloftis/passport.git",
+    "passport":"latest",
     "passport-local":"latest",
     "password-hash":"latest",
     "imagemagick":"git://github.com/Skookum/node-imagemagick.git"
