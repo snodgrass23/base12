@@ -8,7 +8,9 @@ var respond = require('../../lib/express-respond').respond;
  * Users Controller
  */
  
-module.exports = function(server, config) {
+module.exports = function(app) {
+
+  console.log("SERVER MODELS:", app.models);
 
   return {
     // Sign up form
@@ -21,8 +23,8 @@ module.exports = function(server, config) {
 
     // Sign up POST
     create: [
-      function(req, res, next) { console.log("MODELS:", server.models); return next(); },
-      crud.create(server.models.user, 'user'),
+      function(req, res, next) { console.log("MODELS:", app.models); return next(); },
+      crud.create(app.models.user, 'user'),
       function(req, res, next) {
         req.flash('info', "<strong>Account created.</strong> Welcome to " + options.appTitle + "!");
         return next();
@@ -52,7 +54,7 @@ module.exports = function(server, config) {
     // Upload new doc(s) via xhr or iframe
     doc: [
       filters.require_user,
-      crud.create(models.userDoc, 'userdoc'),
+      crud.create(app.models.userDoc, 'userdoc'),
       function(req, res) {
         respond(undefined, req, res, req.results.userdoc);
       }
@@ -67,7 +69,7 @@ module.exports = function(server, config) {
     ],
 
     load: function(id, callback) {
-      models.user.findById(id).populate('docs').run(function(err, result) {
+      app.models.user.findById(id).populate('docs').run(function(err, result) {
         return callback(undefined, result);
       });
     }

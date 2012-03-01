@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var util = require('../../lib/mongoose-util');
 var file = require('../../lib/mongoose-file');
 
-module.exports = function(server, config) {
+module.exports = function(app) {
 
   /**
    * User model to interact with users collection in mongo using the Mongoose ORM
@@ -24,13 +24,13 @@ module.exports = function(server, config) {
   User.plugin(util.plugin.timestamps);
   User.plugin(file.plugin, {
     photo: {
-      dest: server.set('uploads'),
-      prefix: server.set('uploads url'),
+      dest: app.config.uploads,
+      prefix: app.config.uploads_url,
       before: file.image({ width: 220, height: 220})
     },
     cv: {
-      dest: server.set('uploads'),
-      prefix: server.set('uploads url'),
+      dest: app.config.uploads,
+      prefix: app.config.uploads_url,
       before: file.whitelist(['.pdf', '.doc', '.txt', '.docx'])
     }
   });
