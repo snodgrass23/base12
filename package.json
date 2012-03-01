@@ -10,7 +10,7 @@
     "jade":"latest",
     "express":"latest",
     "stylus":"latest",
-    "connect":"latest",
+    "connect":"1.8.5",
     "connect-redis":"latest",
     "connect-timeout":"latest",
     "connect-form":"latest",

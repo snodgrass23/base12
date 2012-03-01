@@ -62,6 +62,7 @@ module.exports = function(app) {
 
     // User profile
     show: [
+      filters.log("USERS.SHOW"),
       filters.is_self,
       function(req, res) {
         res.render('users/show', {user: req.user, is_self: req.is_self, section: 'user'});
