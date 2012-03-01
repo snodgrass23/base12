@@ -1,11 +1,17 @@
-var filters = require('../../lib/filters');
+module.exports = function(app) {
 
-module.exports = function(server, config) {
+  var filters = require('../../lib/filters')(app);
+
+  console.log("FILTER:", filters.require_not_user);
 
   return {
     
     // Landing page
     index: [
+      function(req, res, next) {
+        console.log("LANDING");
+        return next();
+      },
       filters.require_not_user,
       function(req, res, next) {
         res.render('home/index');
