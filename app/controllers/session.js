@@ -1,7 +1,6 @@
 var passport = require('passport');
 
 module.exports = function(app) {
-
   return {
 
     // Login form
@@ -15,7 +14,6 @@ module.exports = function(app) {
     // Login POST
     // TODO: Check referrer to prevent login attacks
     create: [
-      function(req, res, next) { console.log("OKAY HERE"); return next(); },
       passport.authenticate('local', { failureRedirect: '/sessions/fail' }),
       function (req, res) { res.redirect('/'); }
     ],

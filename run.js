@@ -1,4 +1,4 @@
-var ion = require('./lib/ion');
+var base12 = require('./lib/base12');
 var app = require('./app');
 
-ion.balance(app);
+base12.balance(app, process.argv[2]);
