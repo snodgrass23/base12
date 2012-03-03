@@ -2,12 +2,12 @@
       
 [12factor.net](http://12factor.net) app boilerplate for [node.js](http://node.js), built on [express 3](http://expressjs.com)
 
-    ```shell
-    git clone git://github.com/hunterloftis/base12.git projectname
-    cd projectname
-    npm install
-    sudo node run
-    ```
+```shell
+git clone git://github.com/hunterloftis/base12.git projectname
+cd projectname
+npm install
+sudo node run
+```
 
 **12 Factor**
 - Painlessly follow Ryan Dahl's 'gospel' for production-ready node.js apps (12factor.net)
