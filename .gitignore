@@ -1,8 +1,2 @@
 node_modules
-assets/*
-pids/*.pid
-logs/*.log
-nohup.out
-app/public/uploads/*
-!app/public/uploads/.gitme
 .env.js
