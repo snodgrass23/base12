@@ -3,7 +3,7 @@ module.exports = function(app) {
   // Dynamic locals
 
   // expose error' and 'message' to all views that are rendered
-  app.server.locals.use(function(req, res) {
+  app.locals.use(function(req, res) {
     res.locals.error = req.session.error || '';
     res.locals.message = req.session.message || '';
     // delete them so they're not displayed on subsequent renders
@@ -13,7 +13,7 @@ module.exports = function(app) {
 
   // Static locals
 
-  app.server.locals({
+  app.locals({
     
     route: function(action) {
       var map = {

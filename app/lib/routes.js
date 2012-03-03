@@ -3,8 +3,8 @@
 module.exports = function(app) {
   
   // Home
-  //app.server.resource(app.controllers.home);
+  //app.resource(app.controllers.home);
 
-  app.server.get('/', app.controllers.home.index);
+  app.get('/', app.controllers.home.index);
 
 };

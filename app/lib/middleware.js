@@ -8,8 +8,8 @@ module.exports = function(app) {
 
   // Stylus
   var stylus_middleware = stylus.middleware({
-    src: app.server.set('views'),
-    dest: app.server.set('public'),
+    src: app.set('views'),
+    dest: app.set('public'),
     debug: false,
     compileMethod: function(str) {
       return stylus(str, path)
@@ -33,14 +33,14 @@ module.exports = function(app) {
   });
 
   // Middleware stack for all requests
-  app.server.use(stylus_middleware);                              // Compile .styl to .css
-  app.server.use(express.cookieParser(app.config.cookie_secret));         // req.cookies
-  app.server.use(session_middleware);                             // req.session
-  app.server.use(express.bodyParser());                           // req.body & req.files
-  app.server.use(express.methodOverride());                       // '_method' property in body (POST -> DELETE / PUT)
-  app.server.use(app.server.router);                              // routes.js
-  app.server.use(express['static'](app.server.set('public')));    // Serve files from /public
+  app.use(stylus_middleware);                              // Compile .styl to .css
+  app.use(express.cookieParser(app.config.cookie_secret));         // req.cookies
+  app.use(session_middleware);                             // req.session
+  app.use(express.bodyParser());                           // req.body & req.files
+  app.use(express.methodOverride());                       // '_method' property in body (POST -> DELETE / PUT)
+  app.use(app.router);                              // routes.js
+  app.use(express['static'](app.set('public')));    // Serve files from /public
   
   // Handle errors thrown from middleware/routes
-  app.server.use(error_middleware);
+  app.use(error_middleware);
 };

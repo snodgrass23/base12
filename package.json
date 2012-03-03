@@ -16,5 +16,10 @@
     "redis":"latest",
     "async":"latest",
     "underscore":"latest"
+  },
+  "constants":{
+    "title":"node.js 12-factor app",
+    "session_length":1209600000,
+    "request_timeout":10000
   }
 }
