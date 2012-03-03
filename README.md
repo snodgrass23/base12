@@ -2,32 +2,28 @@
       
 [12factor.net](http://12factor.net) app boilerplate for [node.js](http://node.js), built on [express 3](http://expressjs.com)
 
-----------------
+    ```shell
+    git clone git://github.com/hunterloftis/base12.git projectname
+    cd projectname
+    npm install
+    sudo node run
+    ```
 
 **12 Factor**
 - Painlessly follow Ryan Dahl's 'gospel' for production-ready node.js apps (12factor.net)
 
 **Cloud Deployments**
-- Deploy to the cloud easily, immediately (joyent, heroku, amazon, linode, rackspace, nodejitsu, etc)
+- Deploy to the cloud easily and immediately (joyent, heroku, amazon, linode, rackspace, nodejitsu)
 
 **Structure**
-- Always know where things go. Base12 encourages best practices by design.
+- Always know where things go. A proven MVC architecture on top of express.
 
 **Express 3**
-- Leverage the newest version of node's most popular app framework.
+- Leverage the newest version of the most popular app framework for node.js.
 
 **Not Rails**
 - We believe that, if Rails is best for your project, you should use it.
 Instead, base12 embraces the node.js way: light processes, shallow inheritance, simple interfaces, and the chain-of-responsibility pattern.
-
-## For the lazy
-
-    ```shell
-    mkdir projectname
-    git clone git://github.com/hunterloftis/node-boilerplate.git projectname
-    cd projectname
-    sudo node run
-    ```
 
 ## Where stuff goes
 
