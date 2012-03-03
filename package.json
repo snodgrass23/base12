@@ -1,28 +1,33 @@
 {
-  "name":"base12project",
-  "version":"0.0.1",
-  "directories":{},
-  "engines" : {
-      "node" : ">=0.6.6",
-      "npm" : ">=1.1" 
-  },
-  "dependencies":{
-    "jade":"latest",
-    "express":"git://github.com/visionmedia/express.git",
-    "stylus":"latest",
-    "connect-redis":"latest",
-    "express-resource":"latest",
-    "express-messages":"git://github.com/hunterloftis/express-messages.git",
-    "redis":"latest",
-    "async":"latest",
-    "underscore":"latest"
-  },
-  "scripts":{
-    "preinstall":"echo 'cool'"
-  },
-  "constants":{
-    "title":"node.js 12-factor app",
-    "session_length":1209600000,
-    "request_timeout":10000
-  }
+    "name": "base12project",
+    "version": "0.0.1",
+    "directories": {},
+    "engines": {
+        "node": ">=0.6.6",
+        "npm": ">=1.1"
+    },
+    "dependencies": {
+        "jade": "latest",
+        "express": "git://github.com/visionmedia/express.git",
+        "stylus": "latest",
+        "connect-redis": "latest",
+        "express-resource": "latest",
+        "express-messages": "git://github.com/hunterloftis/express-messages.git",
+        "redis": "latest",
+        "async": "latest",
+        "underscore": "latest"
+    },
+    "devDependencies": {
+        "vows": "latest"
+    },
+    "scripts": {
+        "lock": "scripts/module_lock.js",
+        "postinstall": "scripts/postinstall.js",
+        "test": "vows test/*.vows.js"
+    },
+    "constants": {
+        "title": "node.js 12-factor app",
+        "session_length": 1209600000,
+        "request_timeout": 10000
+    }
 }
