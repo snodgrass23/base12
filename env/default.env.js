@@ -5,7 +5,6 @@ module.exports = {
   timeout: 10000,
   cookie_secret: 'mysecret',
   session: {
-    secret: 'mysecret',
     key: 'mykey'
   },
   redis: {
