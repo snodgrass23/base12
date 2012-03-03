@@ -1,6 +1,6 @@
 # base12
       
-[12factor.net](http://12factor.net) app boilerplate for [node.js](http://node.js), built on [express 3](http://expressjs.com)
+### [12factor.net](http://12factor.net) app boilerplate for [node.js](http://node.js), built on [express 3](http://expressjs.com)
 
 **12 Factor**
 - Painlessly follow Ryan Dahl's 'gospel' for production-ready node.js apps (12factor.net)
