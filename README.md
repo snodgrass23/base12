@@ -27,37 +27,36 @@ Instead, base12 embraces the node.js way: light processes, shallow inheritance, 
 
 ## Where stuff goes
 
-    ```
-    app
-      /controllers      -- controllers are automatically loaded (user.js -> app.controllers.user)
-      /lib              -- app-specific modules (default: routes.js, middleware.js, locals.js)
-      /middleware       -- middleware is automatically loaded (auth.js -> app.middleware.auth)
-      /models           -- models are automatically loaded (project.js -> app.models.project)
-      /public           -- static files are hosted here
-      /shared           -- isomorphic (client/server) files are hosted here
-      /views            -- view templates are automatically loaded via express
-      index.js          -- starts your application with `base12.app()`
+```
+app
+  /controllers      -- controllers are automatically loaded (user.js -> app.controllers.user)
+  /lib              -- app-specific modules (default: routes.js, middleware.js, locals.js)
+  /middleware       -- middleware is automatically loaded (auth.js -> app.middleware.auth)
+  /models           -- models are automatically loaded (project.js -> app.models.project)
+  /public           -- static files are hosted here
+  /shared           -- isomorphic (client/server) files are hosted here
+  /views            -- view templates are automatically loaded via express
+  index.js          -- starts your application with `base12.app()`
 
-    doc                 -- documentation
-    env                 -- named environment configurations (eg `staging`, `deployment`)
-    lib                 -- non-npm-published generic modules
-    scripts             -- scripts (eg admin, deployment, migrations)
-    test                -- tests (vows by default)
-    tmp                 -- your app can store temporary files here
+doc                 -- documentation
+env                 -- named environment configurations (eg `staging`, `deployment`)
+lib                 -- non-npm-published generic modules
+scripts             -- scripts (eg admin, deployment, migrations)
+test                -- tests (vows by default)
+tmp                 -- your app can store temporary files here
 
-    package.json        -- npm package.json plus application constants
-    .env.js             -- created by `npm install`, local environment config
+package.json        -- npm package.json plus application constants
+.env.js             -- created by `npm install`, local environment config
 
-    build.js            -- builds assets
-    run.js              -- runs your app
-    cycle.js            -- watches local files and builds/runs on changes (for development)
-    ```
+build.js            -- builds assets
+run.js              -- runs your app
+cycle.js            -- watches local files and builds/runs on changes (for development)
+```
 
-When base12 starts, it runs `/index.js`. By default, `/index.js` uses base12.balance (and `cluster`)
-to balance multiple app processes (1 for each core of the host machine).
+When base12 starts, it runs `/index.js`. By default, `/index.js` uses `base12.balance()`
+to balance multiple app processes via `cluster` (1 process per cpu).
 
-Each app process runs `/app/index.js`, which creates a new `base12.app` and specifies modules that should be called
-to initialize the app. The `app` instance is passed into all modules. 
+Each process runs `/app/index.js`, which creates a new app with `base12.app()`. The `app` instance is passed into all modules. 
 
 Once all modules have run, the app starts listening for requests.
 
