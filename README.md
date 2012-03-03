@@ -40,21 +40,20 @@ app
 
 doc                 -- documentation
 env                 -- named environment configurations (eg `staging`, `deployment`)
-lib                 -- non-npm-published generic modules
+lib                 -- non-npm-published node.js libraries
 scripts             -- scripts (eg admin, deployment, migrations)
 test                -- tests (vows by default)
 tmp                 -- your app can store temporary files here
 
-package.json        -- npm package.json plus application constants
-.env.js             -- created by `npm install`, local environment config
+package.json        -- npm package.json (base12 app `constants` stored here)
+.env.js             -- environment config (created by `npm install`)
 
 build.js            -- builds assets
 run.js              -- runs your app
 cycle.js            -- watches local files and builds/runs on changes (for development)
 ```
 
-When base12 starts, it runs `/index.js`. By default, `/index.js` uses `base12.balance()`
-to balance multiple app processes via `cluster` (1 process per cpu).
+When base12 starts, it runs `/index.js`, which uses `base12.balance()` to balance app processes via `cluster` (1 process per cpu).
 
 Each process runs `/app/index.js`, which creates a new app with `base12.app()`. The `app` instance is passed into all modules. 
 
@@ -68,4 +67,28 @@ Once all modules have run, the app starts listening for requests.
 
 ## The 12 Factors
 
+### 1. Codebase
 
+### 2. Dependencies
+
+### 3. Config
+
+### 4. Backing services
+
+### 5. Build, release, run
+
+### 6. Processes
+
+### 7. Port binding
+
+### 8. Concurrency
+
+### 9. Disposability
+
+### 10. Dev/prod parity
+
+### 11. Logs
+
+### 12. Admin processes
+
+## System Requirements
