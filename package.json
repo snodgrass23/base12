@@ -17,6 +17,9 @@
     "async":"latest",
     "underscore":"latest"
   },
+  "scripts":{
+    "preinstall":"echo 'cool'"
+  },
   "constants":{
     "title":"node.js 12-factor app",
     "session_length":1209600000,

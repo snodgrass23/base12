@@ -23,7 +23,8 @@ module.exports = function(app) {
   var session_middleware = express.session({
     key: app.config.session_key,
     cookie: { secure: true },
-    store: new RedisStore()
+    store: new RedisStore(),
+    maxAge: app.config.session_length
   });
 
   // Error handler
