@@ -34,13 +34,14 @@ module.exports = function(app) {
   });
 
   // Middleware stack for all requests
-  app.use(stylus_middleware);                              // Compile .styl to .css
-  app.use(express.cookieParser(app.config.cookie_secret));         // req.cookies
-  app.use(session_middleware);                             // req.session
-  app.use(express.bodyParser());                           // req.body & req.files
-  app.use(express.methodOverride());                       // '_method' property in body (POST -> DELETE / PUT)
-  app.use(app.router);                              // routes.js
-  app.use(express['static'](app.set('public')));    // Serve files from /public
+  app.use(express.compress());                              // gzip
+  app.use(stylus_middleware);                               // Compile .styl to .css
+  app.use(express.cookieParser(app.config.cookie_secret));  // req.cookies
+  app.use(session_middleware);                              // req.session
+  app.use(express.bodyParser());                            // req.body & req.files
+  app.use(express.methodOverride());                        // '_method' property in body (POST -> DELETE / PUT)
+  app.use(app.router);                                      // routes in lib/routes.js
+  app.use(express['static'](app.set('public')));            // static files in /public
   
   // Handle errors thrown from middleware/routes
   app.use(error_middleware);
