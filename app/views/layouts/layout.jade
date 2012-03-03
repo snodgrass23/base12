@@ -4,30 +4,22 @@ html
     meta(charset="utf-8")
     title
       block title
-        | node-boilerplate
+        | base12 application
     block styles
-      link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.min.css' )
-      link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.min.responsive.css' )
       link(rel='stylesheet', href='/styles/global.css' )
 
-body(class = (is_logged_in) ? "logged-in" : "not-logged-in")
+body
 
-  block navbar
-    include ../includes/navbar
-
-  .container
-    != messages()
+  .wrap
 
     block subject
       header#subject
-        h1 Node Boilerplate
+        h1 base12
 
     block content
 
     block foot
       footer.footer
-        p &copy;2011 Yeah, great footer!
+        p &copy;2012 Skookum Digital Works
 
   block scripts
-    script(src='/js/lib/jquery-1.7.1.min.js')
-    script(src='/vendor/bootstrap/js/bootstrap.min.js')

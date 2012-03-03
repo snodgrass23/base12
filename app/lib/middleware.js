@@ -1,25 +1,13 @@
-var connectTimeout  = require('connect-timeout'),
-    express         = require('express'),
-    form            = require('connect-form'),
-    resource        = require('express-resource'),
-    mongoose        = require('mongoose'),
+var express         = require('express'),
     stylus          = require('stylus'),
-    util            = require('util'),
-    passport        = require('passport'),
-    connectRedis    = require('connect-redis')(require('connect')),
-    connect         = require('connect'),
-    redis           = require('redis');
+    RedisStore      = require('connect-redis')(express);
 
 // Middleware
 
 module.exports = function(app) {
 
-  app.server.use(function(req, res, next) {
-    console.log(req.method + ': ' + req.url);
-    return next();
-  });
-  app.server.use(connectTimeout({ time: app.config.timeout }));
-  app.server.use(stylus.middleware({
+  // Stylus
+  var stylus_middleware = stylus.middleware({
     src: app.server.set('views'),
     dest: app.server.set('public'),
     debug: false,
@@ -29,29 +17,30 @@ module.exports = function(app) {
         .set('filename', path);
     },
     force: true
-  }));
-  app.server.use(express['static'](app.server.set('public')));
-  app.server.use(express.cookieParser());
-  console.log("SESSION CONFIG:", app.config.session);
-  app.server.use(express.session({
-    secret: app.config.session.secret,
-    key: app.config.session.key,
-    store: new connectRedis({
-      maxAge: app.config.redis.expires,
-      host: app.config.redis.host,
-      port: app.config.redis.port
-    })
-  }));
-  app.server.use(form({ keepExtensions: true }));
-  app.server.use(express.bodyParser());
-  app.server.use(express.methodOverride());
-  app.server.use(passport.initialize('currentUser'));
-  app.server.use(passport.session());
-  app.server.use(app.server.router);
-
-  //app.server.error(app.middleware.errors.respond);
-  app.server.error(function(err, req, res, next) {
-    // Handle errors
-    throw err;
   });
+
+  // Sessions
+  var session_middleware = express.session({
+    key: app.config.session_key,
+    cookie: { secure: true },
+    store: new RedisStore()
+  });
+
+  // Error handler
+  var error_middleware = express.errorHandler({
+    dumpExceptions: true,
+    showStack: true
+  });
+
+  // Middleware stack for all requests
+  app.server.use(stylus_middleware);                              // Compile .styl to .css
+  app.server.use(express.cookieParser(app.config.cookie_secret));         // req.cookies
+  app.server.use(session_middleware);                             // req.session
+  app.server.use(express.bodyParser());                           // req.body & req.files
+  app.server.use(express.methodOverride());                       // '_method' property in body (POST -> DELETE / PUT)
+  app.server.use(app.server.router);                              // routes.js
+  app.server.use(express['static'](app.server.set('public')));    // Serve files from /public
+  
+  // Handle errors thrown from middleware/routes
+  app.server.use(error_middleware);
 };
