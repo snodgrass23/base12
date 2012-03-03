@@ -1,7 +1,7 @@
 module.exports = {
   view_engine: 'jade',
   view_options: { layout: false },
-  port: 80,
+  port: 3000,
   timeout: 10000,
   cookie_secret: 'mysecret',
   session: {
