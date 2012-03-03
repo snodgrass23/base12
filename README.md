@@ -65,6 +65,22 @@ Once all modules have run, the app starts listening for requests.
 
 ## Common commands
 
+### Install packages and default environment config
+
+      $ npm install
+
+### Build assets
+
+      $ node build
+
+### Run the app
+
+      $ node run
+
+### Lock packages
+
+      $ npm run-script lock
+
 ## The 12 Factors
 
 ### 1. Codebase
