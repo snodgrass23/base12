@@ -1,6 +1,19 @@
-exports = module.exports = function() {
+module.exports = function(app) {
   
-  server.helpers({
+  // Dynamic locals
+
+  // expose error' and 'message' to all views that are rendered
+  app.locals.use(function(req, res) {
+    res.locals.error = req.session.error || '';
+    res.locals.message = req.session.message || '';
+    // delete them so they're not displayed on subsequent renders
+    delete req.session.error;
+    delete req.session.message;
+  });
+
+  // Static locals
+
+  app.locals({
     
     route: function(action) {
       var map = {
@@ -66,25 +79,6 @@ exports = module.exports = function() {
      };
       var repl = function(c) { return MAP[c]; };
       return s.replace(/[&<>'"]/g, repl);
-    }
-  });
-
-  server.dynamicHelpers({
-    messages: require('express-messages'),
-    current_user: function(req, res) {     
-      if (req.currentUser) {
-        return req.currentUser;
-      }
-      else return null;
-    },
-    is_logged_in: function(req, res) {
-      return (typeof req.currentUser != 'undefined');
-    },
-    account_route: function(req, res) {
-      if (req.currentUser) {
-        return '/users/' + req.currentUser._id;
-      }
-      return '/';
     }
   });
 };
