@@ -81,7 +81,7 @@ base12.app() augments express() with a thin layer of auto-loaded hashes:
   * app.constants (from package.json)
   * app.config (from .env.js)
 
-Otherwise, a base12.app() is just like express().
+Otherwise, `base12.app()` is just like `express()`.
 
 ## Common commands
 
