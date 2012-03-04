@@ -1,6 +1,6 @@
 # base12
       
-[12factor.net](http://12factor.net) app boilerplate for [node.js](http://node.js), built on [express 3](http://expressjs.com)
+[12factor.net](http://12factor.net) web app platform for [node.js](http://node.js), built on [express 3](http://expressjs.com)
 
 ```shell
 $ git clone git://github.com/hunterloftis/base12.git projectname
