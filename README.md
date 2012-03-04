@@ -61,7 +61,27 @@ Once all modules have run, the app starts listening for requests.
 
 ## Writing controllers, models, middleware, and libs
 
-## Building on Express 3
+All base12 modules have the same signature:
+
+```javascript
+module.exports = function(app) {
+  // ...
+  return my_module;
+}
+```
+
+## Extending express
+
+base12.app() augments express() with a thin layer of auto-loaded hashes:
+
+  * models (from app/models)
+  * controllers (from app/controllers)
+  * middleware (from app/middleware)
+
+  * constants (from package.json)
+  * config (from .env.js)
+
+Otherwise, a base12.app() is just like express().
 
 ## Common commands
 
@@ -89,26 +109,83 @@ Once all modules have run, the app starts listening for requests.
 
 ### 1. Codebase
 
+"One codebase tracked in version control, many deploys."
+
+Base12 uses only version control-based deployments.
+
 ### 2. Dependencies
+
+"Explicitly declare and isolate dependencies."
+
+Base12 uses `npm install` both locally and in deploys to manage dependencies.
 
 ### 3. Config
 
+"Store config in the environment."
+
+Base12 uses the untracked .env.js file to manage environment config. Once tooling is better supported on hosts, it will likely move to environment variables as well.
+
 ### 4. Backing services
+
+"Treat backing services as attached resources."
+
+Backing service configuration is stored in .env.js on each host.
 
 ### 5. Build, release, run
 
+"Strictly separate build and run stages."
+
+`node build` builds a base12 app, while `node run` executes it. `node cycle` watches local files and cycles between build and run phases for rapid development.
+
 ### 6. Processes
+
+"Execute the app as one or more stateless processes."
+
+Base12 apps are stateless. The built-in session manager is backed by redis, and apps can be run as any number of independent processes forked from app/index.js.
+The directory structure provides /tmp for temporary file manipulation, but provides no permanent file storage mechanism since that must be done through a backing service.
 
 ### 7. Port binding
 
+"Export services via port binding."
+
+Ultimately, base12 relies on node's built-in http server to field requests. No http container or helper is needed.
+
 ### 8. Concurrency
+
+"Scale out via the process model."
+
+Using deployment-specific process managers (eg, upstart), base12 keeps the master node.js process running.
+In run.js, `base12.balance` uses cluster to spawn and monitor multiple processes on a single machine.
+New process types can be created by writing modules with a `start()` method, and passing that process module to `base12.balance()` in run.js.
 
 ### 9. Disposability
 
+"Maximize robustness with fast startup and graceful shutdown."
+
+Base12 uses a crash-only design. Uncaught errors exit the process, triggering the balancer to spawn a new process in its place.
+Startup is nearly immediate.
+
 ### 10. Dev/prod parity
+
+"Keep development, staging, and production as similar as possible."
+
+We encourage you to keep your .env.js configurations as similar as possible across machines to maximize parity.
 
 ### 11. Logs
 
+"Treat logs as event streams."
+
+Base12 logs events directly to stdout and stderr.
+
 ### 12. Admin processes
 
+"Run admin/management tasks as one-off processes."
+
+All admin processes can be handled with scripts in the /scripts directory.
+Base12 comes bundled with provisioning and deployment scripts, test scripts, and management scripts, and generators.
+
 ## System Requirements
+
+  * node.js >= 0.6.x
+  * npm >= 1.1.x
+  * redis
