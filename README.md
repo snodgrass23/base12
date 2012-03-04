@@ -71,6 +71,23 @@ module.exports = function(app) {
 }
 ```
 
+## Updating constants and config
+
+Application constants (values that do not change from machine to machine) are located under `constants` in package.json.
+Base12 also pulls the project `name` from the default package.json structure:
+
+```
+"name":"base12app",
+"constants": {
+  "title": "node.js 12-factor app",
+  "session_length": 1209600000,
+  "request_timeout": 10000
+}
+```
+
+Environment config (values that can change from machine to machine) are located in `.env.js`, which is not tracked by git.
+Running `npm install` will provide you with a default .env.js from env/default.env.js if one does not already exist.
+
 ## Extending express
 
 base12.app() augments express() with a thin layer of auto-loaded hashes:
