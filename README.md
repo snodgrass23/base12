@@ -1,6 +1,8 @@
 # base12
-      
+
 [12factor.net](http://12factor.net) web app platform for [node.js](http://node.js), built on [express 3](http://expressjs.com)
+
+We are porting our 2-year evolved boilerplate from [Skookum Digital Works](http://skookum.com) into this project. Expect lots of updates!
 
 ```shell
 $ sudo npm install -g base12
