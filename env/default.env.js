@@ -10,8 +10,5 @@ module.exports = {
   redis: {
     host: 'localhost',
     port: 6379
-  },
-  mongo: {
-    db: 'mongodb://localhost/boilerplate'
   }
 };
