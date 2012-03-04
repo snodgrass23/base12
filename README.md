@@ -77,6 +77,10 @@ Once all modules have run, the app starts listening for requests.
 
       $ node run
 
+### Run the app, limiting to a single process
+
+      $ node run 1
+
 ### Lock packages
 
       $ npm run-script lock

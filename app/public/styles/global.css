@@ -1,0 +1,30 @@
+html,
+body {
+  min-height: 100%;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+}
+body {
+  background: url("/images/clifton_beach.jpg") center center repeat-x;
+  background-size: cover;
+}
+h1.logo {
+  width: 230px;
+  height: 71px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -145px;
+  margin-top: -66px;
+  background: #000 url("/images/base12_light.png") center center no-repeat;
+  padding: 30px;
+  z-index: 1000;
+}
+h1.logo span {
+  display: none;
+}
+.footer {
+  position: absolute;
+  right: 30px;
+  bottom: 0;
+  text-align: right;
+}
