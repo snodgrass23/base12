@@ -111,19 +111,20 @@ Otherwise, `base12.app()` is just like `express()`.
 
 "One codebase tracked in version control, many deploys."
 
-Base12 uses only version control-based deployments.
+Base12 uses git-based deployments exclusively.
 
 ### 2. Dependencies
 
 "Explicitly declare and isolate dependencies."
 
 Base12 uses `npm install` both locally and in deploys to manage dependencies.
+Manage your dependencies in `package.json`.
 
 ### 3. Config
 
 "Store config in the environment."
 
-Base12 uses the untracked .env.js file to manage environment config. Once tooling is better supported on hosts, it will likely move to environment variables as well.
+Base12 uses the untracked .env.js file to manage environment config. Once tooling is better supported on hosts, it will likely move to environment variables.
 
 ### 4. Backing services
 
@@ -142,7 +143,7 @@ Backing service configuration is stored in .env.js on each host.
 "Execute the app as one or more stateless processes."
 
 Base12 apps are stateless. The built-in session manager is backed by redis, and apps can be run as any number of independent processes forked from app/index.js.
-The directory structure provides /tmp for temporary file manipulation, but provides no permanent file storage mechanism since that must be done through a backing service.
+The directory structure provides /tmp for temporary file manipulation, but provides no permanent file storage mechanism since that should be done through a backing service.
 
 ### 7. Port binding
 
@@ -162,7 +163,7 @@ New process types can be created by writing modules with a `start()` method, and
 
 "Maximize robustness with fast startup and graceful shutdown."
 
-Base12 uses a crash-only design. Uncaught errors exit the process, triggering the balancer to spawn a new process in its place.
+Base12 uses a crash-only design. Uncaught errors exit the process, triggering the balancer to replace it.
 Startup is nearly immediate.
 
 ### 10. Dev/prod parity
@@ -181,8 +182,8 @@ Base12 logs events directly to stdout and stderr.
 
 "Run admin/management tasks as one-off processes."
 
-All admin processes can be handled with scripts in the /scripts directory.
-Base12 comes bundled with provisioning and deployment scripts, test scripts, and management scripts, and generators.
+All admin processes are handled with scripts in the /scripts directory.
+Built-in scripts include provisioning and deployment, tests, dependency management, and generators.
 
 ## System Requirements
 
