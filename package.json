@@ -9,6 +9,8 @@
     "dependencies": {
         "jade": "latest",
         "express": "git://github.com/visionmedia/express.git",
+        "connect": "git://github.com/hunterloftis/connect.git",
+        "base12": "latest",
         "stylus": "latest",
         "connect-redis": "latest",
         "express-resource": "latest",

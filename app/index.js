@@ -1,4 +1,4 @@
-var base12 = require('../lib/base12');
+var base12 = require('base12');
 
 var locals = require('./lib/locals');
 var middleware = require('./lib/middleware');
