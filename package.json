@@ -7,17 +7,15 @@
         "npm": ">=1.1"
     },
     "dependencies": {
+        "base12": "latest",
         "jade": "latest",
         "express": "git://github.com/visionmedia/express.git",
         "connect": "git://github.com/hunterloftis/connect.git",
-        "base12": "latest",
         "stylus": "latest",
         "connect-redis": "latest",
         "express-resource": "latest",
         "express-messages": "git://github.com/hunterloftis/express-messages.git",
-        "redis": "latest",
-        "async": "latest",
-        "underscore": "latest"
+        "redis": "latest"
     },
     "devDependencies": {
         "vows": "latest"
