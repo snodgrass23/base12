@@ -74,12 +74,12 @@ module.exports = function(app) {
 
 base12.app() augments express() with a thin layer of auto-loaded hashes:
 
-  * models (from app/models)
-  * controllers (from app/controllers)
-  * middleware (from app/middleware)
+  * app.models (from app/models)
+  * app.controllers (from app/controllers)
+  * app.middleware (from app/middleware)
 
-  * constants (from package.json)
-  * config (from .env.js)
+  * app.constants (from package.json)
+  * app.config (from .env.js)
 
 Otherwise, a base12.app() is just like express().
 
