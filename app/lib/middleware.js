@@ -28,6 +28,12 @@ module.exports = function(app) {
     maxAge: app.config.session_length
   });
 
+  // Timeouts
+  var timeout_middleware = connect.timeout({
+    throwError: true,
+    time: app.constants.request_timeout
+  });
+
   // Error handler
   var error_middleware = express.errorHandler({
     dumpExceptions: true,
@@ -35,7 +41,7 @@ module.exports = function(app) {
   });
 
   // Middleware stack for all requests
-  app.use(connect.timeout({throwError: true}));             // request timeouts
+  app.use(timeout_middleware);                              // request timeouts
   app.use(express.compress());                              // gzip
   app.use(stylus_middleware);                               // Compile .styl to .css
   app.use(express.cookieParser(app.config.cookie_secret));  // req.cookies
