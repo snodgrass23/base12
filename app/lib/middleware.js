@@ -35,7 +35,7 @@ module.exports = function(app) {
   });
 
   // Middleware stack for all requests
-  app.use(connect.timeout({throwError: true}));
+  app.use(connect.timeout({throwError: true}));             // request timeouts
   app.use(express.compress());                              // gzip
   app.use(stylus_middleware);                               // Compile .styl to .css
   app.use(express.cookieParser(app.config.cookie_secret));  // req.cookies

@@ -26,7 +26,7 @@
         "test": "vows test/*.vows.js"
     },
     "constants": {
-        "title": "node.js 12-factor app",
+        "title": "base12 app",
         "session_length": 1209600000,
         "request_timeout": 10000
     }
