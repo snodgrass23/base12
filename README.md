@@ -10,6 +10,8 @@ $ base12 projectname && cd projectname
 $ node run
 ```
 
+# Why you should base your next project on base12
+
 **12 Factor**
 - Painlessly follow Ryan Dahl's 'gospel' for production-ready node.js apps (12factor.net)
 
