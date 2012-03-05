@@ -13,7 +13,7 @@ $ node run
 # Why you should base your next project on base12
 
 **12 Factor**
-- Painlessly follow [Ryan Dahl's 'gospel'](https://twitter.com/#!/ryah/statuses/161865845692301312) for production-ready node.js apps [(12factor.net)](http://12factor.net)
+- Painlessly follow [Ryan Dahl's 'gospel'](https://twitter.com/#!/ryah/statuses/161865845692301312) for production-ready node.js apps ([12factor.net](http://12factor.net))
 
 **Cloud Deployments**
 - Deploy to the cloud easily and immediately (joyent, heroku, amazon, linode, rackspace, nodejitsu)
