@@ -10,13 +10,13 @@ $ base12 projectname && cd projectname
 $ node run
 ```
 
-# Why you should base your next project on base12
+# Why your next project should start with base12
 
 **Production-ready**
-- Painlessly follow [Ryan Dahl's 'gospel'](https://twitter.com/#!/ryah/statuses/161865845692301312) for node.js apps ([12factor.net](http://12factor.net) by Adam Wiggins)
+- Painlessly follow [Ryan Dahl's 'gospel'](https://twitter.com/#!/ryah/statuses/161865845692301312) for node.js apps ([12factor.net](http://12factor.net) by Adam Wiggins).
 
 **Cloud Deployments**
-- Deploy to the cloud easily and immediately (joyent, heroku, amazon, linode, rackspace, nodejitsu)
+- Deploy to the cloud easily, out-of-the-box (supports joyent, amazon, linode, rackspace; TODO: heroku, nodejitsu).
 
 **Structure**
 - Always know where things go. A proven MVC architecture on top of express.
