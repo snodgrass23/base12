@@ -4,8 +4,8 @@ var path = require('path'),
     fs = require('fs'),
     util = require('util');
 
-var src = __dirname + '/../env/default.env.js',
-    dst = __dirname + '/../.env.js';
+var src = __dirname + '/../env/default.env.json',
+    dst = __dirname + '/../.env.json';
 
 path.exists(dst, function(exists) {
   if (exists) {
