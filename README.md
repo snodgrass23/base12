@@ -124,7 +124,7 @@ Otherwise, `base12.app()` is just like `express()`.
 
       $ npm install
 
-### Build assets
+### Build assets (TODO)
 
       $ node build
 
@@ -135,6 +135,10 @@ Otherwise, `base12.app()` is just like `express()`.
 ### Run the app, limiting to a single process
 
       $ node run 1
+
+### Cycle the app, building then running on file change (TODO)
+
+      $ node cycle
 
 ### Lock packages
 
