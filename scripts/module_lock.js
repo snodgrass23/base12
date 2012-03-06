@@ -2,12 +2,12 @@
 
 var fs = require('fs');
 
-var packages = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+var packages = require('../package.json');
 
 var versions = {};
 
 for (var p in packages.dependencies) {
-  var module = JSON.parse(fs.readFileSync('./node_modules/'+p+'/package.json', 'utf-8'));
+  var module = require('../node_modules/'+p+'/package.json');
   if (packages.dependencies[p] == 'latest') versions[p] = module.version;
   else versions[p] = packages.dependencies[p];
 }
