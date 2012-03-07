@@ -7,7 +7,7 @@
         "npm": ">=1.1"
     },
     "dependencies": {
-        "base12": "0.2.0",
+        "base12": "0.2.1",
         "jade": "latest",
         "express": "git://github.com/visionmedia/express.git",
         "connect": "git://github.com/hunterloftis/connect.git",
