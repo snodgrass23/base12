@@ -4,15 +4,9 @@
 
 We are porting our 2-year evolved boilerplate from [Skookum Digital Works](http://skookum.com) into this project. Expect lots of updates!
 
-*Don't use this right now*
-
-We introduced a breaking change with generating new projects. Needs to be fixed before you generate with 'base12 new projectname'
-Thanks.
--H
-
 ```shell
 $ sudo npm install -g base12
-$ base12 projectname && cd projectname
+$ base12 new projectname && cd projectname
 $ node run
 ```
 
@@ -144,7 +138,7 @@ Otherwise, `base12.app()` is just like `express()`.
 
       $ node run 1
 
-### Cycle the app, building then running on file change (TODO)
+### Cycle the app, building then running on file change
 
       $ node cycle
 
