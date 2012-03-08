@@ -23,7 +23,8 @@
     "scripts": {
         "lock": "scripts/module_lock.js",
         "postinstall": "scripts/postinstall.js",
-        "test": "vows test/*.vows.js"
+        "test": "vows test/*.vows.js",
+        "generate": "scripts/generate.js"
     },
     "constants": {
         "title": "base12 app",
