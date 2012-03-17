@@ -30,7 +30,7 @@ Instead, base12 embraces the node.js way: light processes, shallow inheritance, 
 
 ## Startup process...
 
-  1. `node cycle` builds your app and calls `run.js`.
+  1. `$ node cycle` builds your app and calls `run.js`.
   2. `run.js` uses base12.balance() to run `app/index.js`.
   3. `app/index.js` loads everything from `app/(models, views, controllers, middleware)`.
   4. `app/index.js` opens `app/lib/index.json` and runs lib files in the order specified by `autorun`.
