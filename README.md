@@ -56,11 +56,13 @@ run.js              -- runs your app
 cycle.js            -- watches local files and builds/runs on changes (for development)
 ```
 
-When base12 starts, it runs `/index.js`, which uses `base12.balance()` to balance app processes via `cluster` (1 process per cpu).
+## Startup process...
 
-Each process runs `/app/index.js`, which creates a new app with `base12.app()`. The `app` instance is passed into all modules. 
-
-Once all modules have run, the app starts listening for requests.
+  1. `node cycle` builds your app and calls `run.js`.
+  2. `run.js` uses base12.balance() to run `app/index.js`.
+  3. `app/index.js` loads everything from `app/(models, views, controllers, middleware)`.
+  4. `app/index.js` opens `app/lib/index.json` and runs lib files in the order specified by `autorun`.
+  5. `app/index.js` starts listening for requests.
 
 ## Writing controllers, models, middleware, and libs
 
@@ -71,6 +73,37 @@ module.exports = function(app) {
   // ...
   return my_module;
 }
+```
+
+For example, a controller might look like:
+
+```javascript
+module.exports = function(app) {
+  return {
+    index: function(req, res) {
+      var widgets = app.models.widgets.get_all();
+      res.send(widgets);
+    },
+    show: function(req, res) {
+      var widget = app.models.widget.get_one();
+      res.send(widget);
+    }
+  };
+};
+```
+
+A model (using mongoose) might look like:
+
+```javascript
+var mongoose = require('mongoose');
+
+module.exports = function(app) {
+  var WidgetSchema = new mongoose.Schema({
+    name: String
+  });
+
+  return mongoose.Model('widget', WidgetSchema);
+};
 ```
 
 ## Updating constants and config
