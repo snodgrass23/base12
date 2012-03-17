@@ -10,7 +10,7 @@ $ base12 new projectname && cd projectname
 $ node run
 ```
 
-# Why your next project should start with base12
+# What you get
 
 **Production-ready**
 - Painlessly follow [Ryan Dahl's 'gospel'](https://twitter.com/#!/ryah/statuses/161865845692301312) for node.js apps ([12factor.net](http://12factor.net) by Adam Wiggins).
@@ -27,6 +27,14 @@ $ node run
 **Not Rails**
 - We believe that, if Rails is best for your project, you should use it.
 Instead, base12 embraces the node.js way: light processes, shallow inheritance, simple interfaces, and the chain-of-responsibility pattern.
+
+## Startup process...
+
+  1. `node cycle` builds your app and calls `run.js`.
+  2. `run.js` uses base12.balance() to run `app/index.js`.
+  3. `app/index.js` loads everything from `app/(models, views, controllers, middleware)`.
+  4. `app/index.js` opens `app/lib/index.json` and runs lib files in the order specified by `autorun`.
+  5. `app/index.js` starts listening for requests.
 
 ## Where stuff goes
 
@@ -55,14 +63,6 @@ build.js            -- builds assets
 run.js              -- runs your app
 cycle.js            -- watches local files and builds/runs on changes (for development)
 ```
-
-## Startup process...
-
-  1. `node cycle` builds your app and calls `run.js`.
-  2. `run.js` uses base12.balance() to run `app/index.js`.
-  3. `app/index.js` loads everything from `app/(models, views, controllers, middleware)`.
-  4. `app/index.js` opens `app/lib/index.json` and runs lib files in the order specified by `autorun`.
-  5. `app/index.js` starts listening for requests.
 
 ## Writing controllers, models, middleware, and libs
 
