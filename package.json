@@ -10,7 +10,7 @@
         "base12": "0.2.9",
         "jade": "latest",
         "express": "git://github.com/visionmedia/express.git",
-        "connect": "latest",
+        "connect": "2.0.3",
         "connect-timeout": "latest",
         "stylus": "latest",
         "connect-redis": "latest",
