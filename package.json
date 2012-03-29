@@ -19,9 +19,11 @@
         "redis": "latest"
     },
     "devDependencies": {
-        "vows": "latest"
+        "vows": "latest",
+        "commander": "latest"
     },
     "scripts": {
+        "start": "./run",
         "lock": "scripts/module_lock.js",
         "postinstall": "scripts/postinstall.js",
         "test": "vows test/*.vows.js"
