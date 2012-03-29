@@ -42,7 +42,7 @@ function init() {
 
   constants = require(constants_file).constants;
   
-  script_set = require('./types/' + config.type)(ip, config, constants);
+  script_set = require('./' + config.type)(ip, config, constants);
 
   async.waterfall([
 
@@ -86,7 +86,7 @@ function init() {
       return callback();
     }
   ],
-  
+
   function complete(err, result) {
     console.log('\ndone.');
   });

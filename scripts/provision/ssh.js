@@ -67,6 +67,7 @@ Session.prototype = {
         i++;
       },
       function complete(err) {
+        console.log("Series complete");
         return callback(err);
       }
     );

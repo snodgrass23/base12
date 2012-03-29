@@ -1,45 +1,36 @@
 var async = require('async');
-
-var ssh = require('../ssh');
+var Remote = require('../remote');
 
 module.exports = function(ip, config, constants) {
 
-  var remote = ssh(ip, 'root');
+  var remote = new Remote(ip, 'root');
 
   var packages = {
 
     mongodb: {
       check: function(callback) {
-        return callback(undefined, false);
+        return remote.run(__dirname + '/mongodb_check.sh', callback);
       },
       install: function(callback) {
-        remote([
-          'curl -O http://wiki.joyent.com/download/attachments/1639170/mongodbnode.sh',
-          'bash mongodbnode.sh 2.0.2',
-          'source ~/.bashrc',
-          'pfexec svcadm enable mongodb'
-        ], callback);
+        return remote.run(__dirname + '/mongodb_install.sh', callback);
       }
     },
 
     redis: {
       check: function(callback) {
-        return callback(undefined, false);
+        return remote.run(__dirname + '/redis_check.sh', callback);
       },
       install: function(callback) {
-        remote([
-          'pkgin -y install redis',
-          'svcadm enable redis'
-        ], callback);
+        return remote.run(__dirname + '/redis_install.sh', callback);
       }
     },
 
     node: {
       check: function(callback) {
-        return callback(undefined, false);
+        return remote.run(__dirname + '/node_check.sh', callback);
       },
       install: function(callback) {
-        return callback();
+        return remote.run(__dirname + '/node_install.sh', callback);
       }
     }
   };
@@ -49,7 +40,7 @@ module.exports = function(ip, config, constants) {
     setup: function(callback) {
       console.log("Setting up for Joyent");
       console.log("Config is:", config);
-      remote(['pkgin -y update'], callback);
+      return remote.run(__dirname + '/setup.sh', callback);
     },
 
     user: function(callback) {
@@ -81,13 +72,15 @@ module.exports = function(ip, config, constants) {
             function postcheck(callback) {
               installer.check(callback);
             },
-            function result(err, result) {
-              console.log("err, result:", err, result);
-            }
-          ]);
+          ],
+          function result(err, result) {
+            console.log("err, result:", err, result);
+            return callback(err);
+          });
         }
         else {
           console.warn("No installer present for", pkgname);
+          return callback(new Error('No installer'));
         }
       });
     }
