@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+
+var cmd = require('commander');
+
+cmd
+  .version('0.0.1')
+  .usage('[options] <ip> <file>')
+  .option('-s, --setup', 'Perform initial setup')
+  .option('-u, --user', 'Create deploy user')
+  .option('-k, --keys', 'Install public ssh keys')
+  .option('-i, --install', 'Install software')
+  .parse(process.argv);
+
+var config;
+var ip = cmd.args[0];
+var config_file = process.cwd() + '/' + cmd.args[1];
+var script_set;
+
+try {
+  config = require(config_file);
+}
+catch(e) {
+  process.stdout.write(cmd.helpInformation());
+  return;
+}
+
+function section(name) {
+  console.log('\n=== ' + name + ' ===');
+}
+
+script_set = require('./types/' + config.type)(config);
+
+init();
+
+function init() {
+  console.log('\nProvisioning ' + ip );
+  console.log('Using ' + config_file);
+
+  if (cmd.setup) setup();
+  if (cmd.user) user();
+  if (cmd.keys) keys();
+  if (cmd.install) install();
+  
+  console.log('\ndone.');
+}
+
+function setup() {
+  section('Setup');
+  script_set.setup();
+}
+
+function user() {
+  section('User');
+}
+
+function keys() {
+  section('Keys');
+}
+
+function install() {
+  section('Install');
+}

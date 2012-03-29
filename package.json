@@ -25,7 +25,7 @@
     "scripts": {
         "start": "./run",
         "lock": "scripts/module_lock.js",
-        "postinstall": "scripts/postinstall.js",
+        "postinstall": "scripts/npm/postinstall.js",
         "test": "vows test/*.vows.js"
     },
     "constants": {
