@@ -20,7 +20,8 @@
     },
     "devDependencies": {
         "vows": "latest",
-        "commander": "latest"
+        "commander": "latest",
+        "async": "latest"
     },
     "scripts": {
         "start": "./run",

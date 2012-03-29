@@ -1,0 +1,4 @@
+{
+  "type": "joyent",
+  "install": ["redis", "mongodb", "node"]
+}
