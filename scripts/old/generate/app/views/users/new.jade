@@ -1,0 +1,28 @@
+extends ../layouts/layout
+
+block subject
+  header#subject
+    h1 Sign up
+
+block content
+  .row
+    .span12
+      form.form-horizontal(action="/users", method="post")
+        fieldset
+          legend Already a user?
+            a(href='/sessions/new') &nbsp;Sign in.
+          .control-group
+            label.control-label name
+            .controls
+              input(type='text', name='name', placeholder='name')
+          .control-group
+            label.control-label email
+            .controls
+              input(type='email', name='email', placeholder='email')
+          .control-group
+            label.control-label password
+            .controls
+              input(type='password', name='password', placeholder='password')
+          .control-group
+            .controls
+              input.btn.btn-primary(type="submit", value="Create my account") Create my account

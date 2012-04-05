@@ -7,13 +7,19 @@ function Remote(host, user) {
 }
 
 Remote.prototype = {
-  run: function(file, callback) {
+  run: function(file, forward, callback) {
+    if (arguments.length === 2) {
+      callback = forward;
+      forward = false;
+    }
     var cmd = 'ssh ' + this.url + " 'bash -s' < " + file;
     console.log("EXECUTING:", cmd);
-    exec(cmd, function(err, stdout, stderr) {
+    exec(cmd, function(code, stdout, stderr) {
+      console.log("CODE:", code)
       console.log("STDOUT:", stdout);
       console.warn("STDERR:", stderr);
-      return callback(err);
+      if (forward) return callback(code);
+      return callback();
     });
   }
 }

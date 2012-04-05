@@ -9,7 +9,9 @@ module.exports = function(ip, config, constants) {
 
     mongodb: {
       check: function(callback) {
-        return remote.run(__dirname + '/mongodb_check.sh', callback);
+        return remote.run(__dirname + '/mongodb_check.sh', true, function(code) {
+          return callback(undefined, code);
+        });
       },
       install: function(callback) {
         return remote.run(__dirname + '/mongodb_install.sh', callback);
@@ -18,7 +20,9 @@ module.exports = function(ip, config, constants) {
 
     redis: {
       check: function(callback) {
-        return remote.run(__dirname + '/redis_check.sh', callback);
+        return remote.run(__dirname + '/redis_check.sh', true, function(code) {
+          return callback(undefined, code);
+        });
       },
       install: function(callback) {
         return remote.run(__dirname + '/redis_install.sh', callback);
@@ -27,7 +31,9 @@ module.exports = function(ip, config, constants) {
 
     node: {
       check: function(callback) {
-        return remote.run(__dirname + '/node_check.sh', callback);
+        return remote.run(__dirname + '/node_check.sh', true, function(code) {
+          return callback(undefined, code);
+        });
       },
       install: function(callback) {
         return remote.run(__dirname + '/node_install.sh', callback);
@@ -59,30 +65,42 @@ module.exports = function(ip, config, constants) {
     },
 
     install: function(callback) {
-      config.install.forEach(function(pkgname) {
+
+      function install_one(installer, complete) {
+        async.waterfall([
+          function precheck(callback) {
+            installer.check(function(err, installed) {
+              if (installed) {
+                console.log("Already installed");
+                return callback(new Error('Already installed'));
+              }
+              return callback();
+            });
+          },
+          function install(installed, callback) {
+            return installer.install(callback);
+          },
+          function postcheck(callback) {
+            return installer.check(callback);
+          },
+        ],
+        function(err, result) {
+          console.log("Result:", err);
+          return complete();
+        });
+      }
+
+      async.forEachSeries(config.install, function(pkgname, callback) {
         var installer = packages[pkgname];
         if (installer) {
-          async.waterfall([
-            function precheck(callback) {
-              installer.check(callback);
-            },
-            function install(installed, callback) {
-              if (!installed) installer.install(callback);
-            },
-            function postcheck(callback) {
-              installer.check(callback);
-            },
-          ],
-          function result(err, result) {
-            console.log("err, result:", err, result);
-            return callback(err);
-          });
+          return install_one(installer, callback);
         }
         else {
           console.warn("No installer present for", pkgname);
           return callback(new Error('No installer'));
         }
-      });
+      }, callback);
+
     }
   };
 };

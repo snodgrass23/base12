@@ -1,0 +1,7 @@
+
+
+echo "Copying keys to admin@165.225.129.31..."
+scp config/keys/*.pub admin@165.225.129.31:~/.ssh/
+
+echo "Copying keys to root@165.225.129.31..."
+scp config/keys/*.pub root@165.225.129.31:~/.ssh/

@@ -1,0 +1,23 @@
+extends ../layouts/layout
+
+block subject
+  h1 Sign in
+
+block content
+  .row
+    .span12
+      form.form-horizontal(action="/sessions", method="post")
+        fieldset
+          legend No account?
+            a(href='/users/new') &nbsp;Sign up, free!
+          .control-group
+            label.control-label email      
+            .controls
+              input(type='email', name='email', placeholder='email')
+          .control-group
+            label.control-label password
+            .controls
+              input(type='password', name='password', placeholder='password')
+          .control-group
+            .controls
+              input.btn.btn-primary(type="submit", value="Sign in") Sign in

@@ -1,0 +1,67 @@
+extends ../layouts/layout
+
+block subject
+  header#subject
+    h1 Account
+
+block content
+  section#main.users-env
+
+    .row
+      .span3
+        h4 Public Profile
+      .span13
+        form(action=account_route, method="post", enctype="multipart/form-data")
+          input(type='hidden', name='_method', value='PUT')
+
+          .clearfix
+            label(for="name") Name
+            .input: input(type='text', name='name', placeholder='name', value=current_user.name)
+          .clearfix
+            label(for="about") About Me
+            .input
+              textarea.xxlarge(name='about') #{current_user.about}
+              span.help-block Give us a reason to remember you
+          .clearfix
+            label(for="photo") Photo
+            .input
+              input(name='photo', type='file')
+          .clearfix
+            label(for='cv') CV (Resume)
+            .input
+              input(name='cv', type='file')
+          .clearfix
+            ul#docpreview
+            label Documents
+            .input
+              ul
+                each doc in user.docs
+                  li
+                    a(target='docs', href=doc.file.url) #{doc.file.name}
+            #doclist.input
+              each doc in user.docs
+                input.doc(name='docs', value=doc._id, type='hidden')
+            #filecontainer.input
+              a#choosefile.btn(href='#') Upload documents
+          .well
+            .input
+              input.btn.primary(type="submit", value="Save")
+
+    .row
+      .span3
+        h4 User Settings
+      .span13
+        form(action=account_route, method="post", enctype="multipart/form-data")
+          input(type='hidden', name='_method', value='PUT')
+
+          .clearfix
+            label(for="email") Email
+            .input: input(type='email', name='email', placeholder='email', value=current_user.email)
+          .well
+            .input
+              input.btn.primary(type="submit", value="Save")
+    
+append scripts
+  != embed_json(user, 'USER')
+  script(src='/js/lib/plupload/plupload.full.js')
+  script(src='/js/views/users/edit.js')

@@ -1,0 +1,19 @@
+extends ../layouts/layout
+
+block subject
+  header#subject.wrap
+    - if (is_self)
+      h1 Your Profile
+    - else
+      h1 #{user.name}'s Profile
+
+
+block content
+  section#main.wrap
+    .row
+      .span4
+        img(src=(user.photo ? user.photo.url : 'http://placehold.it/220x220'))
+
+      .span12
+        h6 About:
+        #{user.about}

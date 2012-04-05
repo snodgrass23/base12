@@ -1,0 +1,19 @@
+nav.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.brand(href='/') Boilerplate
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      .nav-collapse
+        ul.nav
+          - if (is_logged_in)
+            li: a(href=account_route) Profile
+            li: a(href=account_route+'/edit') Account
+            li: a(href=route('logout')) Logout
+          - else
+            li: a(href=route('register')) Create an account
+            li: a(href=route('login')) Sign in
+        - if (is_logged_in)
+          span.plain.pull-right Welcome back, #{current_user.name}
