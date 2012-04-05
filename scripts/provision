@@ -11,6 +11,7 @@ cmd
   .option('-i, --install', 'Install software')
   .option('-e, --environment <config>', 'Push .env.json file')
   .option('-s, --service', 'Create the service')
+  .option('-r, --remote <name>', 'Add remote for git push')
   .option('-a, --all', 'Perform all provisioning steps');
 
 cmd.on('--help', function(){
@@ -32,7 +33,10 @@ var script;
 if (cmd.all) {
   cmd.prompt('config file (eg. config/production.env.json):', function(environment) {
     cmd.environment = environment;
-    init();
+    cmd.prompt('remote name (eg web1):', function(remote) {
+      cmd.remote = remote;
+      init();
+    })
   });
 }
 else {
@@ -65,7 +69,8 @@ function init() {
     host: ip,
     stack: stack,
     constants: constants,
-    config_file: process.cwd() + '/' + cmd.environment
+    config_file: process.cwd() + '/' + cmd.environment,
+    remote: cmd.remote
   };
 
   script = require('./lib/' + stack.type + '/provision')(options);
@@ -89,5 +94,5 @@ function init() {
     console.log('\ndone.');
   }
 
-  async.forEachSeries(['keys', 'user', 'install', 'environment', 'service'], processSection, complete);
+  async.forEachSeries(['keys', 'user', 'install', 'environment', 'service', 'remote'], processSection, complete);
 }

@@ -1,8 +1,8 @@
 echo "User: {{constants.name}}"
 echo "Creating user and group. Errors here on duplicates are okay."
 # setup a deploy user
-useradd -s /bin/bash {{constants.name}}
 groupadd {{constants.name}}
+useradd -g {{constants.name}} -m -s /usr/bin/bash {{constants.name}}
 passwd -N {{constants.name}}
 
 # ssh directory
@@ -13,7 +13,7 @@ touch /home/{{constants.name}}/.ssh/known_hosts
 
 # Create a directory to hold our config, git, versions, and current deploy
 mkdir -p /home/{{constants.name}}/config
-mkdir -p /home/{{constants.name}}/repo
+#mkdir -p /home/{{constants.name}}/repo
 mkdir -p /home/{{constants.name}}/versions
 mkdir -p /home/{{constants.name}}/current
 
@@ -37,7 +37,7 @@ echo 'export NODE_ENV={{config.NODE_ENV}}' > /home/{{constants.name}}/.profile
 
 # use our locally installed node binary
 echo "Updating PATH."
-echo 'export PATH=$HOME/local/bin:$PATH' >> /home/{{constants.name}}/.profile
+echo 'export PATH=/home/{{constants.name}}/local/bin:$PATH' >> /home/{{constants.name}}/.profile
 
 # don't use strict known_hosts checking (so we can pull from wherever we want to host our git repo)
 echo "Disabling strict known_hosts checking for ssh."

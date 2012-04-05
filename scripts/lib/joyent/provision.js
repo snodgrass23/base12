@@ -7,6 +7,7 @@ var Shell = require('../shell');
 var shell = new Shell();
 
 module.exports = function(options) {
+  options.constants.name = 'node';
   console.log("OPTIONS:", options);
   return {
 
@@ -35,6 +36,10 @@ module.exports = function(options) {
         'nodejs': {
           user: 'root',
           script: '/nodejs.sh'
+        },
+        'redis': {
+          user: 'root',
+          script: '/redis.sh'
         }
       };
       var to_install = ['system'].concat(options.stack.install);
@@ -52,8 +57,15 @@ module.exports = function(options) {
 
     environment: function(callback) {
       shell.local(__dirname, '/environment.sh', options, callback);
-    }
+    },
 
+    service: function(callback) {
+      shell.remote('root', options.host, __dirname, '/service.sh', options, callback);
+    },
+
+    remote: function(callback) {
+      shell.local(__dirname, '/remote.sh', options, callback);
+    }
 
   };
 };

@@ -1,0 +1,1 @@
+git remote add {{remote}} {{constants.name}}@{{host}}:repo

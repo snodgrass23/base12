@@ -18,3 +18,6 @@ mkdir -p ~/local
 ./configure --with-dtrace --prefix=/home/{{constants.name}}/local
 gmake
 gmake install
+
+# The user should be the owner
+chown -R {{constants.name}}:{{constants.name}} /home/{{constants.name}}/
