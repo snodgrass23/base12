@@ -9,10 +9,11 @@ mkdir ~/tmp
 cd ~/tmp
 rm -rf ./node-v0.6.9
 wget http://nodejs.org/dist/v0.6.9/node-v0.6.9.tar.gz
-tar xzvf node-v0.6.9.tar.gz
+gtar -xpf node-v0.6.9.tar.gz
 cd node-v0.6.9
 export JOBS=4
 mkdir -p ~/local/node
+waf configure
 ./configure --prefix=~/local/node
-make
-make install
+gmake
+gmake install

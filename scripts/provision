@@ -7,11 +7,10 @@ cmd
   .version('0.0.1')
   .usage('[options] <ip> <stack>')
   .option('-k, --keys', 'Install public ssh keys')
-  .option('-s, --setup', 'Perform initial setup')
   .option('-u, --user', 'Create deploy user')
   .option('-i, --install', 'Install software')
-  .option('-r, --repo', 'Create git repository')
-  .option('-e, --environment <config>', 'Use specified file as .env.json')
+  .option('-e, --environment <config>', 'Push .env.json file')
+  .option('-s, --service', 'Create the service')
   .option('-a, --all', 'Perform all provisioning steps');
 
 cmd.on('--help', function(){
@@ -49,61 +48,30 @@ function init() {
     return;
   }
 
-  constants = require(constants_file).constants;
-  
+  var pkg = require(constants_file);
+  constants = pkg.constants;
+  constants.name = pkg.name;
+
   var options = {
     dir: process.cwd(),
     host: ip,
-    config: config,
+    stack: config,
     constants: constants
   };
 
-  script = require('./lib/' + config.type)(options);
+  script = require('./lib/' + config.type + '/provision')(options);
 
-  async.waterfall([
-
-    function setup(callback) {
-      if (cmd.all || cmd.setup) {
-        section('Setup');
-        return script.setup(callback);
-      }
-      return callback();
-    },
-
-    function user(callback) {
-      if (cmd.all || cmd.user) {
-        section('User');
-        return script.user(callback);
-      }
-      return callback();
-    },
-
-    function keys(callback) {
-      if (cmd.all || cmd.keys) {
-        section('Keys');
-        return script.keys(callback);
-      }
-      return callback();
-    },
-
-    function repo(callback) {
-      if (cmd.all || cmd.repo) {
-        section('Repository');
-        return script.repo(callback);
-      }
-      return callback();
-    },
-
-    function install(callback) {
-      if (cmd.all || cmd.install) {
-        section('Install');
-        return script.install(callback);
-      }
-      return callback();
+  function processSection(sect, callback) {
+    if (cmd.all || cmd[sect]) {
+      section(sect);
+      return script[sect](callback);
     }
-  ],
+    return callback();
+  }
 
   function complete(err, result) {
     console.log('\ndone.');
-  });
+  }
+
+  async.forEachSeries(['keys', 'user', 'install', 'environment', 'service'], processSection, complete);
 }
