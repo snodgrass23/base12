@@ -9,12 +9,12 @@ fi
 
 mkdir -p ~/tmp
 cd ~/tmp
-#rm -rf ./node-v0.6.13
-#wget http://nodejs.org/dist/node-v0.6.13.tar.gz
+rm -rf ./node-v0.6.13
+wget http://nodejs.org/dist/node-v0.6.13.tar.gz
 gtar -xpf node-v0.6.13.tar.gz
 cd node-v0.6.13
 export JOBS=4
 mkdir -p ~/local
-./configure --with-dtrace --prefix=~/local
+./configure --with-dtrace --prefix=/home/{{constants.name}}/local
 gmake
 gmake install

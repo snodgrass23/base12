@@ -33,7 +33,7 @@ module.exports = function(options) {
           script: '/system.sh'
         },
         'nodejs': {
-          user: options.constants.name,
+          user: 'root',
           script: '/nodejs.sh'
         }
       };
@@ -48,6 +48,12 @@ module.exports = function(options) {
         return callback();
       }
       return async.forEachSeries(to_install, installItem, callback);
+    },
+
+    environment: function(callback) {
+      shell.local(__dirname, '/environment.sh', options, callback);
     }
+
+
   };
 };

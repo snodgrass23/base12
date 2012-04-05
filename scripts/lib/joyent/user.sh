@@ -3,12 +3,19 @@ echo "Creating user and group. Errors here on duplicates are okay."
 # setup a deploy user
 useradd -s /bin/bash {{constants.name}}
 groupadd {{constants.name}}
+passwd -N {{constants.name}}
 
 # ssh directory
 echo "Creating home directory."
 mkdir -p /home/{{constants.name}}/.ssh
 touch /home/{{constants.name}}/.ssh/authorized_keys
 touch /home/{{constants.name}}/.ssh/known_hosts
+
+# Create a directory to hold our config, git, versions, and current deploy
+mkdir -p /home/{{constants.name}}/config
+mkdir -p /home/{{constants.name}}/repo
+mkdir -p /home/{{constants.name}}/versions
+mkdir -p /home/{{constants.name}}/current
 
 # ssh keys
 echo "Copying public keys into authorized_keys."
@@ -44,14 +51,3 @@ Host *
   UserKnownHostsFile=/dev/null
 EOF
 
-# Create a directory to hold our config
-mkdir -p ~/config
-
-# Create a directory to hold our app's git repository
-mkdir -p ~/repo
-
-# Create directory to hold all the versions of our app
-mkdir -p ~/versions
-
-# Create a directory to hold the current version of our app
-mkdir -p ~/current

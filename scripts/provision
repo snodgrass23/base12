@@ -22,14 +22,22 @@ cmd.on('--help', function(){
 
 cmd.parse(process.argv);
 
-var config, constants;
+var stack, constants;
 var ip = cmd.args[0];
-var config_file = process.cwd() + '/' + cmd.args[1];
+var stack_file = process.cwd() + '/' + cmd.args[1];
 var constants_file = process.cwd() + '/package.json';
 var script;
 
 
-init();
+if (cmd.all) {
+  cmd.prompt('config file (eg. config/production.env.json):', function(environment) {
+    cmd.environment = environment;
+    init();
+  });
+}
+else {
+  init();
+}
 
 
 function section(name) {
@@ -38,10 +46,10 @@ function section(name) {
 
 function init() {
   console.log('\nProvisioning ' + ip );
-  console.log('Using ' + config_file);
+  console.log('Using ' + stack_file);
 
   try {
-    config = require(config_file);
+    stack = require(stack_file);
   }
   catch(e) {
     process.stdout.write(cmd.helpInformation());
@@ -55,16 +63,24 @@ function init() {
   var options = {
     dir: process.cwd(),
     host: ip,
-    stack: config,
-    constants: constants
+    stack: stack,
+    constants: constants,
+    config_file: process.cwd() + '/' + cmd.environment
   };
 
-  script = require('./lib/' + config.type + '/provision')(options);
+  script = require('./lib/' + stack.type + '/provision')(options);
 
   function processSection(sect, callback) {
     if (cmd.all || cmd[sect]) {
       section(sect);
-      return script[sect](callback);
+      var fn = script[sect];
+      if (fn) {
+        return fn(callback);
+      }
+      else {
+        console.warn("No script found for " + sect);
+        return callback();
+      }
     }
     return callback();
   }
