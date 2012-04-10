@@ -9,13 +9,13 @@
     "dependencies": {
         "base12": "0.2.9",
         "jade": "latest",
-        "express": "https://github.com/visionmedia/express/tarball/master",
+        "express": "git://github.com/visionmedia/express.git#master",
         "connect": "2.0.3",
         "connect-timeout": "latest",
         "stylus": "latest",
         "connect-redis": "latest",
         "express-resource": "latest",
-        "express-messages": "https://github.com/hunterloftis/express-messages/tarball/master",
+        "express-messages": "git://github.com/hunterloftis/express-messages.git#master",
         "redis": "latest"
     },
     "devDependencies": {
