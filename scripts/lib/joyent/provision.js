@@ -7,25 +7,21 @@ var Shell = require('../shell');
 var shell = new Shell();
 
 module.exports = function(options) {
+
+  console.log("Be sure to ssh to root@" + options.host + " at least once to enable remote access.");
+
   options.constants.name = 'node';
-  console.log("OPTIONS:", options);
+  //console.log("OPTIONS:", options);
   return {
 
     keys: function(callback) {
-      shell.local(__dirname, '/keys.sh', options, callback);
+      console.log("Use the Joyent Web Admin tool to add user keys!");
+      return callback();
     },
 
     user: function(callback) {
+      console.log("The Joyent default node.js user is 'node'");
       return callback();
-      exec('awk \'FNR==1{print ""}1\' ' + options.dir + '/config/keys/*.pub', function(err, stdout, stderr) {
-        if (!err) {
-          options.allkeys = stdout;
-          return shell.remote('root', options.host, __dirname, '/user.sh', options, callback);
-        }
-        else {
-          return callback();
-        }
-      });
     },
 
     install: function(callback) {
@@ -33,18 +29,11 @@ module.exports = function(options) {
         'system': {
           user: 'root',
           script: '/system.sh'
-        },
-        'nodejs': {
-          user: 'root',
-          script: '/nodejs.sh'
-        },
-        'redis': {
-          user: 'root',
-          script: '/redis.sh'
         }
       };
       var to_install = ['system'].concat(options.stack.install);
       console.log("Installing stack software:", to_install);
+      console.log("(This could take several minutes)");
       function installItem(item, callback) {
         console.log("Installing " + item + "...");
         var installer = map[item];
@@ -61,7 +50,8 @@ module.exports = function(options) {
     },
 
     service: function(callback) {
-      //shell.remote('root', options.host, __dirname, '/service.sh', options, callback);
+      console.log("The Joyent node.js stack already configures a node.js service!");
+      return callback();
     },
 
     remote: function(callback) {

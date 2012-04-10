@@ -10,7 +10,7 @@ function Shell() {
 
 Shell.prototype = {
   template: function(dir, script, data) {
-    var script = fs.readFileSync(dir + script, 'utf-8');
+    script = fs.readFileSync(dir + script, 'utf-8');
     var template = handlebars.compile(script);
     var runnable = template(data);
     this.tmpfile = dir + '/tmpscript';
@@ -25,23 +25,30 @@ Shell.prototype = {
     var cmd = 'ssh ' + user + '@' + host + " 'bash -s' < " + this.tmpfile;
     var self = this;
     console.log("EXECUTING:", cmd);
-    /*
-    var ssh = spawn('ssh', [user + '@' + host, "'bash", "-s'", '<', this.tmpfile]);
-    ssh.stdout.on('data', function (data) {
-      console.log('' + data);
+
+    // Create SSH process
+    var ssh = spawn('ssh', [user + '@' + host, "bash -s"]);
+
+    // Create readable file stream from templated script
+    var tmpfile = fs.createReadStream(this.tmpfile);
+
+    // Pipe output from SSH to output from this process
+    ssh.stdout.pipe(process.stdout, {end: false});
+    ssh.stderr.pipe(process.stderr, {end: false});
+
+    // Resume input on this process and pipe it to SSH
+    process.stdin.resume();
+    process.stdin.pipe(ssh.stdin, {end: false});
+    process.stdin.on('end', function() {
+      ssh.stdin.write('exit', 'utf-8');
     });
-    ssh.stderr.on('data', function (data) {
-      console.log('ERR:' + data);
-    });
+
+    // Pipe the file input as SSH input
+    tmpfile.pipe(ssh.stdin);
+
+    // Return whenever SSH exits
     ssh.on('exit', function(err, result) {
-      //self.destroy();
-      return callback(err);
-    });
-*/
-    exec(cmd, function(err, stdout, stderr) {
-      console.log(stdout);
-      console.warn("Errors:\n", stderr);
-      //self.destroy();
+      self.destroy();
       return callback(err);
     });
   },
