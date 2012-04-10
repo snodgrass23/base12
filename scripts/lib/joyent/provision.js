@@ -29,6 +29,10 @@ module.exports = function(options) {
         'system': {
           user: 'root',
           script: '/system.sh'
+        },
+        'nodejs': {
+          user: 'root',
+          script: '/nodejs.sh'
         }
       };
       var to_install = ['system'].concat(options.stack.install);
