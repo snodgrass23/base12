@@ -15,7 +15,7 @@
         "stylus": "latest",
         "connect-redis": "latest",
         "express-resource": "latest",
-        "express-messages": "git://github.com/hunterloftis/express-messages.git#master",
+        "express-messages": "https://github.com/hunterloftis/express-messages/tarball/master",
         "redis": "latest"
     },
     "devDependencies": {
