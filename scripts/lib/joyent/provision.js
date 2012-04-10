@@ -12,10 +12,11 @@ module.exports = function(options) {
   return {
 
     keys: function(callback) {
-      shell.local(__dirname, '/keys.sh', options, callback);     
+      shell.local(__dirname, '/keys.sh', options, callback);
     },
 
     user: function(callback) {
+      return callback();
       exec('awk \'FNR==1{print ""}1\' ' + options.dir + '/config/keys/*.pub', function(err, stdout, stderr) {
         if (!err) {
           options.allkeys = stdout;
@@ -24,7 +25,7 @@ module.exports = function(options) {
         else {
           return callback();
         }
-      });      
+      });
     },
 
     install: function(callback) {
@@ -60,7 +61,7 @@ module.exports = function(options) {
     },
 
     service: function(callback) {
-      shell.remote('root', options.host, __dirname, '/service.sh', options, callback);
+      //shell.remote('root', options.host, __dirname, '/service.sh', options, callback);
     },
 
     remote: function(callback) {
