@@ -12,6 +12,7 @@ cmd
   .option('-e, --environment <config>', 'Push .env.json file')
   .option('-s, --service', 'Create the service')
   .option('-r, --remote <name>', 'Add remote for git push')
+  .option('-c, --cycle', 'Cycle the service, updating the environment')
   .option('-a, --all', 'Perform all provisioning steps');
 
 cmd.on('--help', function(){
@@ -36,7 +37,7 @@ if (cmd.all) {
     cmd.prompt('remote name (eg web1):', function(remote) {
       cmd.remote = remote;
       init();
-    })
+    });
   });
 }
 else {
@@ -90,9 +91,10 @@ function init() {
     return callback();
   }
 
-  function complete(err, result) {
-    console.log('\ndone.');
+  function complete(err) {
+    console.log('\nexited with:', err);
+    process.exit();
   }
 
-  async.forEachSeries(['keys', 'user', 'install', 'environment', 'service', 'remote'], processSection, complete);
+  async.forEachSeries(['keys', 'user', 'install', 'environment', 'service', 'remote', 'cycle'], processSection, complete);
 }

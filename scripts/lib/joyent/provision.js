@@ -60,6 +60,10 @@ module.exports = function(options) {
 
     remote: function(callback) {
       shell.local(__dirname, '/remote.sh', options, callback);
+    },
+
+    cycle: function(callback) {
+      shell.remote('node', options.host, __dirname, '/cycle.sh', options, callback);
     }
 
   };

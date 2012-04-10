@@ -35,7 +35,7 @@ cd ~/src
 # Check if the version of node is installed, if so exit
 if [ -e /opt/nodejs/v${VERSION}/ ]; then
   echo "/opt/nodejs/v${VERSION}/ exists. ${VERSION} Already installed?"
-  exit 1
+  exit
 fi
 
 # Download, make and compile node
