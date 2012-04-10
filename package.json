@@ -14,6 +14,7 @@
         "connect-timeout": "latest",
         "stylus": "latest",
         "connect-redis": "latest",
+        "connect-mongodb": "latest",
         "express-resource": "latest",
         "express-messages": "git://github.com/hunterloftis/express-messages.git#master",
         "redis": "latest"
@@ -34,10 +35,5 @@
         "title": "base12 app",
         "session_length": 1209600000,
         "request_timeout": 10000
-    },
-    "provision": {
-        "node": "0.6.12",
-        "mongodb": "2.0.3",
-        "redis": "2.4.8"
     }
 }
