@@ -3,98 +3,93 @@
 var cmd = require('commander');
 var async = require('async');
 
-cmd
-  .version('0.0.1')
-  .usage('[options] <ip> <stack>')
-  .option('-k, --keys', 'Install public ssh keys')
-  .option('-u, --user', 'Create deploy user')
-  .option('-i, --install', 'Install software')
-  .option('-e, --environment <config>', 'Push .env.json file')
-  .option('-s, --service', 'Create the service')
-  .option('-r, --remote <name>', 'Add remote for git push')
-  .option('-c, --cycle', 'Cycle the service, updating the environment')
-  .option('-a, --all', 'Perform all provisioning steps');
+var config, constants, env_file, pkg_file, host, script, remote;
 
-cmd.on('--help', function(){
-  console.log('  Examples:');
-  console.log('');
-  console.log('    $ provision -a 1.2.3.4 config/web.stack.json');
-  console.log('');
-});
+init();
 
-cmd.parse(process.argv);
-
-var stack, constants;
-var ip = cmd.args[0];
-var stack_file = process.cwd() + '/' + cmd.args[1];
-var constants_file = process.cwd() + '/package.json';
-var script;
-
-
-if (cmd.all) {
-  cmd.prompt('config file (eg. config/production.env.json):', function(environment) {
-    cmd.environment = environment;
-    cmd.prompt('remote name (eg web1):', function(remote) {
-      cmd.remote = remote;
-      init();
-    });
-  });
+function safe_json(file) {
+  var result;
+  try {
+    result = require(file);
+    return result;
+  }
+  catch(e) {
+    console.warn("Unable to require '" + file + "'");
+    return;
+  }
 }
-else {
-  init();
-}
-
 
 function section(name) {
   console.log('\n=== ' + name + ' ===');
 }
 
+function command() {
+  cmd
+  .version('0.0.2')
+  .usage('provision <environment> <host> [name]');
+
+  cmd.on('--help', function(){
+    console.log('  Examples:');
+    console.log('');
+    console.log('    $ scripts/provision config/prod.db.env.json 1.2.3.4');
+    console.log('    $ scripts/provision config/prod.web.env.json 1.2.3.5 web1');
+    console.log('    $ scripts/provision config/prod.web.env.json 1.2.3.6 web2');
+    console.log('    $ scripts/provision config/prod.media.env.json 1.2.3.7 media1');
+    console.log('');
+  });
+
+  cmd.parse(process.argv);
+
+  if (cmd.args.length < 2) {
+    console.warn("Environment and host are required.");
+    process.exit();
+  }
+}
+
 function init() {
-  console.log('\nProvisioning ' + ip );
-  console.log('Using ' + stack_file);
+  command();
 
-  try {
-    stack = require(stack_file);
-  }
-  catch(e) {
-    process.stdout.write(cmd.helpInformation());
-    return;
+  env_file = process.cwd() + '/' + cmd.args[0];
+  pkg_file = process.cwd() + '/package.json';
+  host = cmd.args[1];
+  remote = cmd.args[2];
+
+  console.log('\nProvisioning ' + host );
+  console.log('Using ' + env_file + ' and ' + pkg_file);
+
+  config = safe_json(env_file);
+  if (!config) {
+    console.warn("Environment file required");
+    process.exit();
   }
 
-  var pkg = require(constants_file);
+  var pkg = safe_json(pkg_file);
+  if (!pkg) {
+    console.warn("Package file required");
+    process.exit();
+  }
+
   constants = pkg.constants;
   constants.name = pkg.name;
 
   var options = {
     dir: process.cwd(),
-    host: ip,
-    stack: stack,
+    host: host,
+    config: config,
     constants: constants,
-    config_file: process.cwd() + '/' + cmd.environment,
-    remote: cmd.remote
+    config_file: env_file,
+    remote: remote
   };
 
-  script = require('./lib/' + stack.type + '/provision')(options);
+  var script_file = './lib/' + config.deployment.type + '/provision';
+  console.log("Script:", script_file);
+  delete config.deployment.type;
+  script = require(script_file);
 
-  function processSection(sect, callback) {
-    if (cmd.all || cmd[sect]) {
-      section(sect);
-      var fn = script[sect];
-      if (fn) {
-        return fn(callback);
-      }
-      else {
-        console.warn("No script found for " + sect);
-        return callback();
-      }
-    }
-    return callback();
-  }
+  script.provision(options, complete);
 
   function complete(err) {
-    console.log('\nexited with:', err);
+    console.log('\ncomplete.');
     process.exit();
   }
-
-  async.forEachSeries(['keys', 'user', 'install', 'environment', 'service', 'remote', 'cycle'], processSection, complete);
 }

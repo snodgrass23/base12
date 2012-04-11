@@ -1,8 +1,8 @@
 var express         = require('express'),
     connect         = require('connect'),
     stylus          = require('stylus'),
-    //RedisStore      = require('connect-redis')(express),
     connect_timeout = require('connect-timeout'),
+    MongoServer     = require('mongodb').Server,
     MongoStore      = require('connect-mongodb');
 
 // Middleware
@@ -23,15 +23,15 @@ module.exports = function(app) {
   });
 
   // Sessions
+  var server_config = new MongoServer(app.config.session.host, app.config.session.port, {auto_reconnect: true, native_parser: true});
   var mongoStore = new MongoStore({
-    url: app.config.session.url,
-    maxAge: app.constants.session_length
+    server_config: server_config,
+    collection: app.constants.name + '_sessions'
   });
 
   var session_middleware = express.session({
     key: app.config.session_key,
     cookie: { secure: true },
-    //store: new RedisStore(),
     store: mongoStore,
     maxAge: app.config.session_length
   });

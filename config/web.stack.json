@@ -1,4 +1,0 @@
-{
-  "type": "joyent",
-  "install": ["nodejs", "redis"]
-}

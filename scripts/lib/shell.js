@@ -22,9 +22,7 @@ Shell.prototype = {
   },
   remote: function(user, host, dir, script, data, callback) {
     this.template(dir, script, data);
-    var cmd = 'ssh ' + user + '@' + host + " 'bash -s' < " + this.tmpfile;
     var self = this;
-    console.log("EXECUTING:", cmd);
 
     // Create SSH process
     var ssh = spawn('ssh', [user + '@' + host, "bash -s"]);

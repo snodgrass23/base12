@@ -13,7 +13,7 @@
         "connect": "2.0.3",
         "connect-timeout": "latest",
         "stylus": "latest",
-        "connect-redis": "latest",
+        "mongodb": "latest",
         "connect-mongodb": "latest",
         "express-resource": "latest",
         "express-messages": "git://github.com/hunterloftis/express-messages.git#master",

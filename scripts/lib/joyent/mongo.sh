@@ -15,6 +15,3 @@ nohttpinterface = true
 directoryperdb = true
 auth = true
 EOF
-
-echo "Restarting mongodb service"
-svcadm restart mongodb

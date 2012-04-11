@@ -11,7 +11,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-VERSION="0.6.15"
+VERSION="{{config.deployment.nodejs.version}}"
 if [ -z "$VERSION" ]; then
   echo "Usage: $0 <version> (e.g. 0.6.0)"
   exit 127
