@@ -7,7 +7,7 @@
         "npm": ">=1.1"
     },
     "dependencies": {
-        "base12": "0.3.0",
+        "base12": "0.3.1",
         "jade": "latest",
         "express": "git://github.com/Skookum/express.git",
         "connect": "2.0.3",
@@ -17,7 +17,9 @@
         "connect-mongodb": "latest",
         "express-resource": "latest",
         "express-messages": "git://github.com/hunterloftis/express-messages.git#master",
-        "redis": "latest"
+        "redis": "latest",
+        "strobe": "latest",
+        "restfuljs": "latest"
     },
     "devDependencies": {
         "vows": "latest",

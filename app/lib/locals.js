@@ -5,10 +5,13 @@ module.exports = function(app) {
   // expose error' and 'message' to all views that are rendered
   app.locals.use(function(req, res) {
     res.locals.error = req.session.error || '';
-    res.locals.message = req.session.message || '';
     // delete them so they're not displayed on subsequent renders
     delete req.session.error;
-    delete req.session.message;
+
+    res.locals.messages = require('express-messages')(req, res);
+
+    res.locals.environment = req.app.environment;
+    res.locals.user = req.user || null;
   });
 
   // Static locals
@@ -36,6 +39,11 @@ module.exports = function(app) {
     embed_json_func: function(obj, name) {
       var escaped = JSON.stringify(obj).replace(/\\/g, '\\\\').replace(/<\/script>/g, '');
       return "<script> " + name + "( " + escaped + " ); </script>";
+    },
+
+    inspect: function (obj, title) {
+      if (!title) title = 'Inspected!';
+      return '<div class="debug_output"><h3>'+title+'</h3><pre>'+require('util').inspect(obj, true, 5)+'</pre></div>';
     },
 
     relative_date: function(olderDate) {

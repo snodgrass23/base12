@@ -48,6 +48,8 @@ module.exports = function(app) {
   app.use(session_middleware);                                        // req.session
   app.use(express.bodyParser());                                      // req.body & req.files
   app.use(express.methodOverride());                                  // '_method' property in body (POST -> DELETE / PUT)
+  app.use(require('strobe').flash);
+  app.use(require('restfuljs').response);
   app.use(app.router);                                                // routes in lib/routes.js
   
   // Handle errors thrown from middleware/routes
