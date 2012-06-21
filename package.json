@@ -7,9 +7,9 @@
         "npm": ">=1.1"
     },
     "dependencies": {
-        "base12": "0.2.9",
+        "base12": "0.3.0",
         "jade": "latest",
-        "express": "git://github.com/visionmedia/express.git#master",
+        "express": "git://github.com/Skookum/express.git",
         "connect": "2.0.3",
         "connect-timeout": "latest",
         "stylus": "latest",
