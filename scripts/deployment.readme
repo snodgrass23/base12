@@ -1,0 +1,34 @@
+Deploy stages:
+
+  1. Provision:
+    1. Add public keys for SSH
+    2. Create user from project name, create home dir etc
+    3. Create directories for user to hold project repo, versions, and config
+    4. Install any listed software
+    5. Copy .env.json into ~/config
+    6. Create the service
+
+  2. Deploy:
+    1. Push the repository into ~/repo
+    2. Locally check out a git hash into ~/versions/(hash)
+    3. Run npm install on ~/versions/(hash)
+    4. Copy .env.json from ~/config into ~/versions/(hash)
+    5. Stop the service
+    6. Copy ~/versions/(hash) into ~/current if npm install worked
+    7. Start the service
+
+
+
+Quick instructions:
+
+( provision a new machine via the Joyent web interface)
+
+( log into root@host once via SSH to get everything going )
+
+$ scripts/provision -a (host/IP) config/(something).stack.json
+
+config/(something).env.json
+
+(remotename)
+
+$ git push (remotename) master

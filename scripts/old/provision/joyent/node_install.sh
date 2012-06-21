@@ -1,0 +1,1 @@
+pkgin install nodejs

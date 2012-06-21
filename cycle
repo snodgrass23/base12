@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+var base12 = require('base12');
+
+base12.cycle(__dirname, 'run', process.argv[2]);

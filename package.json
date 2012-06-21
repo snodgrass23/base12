@@ -1,5 +1,5 @@
 {
-    "name": "base12project",
+    "name": "b12prj",
     "version": "0.0.1",
     "directories": {},
     "engines": {
@@ -7,32 +7,33 @@
         "npm": ">=1.1"
     },
     "dependencies": {
-        "base12": "0.2.2",
+        "base12": "0.2.9",
         "jade": "latest",
-        "express": "git://github.com/visionmedia/express.git",
-        "connect": "git://github.com/hunterloftis/connect.git",
+        "express": "git://github.com/visionmedia/express.git#master",
+        "connect": "2.0.3",
+        "connect-timeout": "latest",
         "stylus": "latest",
-        "connect-redis": "latest",
+        "mongodb": "latest",
+        "connect-mongodb": "latest",
         "express-resource": "latest",
-        "express-messages": "git://github.com/hunterloftis/express-messages.git",
+        "express-messages": "git://github.com/hunterloftis/express-messages.git#master",
         "redis": "latest"
     },
     "devDependencies": {
-        "vows": "latest"
+        "vows": "latest",
+        "commander": "latest",
+        "async": "latest",
+        "handlebars": "latest"
     },
     "scripts": {
+        "start": "./run",
         "lock": "scripts/module_lock.js",
-        "postinstall": "scripts/postinstall.js",
+        "postinstall": "scripts/postinstall",
         "test": "vows test/*.vows.js"
     },
     "constants": {
         "title": "base12 app",
         "session_length": 1209600000,
         "request_timeout": 10000
-    },
-    "provision": {
-        "node": "0.6.12",
-        "mongodb": "2.0.3",
-        "redis": "2.4.8"
     }
 }

@@ -1,0 +1,93 @@
+#!/usr/bin/env node
+
+var cmd = require('commander');
+var async = require('async');
+
+cmd
+  .version('0.0.1')
+  .usage('[options] <ip> <file>')
+  .option('-s, --setup', 'Perform initial setup')
+  .option('-u, --user', 'Create deploy user')
+  .option('-k, --keys', 'Install public ssh keys')
+  .option('-i, --install', 'Install software')
+  .option('-r, --repo', 'Configure git repository')
+  .option('-a, --all', 'Perform all provisioning steps')
+  .parse(process.argv);
+
+var config, constants;
+var ip = cmd.args[0];
+var config_file = process.cwd() + '/' + cmd.args[1];
+var constants_file = process.cwd() + '/package.json';
+var script_set;
+
+
+init();
+
+
+function section(name) {
+  console.log('\n=== ' + name + ' ===');
+}
+
+function init() {
+  console.log('\nProvisioning ' + ip );
+  console.log('Using ' + config_file);
+
+  try {
+    config = require(config_file);
+  }
+  catch(e) {
+    process.stdout.write(cmd.helpInformation());
+    return;
+  }
+
+  constants = require(constants_file).constants;
+  
+  script_set = require('./' + config.type)(ip, config, constants);
+
+  async.waterfall([
+
+    function setup(callback) {
+      if (cmd.all || cmd.setup) {
+        section('Setup');
+        return script_set.setup(callback);
+      }
+      return callback();
+    },
+
+    function user(callback) {
+      if (cmd.all || cmd.user) {
+        section('User');
+        return script_set.user(callback);
+      }
+      return callback();
+    },
+
+    function keys(callback) {
+      if (cmd.all || cmd.keys) {
+        section('Keys');
+        return script_set.keys(callback);
+      }
+      return callback();
+    },
+
+    function repo(callback) {
+      if (cmd.all || cmd.repo) {
+        section('Repository');
+        return script_set.repo(callback);
+      }
+      return callback();
+    },
+
+    function install(callback) {
+      if (cmd.all || cmd.install) {
+        section('Install');
+        return script_set.install(callback);
+      }
+      return callback();
+    }
+  ],
+
+  function complete(err, result) {
+    console.log('\ndone.');
+  });
+}

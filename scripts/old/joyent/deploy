@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+. ./common.sh
+
+setup() {
+  export remotename="joyent-$ENV"
+  export host_ip=`config_get host`
+  hr
+  log "Adding $remotename as git remote"
+  git remote add $remotename node@$host_ip:repo
+}
+
+deploy() {
+  export remotename="joyent-$ENV"
+  git push $remotename master
+}
+
+require_env() {
+  config_section $ENV || abort "[$ENV] config section not defined"
+  test -z "$ENV" && abort "<env> required"
+}
+
+while test $# -ne 0; do
+  arg=$1; shift
+  case $arg in
+    setup) require_env; setup $@; exit ;;
+    *)
+      if test -z "$ENV"; then
+        ENV=$arg;
+      else
+        REF="$REF $arg";
+      fi
+      ;;
+  esac
+done
+
+require_env
+
+deploy

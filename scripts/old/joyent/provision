@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+. ./common.sh
+
+log "PROVISIONING JOYENT ($@)"
+
+environment() {
+  hr
+  log "setting up environment"
+  run "admin" "pkgin -y up"
+  run "admin" "pkgin -y in ImageMagick-6.6.6.5"
+}
+
+mongo() {
+  if [[ `config_get stack` != 'node' ]]; then return 0; fi
+  hr
+  log "installing mongo"
+  run "admin" "curl -O http://wiki.joyent.com/download/attachments/1639170/mongodbnode.sh"
+  run "admin" "bash mongodbnode.sh 2.0.2"
+  run "admin" "source ~/.bashrc"
+  run "admin" "pfexec svcadm enable mongodb"
+}
+
+redis() {
+  if [[ `config_get stack` != 'node' ]]; then return 0; fi
+  hr
+  log "installing redis"
+  run "admin" "pkgin -y in redis"
+  run "admin" "svccfg import /opt/local/share/smf/manifest/redis.xml"
+  run "admin" "svcadm enable redis"
+}
+
+#
+# Provision
+#
+
+provision() {
+  environment
+  mongo
+  redis
+}
+
+#
+# Require environment arg.
+#
+
+require_env() {
+  config_section $ENV || abort "[$ENV] config section not found in deploy.conf"
+  test -z "$ENV" && usage && exit
+
+  # settings that can be computed from the deploy.conf vars
+  PROJECTNAME=`config_get project`
+  test -z "$PROJECTNAME" && abort "project name must be specified in deploy.conf"
+  REMOTEPATH="/home/$PROJECTNAME/app"
+}
+
+# parse argv
+
+while test $# -ne 0; do
+  arg=$1; shift
+  case $arg in
+    -h|--help) usage; exit ;;
+    -V|--version) version; exit ;;
+    -C|--chdir) log cd $1; cd $1; shift ;;
+    all) require_env; all; exit ;;
+    keys) require_env; keys; exit ;;
+    deployer) require_env; deployer; exit ;;
+    environment) require_env; environment; exit ;;    
+    node) require_env; node; exit ;;
+    upstart) require_env; upstart; exit;;
+    mongo) require_env; mongo; exit ;;
+    redis) require_env; redis; exit ;;
+    nginx) require_env; nginx; exit ;;
+    config) config $@; exit ;;
+    *)
+      if test -z "$ENV"; then
+        ENV=$arg;
+      else
+        REF="$REF $arg";
+      fi
+      ;;
+  esac
+done
+
+require_env
+
+# provision
+provision

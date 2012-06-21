@@ -1,7 +1,9 @@
 var express         = require('express'),
     connect         = require('connect'),
     stylus          = require('stylus'),
-    RedisStore      = require('connect-redis')(express);
+    connect_timeout = require('connect-timeout'),
+    MongoServer     = require('mongodb').Server,
+    MongoStore      = require('connect-mongodb');
 
 // Middleware
 
@@ -21,17 +23,17 @@ module.exports = function(app) {
   });
 
   // Sessions
+  var server_config = new MongoServer(app.config.session.host, app.config.session.port, {auto_reconnect: true, native_parser: true});
+  var mongoStore = new MongoStore({
+    server_config: server_config,
+    collection: app.constants.name + '_sessions'
+  });
+
   var session_middleware = express.session({
     key: app.config.session_key,
     cookie: { secure: true },
-    store: new RedisStore(),
+    store: mongoStore,
     maxAge: app.config.session_length
-  });
-
-  // Timeouts
-  var timeout_middleware = connect.timeout({
-    throwError: true,
-    time: app.constants.request_timeout
   });
 
   // Error handler
@@ -41,15 +43,15 @@ module.exports = function(app) {
   });
 
   // Middleware stack for all requests
-  app.use(timeout_middleware);                              // request timeouts
-  app.use(express.compress());                              // gzip
-  app.use(stylus_middleware);                               // Compile .styl to .css
-  app.use(express.cookieParser(app.config.cookie_secret));  // req.cookies
-  app.use(session_middleware);                              // req.session
-  app.use(express.bodyParser());                            // req.body & req.files
-  app.use(express.methodOverride());                        // '_method' property in body (POST -> DELETE / PUT)
-  app.use(app.router);                                      // routes in lib/routes.js
-  app.use(express['static'](app.set('public')));            // static files in /public
+  app.use(connect_timeout({ time: app.constants.request_timeout }));  // request timeouts
+  app.use(express.compress());                                        // gzip
+  app.use(stylus_middleware);                                         // Compile .styl to .css
+  app.use(express.cookieParser(app.config.cookie_secret));            // req.cookies
+  app.use(session_middleware);                                        // req.session
+  app.use(express.bodyParser());                                      // req.body & req.files
+  app.use(express.methodOverride());                                  // '_method' property in body (POST -> DELETE / PUT)
+  app.use(app.router);                                                // routes in lib/routes.js
+  app.use(express['static'](app.set('public')));                      // static files in /public
   
   // Handle errors thrown from middleware/routes
   app.use(error_middleware);
