@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-var packages = require('../package.json');
+var packages = require('../../package.json');
 
 var versions = {};
 
@@ -14,4 +14,4 @@ for (var p in packages.dependencies) {
 
 packages.dependencies = versions;
 
-fs.writeFileSync('./package.json', JSON.stringify(packages, null, 4), 'utf-8');
+fs.writeFileSync('../../package.json', JSON.stringify(packages, null, 4), 'utf-8');
