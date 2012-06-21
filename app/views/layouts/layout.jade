@@ -9,11 +9,11 @@ html
       link(rel='stylesheet', href='/styles/global.css' )
 
 body
+  #messages
+    != messages()
+  
   .wrap
     
-    #message_container
-      != messages()
-
     block content
 
     block foot
