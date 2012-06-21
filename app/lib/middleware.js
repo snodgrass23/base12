@@ -23,10 +23,8 @@ module.exports = function(app) {
   });
 
   // Sessions
-  var server_config = new MongoServer(app.config.session.host, app.config.session.port, {auto_reconnect: true, native_parser: true});
-  var mongoStore = new MongoStore({
-    server_config: server_config,
-    collection: app.constants.name + '_sessions'
+  var mongo_store = new MongoStore({
+    url: app.config.session.url
   });
 
   var session_middleware = express.session({
