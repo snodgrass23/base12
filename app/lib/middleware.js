@@ -23,7 +23,7 @@ module.exports = function(app) {
   });
 
   // Sessions
-  var mongo_store = new MongoStore({
+  var mongoStore = new MongoStore({
     url: app.config.session.url
   });
 
