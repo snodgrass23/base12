@@ -14,10 +14,10 @@ module.exports = function(app) {
     src: app.set('views'),
     dest: app.set('public'),
     debug: false,
-    compileMethod: function(str) {
-      return stylus(str, path)
-        .set('compress', options.compressCss)
-        .set('filename', path);
+    compile: function(str, path) {
+      return stylus(str)
+        .set('filename', path)
+        .set('compress', true)
     },
     force: true
   });
