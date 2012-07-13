@@ -13,6 +13,8 @@
         "connect": "2.0.3",
         "connect-timeout": "latest",
         "stylus": "latest",
+        "nib": "latest",
+        "canvas": "latest",
         "mongodb": "latest",
         "connect-mongodb": "latest",
         "express-resource": "latest",
