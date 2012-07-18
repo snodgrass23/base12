@@ -1,3 +1,17 @@
+# hold up!
+
+We've just made some big improvements to base12 internally -- we've also factored out deployment to a system called `nimbus`
+which you can find here:
+
+https://github.com/skookum/nimbus
+
+In the next 2-3 days, we'll be publishing the next - simpler, faster, more stable - version. Watch the project,
+and try it out.
+
+cheers,
+
+SDW
+
 # base12
 
 [12factor.net](http://12factor.net) web app platform for [node.js](http://node.js), built on [express 3](http://expressjs.com)
