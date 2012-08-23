@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/Skookum/base12.png)](http://travis-ci.org/Skookum/base12)
 # hold up!
 
 We've just made some big improvements to base12 internally -- we've also factored out deployment to a system called `nimbus`
