@@ -17,7 +17,7 @@ $ make start
 - Deploy to the cloud easily with the addition of [nimbus](https://github.com/skookum/nimbus), out-of-the-box (supports joyent, amazon, linode, rackspace; TODO: heroku, nodejitsu).
 
 **Structure**
-- Always know where things go. An easy to use component driven layout with proven MVC architecture where needed all on top of express.
+- Always know where things go. An easy to use component driven layout with proven MVC architecture all on top of express.
 
 **Express 3**
 - Leverage the newest version of the most popular app framework for node.js.
@@ -33,7 +33,7 @@ assets                -- place to store assets for project (graphics, src files,
 components            -- place to store components for small piecs of functionality in app  
   /dashboard          -- default dashboard example component
   /errors             -- default component for handling server errors
-  /user               -- default component for user functionality (signup, signin, signout, settings)
+  /user               -- default component for user functionality using mvc pattern (signup, signin, signout, settings)
 doc                   -- documentation
 lib                   -- app specific and non-npm-published node.js libraries
   /balance            -- uses cluster to create and blance multiple processes
@@ -94,7 +94,7 @@ Application constants (values that do not change from machine to machine) are lo
 {
   "http_port": 3000,
   "cluster": true,
-  "reload": true
+  "mongoose_url": "mongodb://localhost/base12"
 }
 ```
 
@@ -104,7 +104,7 @@ You can create this file whenever needed and it values will override the default
 ```json
 {
   "http_port": 80,
-  "reload": false
+  "mongoose_url": "mongodb://username:passsword@127.0.0.1/base12"
 }
 ```
 
@@ -127,13 +127,6 @@ You can create this file whenever needed and it values will override the default
 
       $ make start 1
 
-### Cycle the app, building then running on file change
-
-      $ node cycle
-
-### Lock packages
-
-      $ npm run-script lock
 
 ## The 12 Factors
 
@@ -154,13 +147,13 @@ Manage your dependencies in `package.json`.
 
 "Store config in the environment."
 
-Base12 uses the untracked .env.js file to manage environment config. Once tooling is better supported on hosts, it will likely move to environment variables.
+Base12 uses the untracked config.local.json file to manage environment config. Once tooling is better supported on hosts, it will likely move to environment variables.
 
 ### 4. Backing services
 
 "Treat backing services as attached resources."
 
-Backing service configuration is stored in .env.js on each host.
+Backing service configuration is stored in config.local.json on each host.
 
 ### 5. Build, release, run
 
@@ -172,7 +165,7 @@ Backing service configuration is stored in .env.js on each host.
 
 "Execute the app as one or more stateless processes."
 
-Base12 apps are stateless. The built-in session manager is backed by redis, and apps can be run as any number of independent processes forked from app/index.js.
+Base12 apps are stateless. The built-in session manager is backed by redis, and apps can be run as any number of independent processes forked from app.js.
 The directory structure provides /tmp for temporary file manipulation, but provides no permanent file storage mechanism since that should be done through a backing service.
 
 ### 7. Port binding
@@ -200,7 +193,7 @@ Startup is nearly immediate.
 
 "Keep development, staging, and production as similar as possible."
 
-We encourage you to keep your .env.js configurations as similar as possible across machines to maximize parity.
+We encourage you to keep your config.local.json configurations as similar as possible across machines to maximize parity.
 
 ### 11. Logs
 
@@ -217,6 +210,7 @@ Built-in scripts include provisioning and deployment, tests, dependency manageme
 
 ## System Requirements
 
-  * node.js >= 0.6.x
+  * node.js >= 0.8.x
   * npm >= 1.1.x
   * redis
+  * mongodb (if using default user component)

@@ -3,11 +3,14 @@ setup:
 	npm install
 
 start:
-	node app.js $(filter-out $@,$(MAKECMDGOALS))
+	node app.js run $(filter-out $@,$(MAKECMDGOALS))
+
+cycle:
+	node app.js cycle $(filter-out $@,$(MAKECMDGOALS))
 
 open:
 	(sleep 2 && open http://localhost:3000) &
-	npm start
+	node app.js run $(filter-out $@,$(MAKECMDGOALS))
 
 
-.PHONY: setup test start open
+.PHONY: setup start cycle open

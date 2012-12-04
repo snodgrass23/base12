@@ -43,7 +43,7 @@ function createApp(config) {
   middleware(app);
   locals(app);
   flash(app);
-  if (config.reload) reload();
+  reload();
 
   // components
   user(app, config);
