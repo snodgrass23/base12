@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "tip: you can run a specific test with 'make test tests=script/path/here.js'"
+
+if [ -z "$tests" ]; then
+  tests=`find lib -name '*.test.js' && find components -name '*.test.js' && find shared -name '*.test.js'`
+fi
+
+node_modules/.bin/mocha -R list $tests

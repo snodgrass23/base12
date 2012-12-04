@@ -1,0 +1,19 @@
+extends ../../../shared/views/layout
+
+block subject
+
+block content
+  form.form-settings(action='/settings', method='post')
+    .title-bar
+      h1 Profile Settings
+    input(type="hidden", name="_method", value="put")
+    input.input-text(type='email', name='email', placeholder="email", value=current_user.email)
+    input.input-text(type='text', name='name', placeholder="name", value=current_user.name)
+    input.input-text(type='password', name='new_password', placeholder="new password")
+    input.input-text(type='password', name='new_password2', placeholder="repeat password")
+    .button-bar
+      button.button-submit(type='submit') Update!
+
+
+append scripts
+  script(src="/component/user/js/main.js")

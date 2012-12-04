@@ -1,0 +1,39 @@
+include ../../lib/flash/messages
+
+!!! 5
+html
+  head
+    meta(charset="utf-8")
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    link(rel='apple-touch-icon', href='/images/icons/Icon.png')
+    link(rel='apple-touch-icon-precomposed', href='/images/icons/Icon@2x.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='/images/icons/Icon-72.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='/images/icons/Icon@2x.png')
+    link(rel='apple-touch-startup-image', media="screen and (orientation: portrait)", href='/images/ipad_splash.png')
+    link(rel='apple-touch-startup-image', media="screen and (orientation: landscape)", href='/images/ipad_splash_landscape.png')
+
+    title
+      block title
+        | Scale
+    block styles
+      link(rel='stylesheet', href='/styles/global.css' )
+
+      link(rel="stylesheet", media="screen and (max-device-width: 480px)", href='/styles/iphone.css')
+      link(rel="stylesheet", media="screen and (min-device-width: 768px) and (max-device-width: 1024px)", href='/styles/ipad.css')
+
+- var body_class = (typeof appmode != 'undefined' && appmode) ? 'appmode' : ''
+
+body(class=body_class)
+
+  block navbar
+    include includes/navbar
+
+  .container
+    mixin messages()
+
+    block content
+
+  block scripts
+    

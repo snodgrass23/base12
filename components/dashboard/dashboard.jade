@@ -1,0 +1,13 @@
+extends ../../shared/views/layout
+
+block title
+  | Dashboard - Base12
+
+block content
+  .dash-header
+    .half-drop
+      h1.dash-title Dashboard
+    .half-drop
+      ul.h-menu
+        li!= user.name || user.email
+        li: a(href='/signout') Sign out

@@ -1,0 +1,47 @@
+.modal
+  position absolute
+  top 0
+  right 0
+  bottom 0
+  left 0
+  background rgba(0,0,0,0.5)
+  z-index 100
+  display none
+  &.visible
+    display block
+  .container
+    position absolute
+    top 10%
+    right 20%
+    left 20%
+    background #fff
+    border 5px solid #ccc
+    border-radius 10px
+    padding 20px
+    z-index 101
+
+  h1
+    margin-bottom 20px
+
+  ul
+    li
+      padding 5px 0
+
+  input[type='text'], textarea
+    color #555
+    background none
+    border 2px solid #ccc
+  input, textarea
+    font-size 1em
+    width 100%
+    padding 5px
+    border-radius 5px
+  textarea
+    height 10em
+  a.cancel
+    color #610100
+    font-size 0.8em
+    font-weight 100
+    float right
+
+

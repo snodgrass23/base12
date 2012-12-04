@@ -1,0 +1,49 @@
+.form-settings
+  width 600px
+  padding 15px 30px
+  background #fafafa
+  box-shadow 0 1px 10px rgba(0, 0, 0, 0.25)
+  margin 30px auto
+
+  p
+    padding 50px 0 20px
+    color #999
+    font-size 1.3em
+
+  ul
+    margin 30px 0
+    li
+      padding 20px 10px
+      border 1px solid #ddd
+      background #f4f4f4
+      position relative
+      &:hover
+        background #eee
+      h3
+        font-size 1.5em
+        color #444
+      .confirm
+        color #444
+        padding 10px 20px 10px
+        display none
+      &.open
+        background #fff
+        &:hover
+          background #fff
+        .confirm
+          display block
+        .import
+          display none
+      .import
+        width 50px
+        height 50px
+        background url('/images/archive.png') no-repeat
+        position absolute
+        top 8px
+        right 8px
+        cursor pointer
+        &:hover
+          background url('/images/archive_over.png')
+
+li > input[type="checkbox"]
+  margin-right 16px

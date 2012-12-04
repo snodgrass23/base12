@@ -1,0 +1,13 @@
+extends ../../../shared/views/layout
+
+block subject
+
+block content
+  form.form-gateway(action='/signin', method='post')
+    .title-bar
+      h1 Who are you?
+    input.input-text(type='email', name='email', placeholder='email')
+    input.input-text(type='password', name='password', placeholder='password')
+    .button-bar
+      a.micro(href='/register') Need to register?
+      button.button-submit(type='submit') Sign in
