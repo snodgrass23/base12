@@ -1,0 +1,47 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-family:inherit;font-size:100%;vertical-align:baseline}
+body{line-height:1;color:#000;background:#fff}
+ol,ul{list-style:none}
+table{border-collapse:separate;border-spacing:0;vertical-align:middle}
+caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}
+a img{border:none}
+*{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html,body{font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif}
+body{font-size:14px}
+h1{font-weight:bold;font-size:2em;padding:.75em 0;margin:0}
+h2{padding:.75em 0;font-weight:bold;font-size:1.75em}
+h3{padding:.75em 0;font-weight:bold;font-size:1.5em}
+h4{padding:.75em 0;font-size:1.25em}
+h5{padding:.75em 0;font-size:1.15em}
+*{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html,body{min-height:100%}
+.micro{padding:5px}
+.wrap{position:absolute;top:0;bottom:0;left:20%;right:20%}
+.pad{padding:.5em}
+.pad1{padding:1em}
+.pad2{padding:2em}
+.pushDown{padding-top:5em}
+.smallColumn{width:260px}
+.column1of3{width:33%}
+.centered{margin:0 auto}
+.tac{text-align:center}
+.tal{text-align:left}
+.tar{text-align:right}
+.block{display:block}
+.flash-messages{position:absolute;top:0;left:20%;right:20%;margin:0;z-index:999;text-align:center;}
+.flash-messages >li{padding:.5em}
+input{padding:.4em;}
+input.block{width:100%;margin:.75em 0}
+.button-bar{text-align:right;}
+.button-bar button{padding:10px 20px;margin:0 0 10px 0;display:inline-block}
+.button-bar .micro{margin-right:2em}
+.logo{width:260px;height:100px;background:#000 url("/images/base12_light.png") center center no-repeat}
+.is_hidden{display:none}
+body{color:#333;background:url("/images/border_dune.jpg") center center repeat-x;-webkit-background-size:cover;-moz-background-size:cover;background-size:cover}
+h1{color:#555}
+a{color:inherit;text-decoration:none;}
+a:hover{text-decoration:underline}
+input{font-size:1.2em;border:solid 1px #bbb;-webkit-border-radius:5px;border-radius:5px}
+button{font-size:1.25em;border:solid 1px #ddd;background:#eee;-webkit-border-radius:3px;border-radius:3px}
+.wrap{background:rgba(255,255,255,0.8)}
+.micro{font-size:.8em;color:#999}
+.flash-messages{background:#c67315;color:#fff}
