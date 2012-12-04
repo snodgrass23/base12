@@ -2,7 +2,7 @@ setup:
 	rm -rf node_modules
 	npm install
 
-start:
+run:
 	node app.js run $(filter-out $@,$(MAKECMDGOALS))
 
 cycle:
@@ -13,4 +13,4 @@ open:
 	node app.js run $(filter-out $@,$(MAKECMDGOALS))
 
 
-.PHONY: setup start cycle open
+.PHONY: setup run cycle open

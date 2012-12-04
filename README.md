@@ -121,11 +121,19 @@ You can create this file whenever needed and it values will override the default
 
 ### Run the app
 
-      $ make start
+      $ make run
 
 ### Run the app, limiting to a single process
 
-      $ make start 1
+      $ make run 1
+
+### Run the app and cycle on file changes
+
+      $ make cycle
+
+### Run the app and cycle on file changes, limiting to a single process
+
+      $ make cycle 1
 
 
 ## The 12 Factors
@@ -159,7 +167,7 @@ Backing service configuration is stored in config.local.json on each host.
 
 "Strictly separate build and run stages."
 
-`node build` builds a base12 app, while `node run` executes it. `node cycle` watches local files and cycles between build and run phases for rapid development.
+`make build` builds a base12 app's assetes, while `make run` executes it. `make cycle` watches local files and cycles between build and run phases for rapid development.
 
 ### 6. Processes
 
