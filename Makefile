@@ -3,7 +3,7 @@ setup:
 	npm install
 
 start:
-	node app $(processes)
+	node app.js $(filter-out $@,$(MAKECMDGOALS))
 
 open:
 	(sleep 2 && open http://localhost:3000) &
