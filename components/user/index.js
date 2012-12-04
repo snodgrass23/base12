@@ -28,7 +28,6 @@ module.exports = function(app) {
   });
 
   app.get('/settings', [
-    middleware.checkPivotal,
     render('view/settings')
   ]);
 
