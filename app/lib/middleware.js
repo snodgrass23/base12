@@ -1,6 +1,7 @@
 var express         = require('express'),
     connect         = require('connect'),
     stylus          = require('stylus'),
+    nib             = require('nib'),
     connect_timeout = require('connect-timeout'),
     MongoServer     = require('mongodb').Server,
     MongoStore      = require('connect-mongodb');
@@ -14,10 +15,12 @@ module.exports = function(app) {
     src: app.set('views'),
     dest: app.set('public'),
     debug: false,
-    compileMethod: function(str) {
-      return stylus(str, path)
-        .set('compress', options.compressCss)
-        .set('filename', path);
+    compile: function(str, path) {
+      return stylus(str)
+        .set('filename', path)
+        .set('compress', true)
+        .use(nib())
+        .import('nib');
     },
     force: true
   });
