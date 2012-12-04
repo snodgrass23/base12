@@ -1,3 +1,0 @@
-{
-  "autorun":["locals", "middleware", "routes"]
-}

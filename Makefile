@@ -2,9 +2,6 @@ setup:
 	rm -rf node_modules
 	npm install
 
-test:
-	scripts/test $(tests)
-
 start:
 	npm start
 

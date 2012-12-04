@@ -27,7 +27,7 @@ html,body{min-height:100%}
 .tal{text-align:left}
 .tar{text-align:right}
 .block{display:block}
-.flash-messages{position:fixed;top:0;left:0;min-width:100%;padding:0;margin:0;z-index:999;text-align:center;}
+.flash-messages{position:absolute;top:0;left:20%;right:20%;margin:0;z-index:999;text-align:center;}
 .flash-messages >li{padding:.5em}
 input{padding:.4em;}
 input.block{width:100%;margin:.75em 0}
@@ -45,17 +45,3 @@ button{font-size:1.25em;border:solid 1px #ddd;background:#eee;-webkit-border-rad
 .wrap{background:rgba(255,255,255,0.8)}
 .micro{font-size:.8em;color:#999}
 .flash-messages{background:#c67315;color:#fff}
-.form-settings{width:600px;padding:15px 30px;background:#fafafa;-webkit-box-shadow:0 1px 10px rgba(0,0,0,0.25);-msie-box-shadow:0 1px 10px rgba(0,0,0,0.25);-moz-box-shadow:0 1px 10px rgba(0,0,0,0.25);-o-box-shadow:0 1px 10px rgba(0,0,0,0.25);box-shadow:0 1px 10px rgba(0,0,0,0.25);margin:30px auto;}
-.form-settings p{padding:50px 0 20px;color:#999;font-size:1.3em}
-.form-settings ul{margin:30px 0;}
-.form-settings ul li{padding:20px 10px;border:1px solid #ddd;background:#f4f4f4;position:relative;}
-.form-settings ul li:hover{background:#eee}
-.form-settings ul li h3{font-size:1.5em;color:#444}
-.form-settings ul li .confirm{color:#444;padding:10px 20px 10px;display:none}
-.form-settings ul li.open{background:#fff;}
-.form-settings ul li.open:hover{background:#fff}
-.form-settings ul li.open .confirm{display:block}
-.form-settings ul li.open .import{display:none}
-.form-settings ul li .import{width:50px;height:50px;background:url("/images/archive.png") no-repeat;position:absolute;top:8px;right:8px;cursor:pointer;}
-.form-settings ul li .import:hover{background:url("/images/archive_over.png")}
-li > input[type="checkbox"]{margin-right:16px}
