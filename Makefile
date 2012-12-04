@@ -3,7 +3,7 @@ setup:
 	npm install
 
 start:
-	npm start
+	node app $(processes)
 
 open:
 	(sleep 2 && open http://localhost:3000) &

@@ -25,9 +25,5 @@
     "devDependencies": {
         "mocha": "1.6.0",
         "should": "1.2.0"
-    },
-    "scripts": {
-        "start": "node app",
-        "lock": "scripts/module_lock.js"
     }
 }
