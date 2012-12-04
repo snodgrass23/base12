@@ -1,27 +1,11 @@
-# hold up!
-
-We've just made some big improvements to base12 internally -- we've also factored out deployment to a system called `nimbus`
-which you can find here:
-
-https://github.com/skookum/nimbus
-
-In the next 2-3 days, we'll be publishing the next - simpler, faster, more stable - version. Watch the project,
-and try it out.
-
-cheers,
-
-SDW
-
 # base12
 
 [12factor.net](http://12factor.net) web app platform for [node.js](http://node.js), built on [express 3](http://expressjs.com)
 
-We are porting our 2-year evolved boilerplate from [Skookum Digital Works](http://skookum.com) into this project. Expect lots of updates!
-
 ```shell
 $ sudo npm install -g base12
 $ base12 new projectname && cd projectname
-$ node run
+$ make start
 ```
 
 # What you get
@@ -30,10 +14,10 @@ $ node run
 - Painlessly follow [Ryan Dahl's 'gospel'](https://twitter.com/#!/ryah/statuses/161865845692301312) for node.js apps ([12factor.net](http://12factor.net) by Adam Wiggins).
 
 **Cloud Deployments**
-- Deploy to the cloud easily, out-of-the-box (supports joyent, amazon, linode, rackspace; TODO: heroku, nodejitsu).
+- Deploy to the cloud easily with the addition of [nimbus](https://github.com/skookum/nimbus), out-of-the-box (supports joyent, amazon, linode, rackspace; TODO: heroku, nodejitsu).
 
 **Structure**
-- Always know where things go. A proven MVC architecture on top of express.
+- Always know where things go. An easy to use component driven layout with proven MVC architecture where needed all on top of express.
 
 **Express 3**
 - Leverage the newest version of the most popular app framework for node.js.
@@ -42,45 +26,45 @@ $ node run
 - We believe that, if Rails is best for your project, you should use it.
 Instead, base12 embraces the node.js way: light processes, shallow inheritance, simple interfaces, and the chain-of-responsibility pattern.
 
-## Startup process...
-
-  1. `$ node cycle` builds your app and calls `run.js`.
-  2. `run.js` uses base12.balance() to run `app/index.js`.
-  3. `app/index.js` loads everything from `app/(models, views, controllers, middleware)`.
-  4. `app/index.js` opens `app/lib/index.json` and runs lib files in the order specified by `autorun`.
-  5. `app/index.js` starts listening for requests.
-
 ## Where stuff goes
 
 ```
-app
-  /controllers      -- controllers are automatically loaded (user.js -> app.controllers.user)
-  /lib              -- app-specific modules (default: routes.js, middleware.js, locals.js)
-  /middleware       -- middleware is automatically loaded (auth.js -> app.middleware.auth)
-  /models           -- models are automatically loaded (project.js -> app.models.project)
-  /public           -- static files are hosted here
-  /shared           -- isomorphic (client/server) files are hosted here
-  /views            -- view templates are automatically loaded via express
-  index.js          -- starts your application with `base12.app()`
+assets                -- place to store assets for project (graphics, src files, etc.)
+components            -- place to store components for small piecs of functionality in app  
+  /dashboard          -- default dashboard example component
+  /errors             -- default component for handling server errors
+  /user               -- default component for user functionality (signup, signin, signout, settings)
+doc                   -- documentation
+lib                   -- app specific and non-npm-published node.js libraries
+  /balance            -- uses cluster to create and blance multiple processes
+  /config-load        -- loads available config files
+  /flash              -- flash messaging
+  /inject             -- 
+  /locals             -- add resuable local helpers to app views
+  /middleware         -- sets up express middleware (stylus, sessions, logs)
+  /mongoose           -- connects mongoose to mongodb
+  /mongoose-util      -- provides mongoose helpers (validations, plugins, etc)
+  /redis              -- provides app-wide redis connection
+  /reload             -- watches for file changes and reloads app
+public                -- static files are hosted here
+scripts               -- scripts (eg admin, deployment, migrations)
+test                  -- tests (mocha by default)
+tmp                   -- your app can store temporary files here
 
-doc                 -- documentation
-env                 -- named environment configurations (eg `staging`, `deployment`)
-lib                 -- non-npm-published node.js libraries
-scripts             -- scripts (eg admin, deployment, migrations)
-test                -- tests (vows by default)
-tmp                 -- your app can store temporary files here
-
-package.json        -- npm package.json (base12 app `constants` stored here)
-.env.js             -- environment config (created by `npm install`)
-
-build.js            -- builds assets
-run.js              -- runs your app
-cycle.js            -- watches local files and builds/runs on changes (for development)
+app.js                -- runs your app
+config.default.json   -- default config (no sensative passwords or location specific options)
+config.local.json     -- local config (ignored by git, create to store sensative information and location specific options)
+config.test.json      -- config for running tests
+Makefile              -- automated task makefile
+package.json          -- npm package.json
 ```
 
-## Writing controllers, models, middleware, and libs
+## Writing new components
 
-All base12 modules have the same signature:
+
+## Writing new components and libs
+
+All base12 components have the same signature:
 
 ```javascript
 module.exports = function(app) {
@@ -89,101 +73,59 @@ module.exports = function(app) {
 }
 ```
 
-For example, a controller might look like:
+The component or lib is responsible for supplying the app with the needed interface hooks.  For example, a component might look like:
 
 ```javascript
 module.exports = function(app) {
-  return {
-    index: function(req, res) {
-      var widgets = app.models.widgets.get_all();
-      res.send(widgets);
-    },
-    show: function(req, res) {
-      var widget = app.models.widget.get_one();
-      res.send(widget);
-    }
-  };
-};
-```
-
-A model (using mongoose) might look like:
-
-```javascript
-var mongoose = require('mongoose');
-
-module.exports = function(app) {
-  var WidgetSchema = new mongoose.Schema({
-    name: String
+  app.get('/dashboard', function(req, res) {
+    return res.render(require('path').join(__dirname, 'dashboard'), {
+      user: req.session.user
+    });
   });
-
-  return mongoose.Model('widget', WidgetSchema);
 };
 ```
+
 
 ## Updating constants and config
 
-Application constants (values that do not change from machine to machine) are located under `constants` in package.json.
-Base12 also pulls the project `name` from the default package.json structure:
+Application constants (values that do not change from machine to machine) are located in `config.default.json`.
 
 ```json
-"name":"base12app",
-"constants": {
-  "title": "node.js 12-factor app",
-  "session_length": 1209600000,
-  "request_timeout": 10000
+{
+  "http_port": 3000,
+  "cluster": true,
+  "reload": true
 }
 ```
 
-Environment config (values that can change from machine to machine) are located in `.env.js`, which is not tracked by git.
-Running `npm install` will provide you with a default .env.js from env/default.env.js if one does not already exist.
+Environment config (values that can change from machine to machine) are located in `config.local.json`, which is not tracked by git.
+You can create this file whenever needed and it values will override the defaults if both exist.
 
-```javascript
-module.exports = {
-  view_engine: 'jade',
-  view_options: { layout: false },
-  port: 3000,
-  timeout: 10000,
-  cookie_secret: 'mysecret',
-  session: {
-    key: 'mykey'
-  },
-  redis: {
-    host: 'localhost',
-    port: 6379
-  }
-};
+```json
+{
+  "http_port": 80,
+  "reload": false
+}
 ```
 
-## Extending express
-
-base12.app() augments express() with a thin layer of auto-loaded hashes:
-
-  * app.models (from app/models)
-  * app.controllers (from app/controllers)
-  * app.middleware (from app/middleware)
-
-  * app.constants (from package.json)
-  * app.config (from .env.js)
-
-Otherwise, `base12.app()` is just like `express()`.
 
 ## Common commands
 
 ### Install packages and default environment config
 
-      $ npm install
+      $ make setup
 
 ### Build assets (TODO)
 
-      $ node build
+      $ make build
 
 ### Run the app
 
-      $ node run
+      $ make start
 
 ### Run the app, limiting to a single process
 
-      $ node run 1
+      $ make start 1
 
 ### Cycle the app, building then running on file change
 
