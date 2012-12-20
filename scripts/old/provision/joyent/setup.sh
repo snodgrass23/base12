@@ -1,1 +1,0 @@
-pkgin -y update

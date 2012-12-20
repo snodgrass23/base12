@@ -1,0 +1,8 @@
+{
+  "http_port": 8000,
+  "cluster": false,
+  "stylus_debug": false,
+  "test": true,
+  "mongoose_url": "mongodb://localhost/base12_test",
+  "session_secret": "base12secret_test",
+}

@@ -1,0 +1,17 @@
+extends ../../../shared/views/layout
+
+block subject
+
+block content
+
+  section.smallColumn.centered.pushDown
+    p.tac: a.logo.block(href='/')
+      span.is_hidden base12
+
+    form(action='/register', method='post')
+      input.block(type='text', name='name', placeholder='name')
+      input.block(type='email', name='email', placeholder='email')
+      input.block(type='password', name='password', placeholder='password')
+      .button-bar
+        a.micro(href='/') Signin?
+        button(type='submit') Register!

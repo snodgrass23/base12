@@ -1,0 +1,15 @@
+extends ../../shared/views/layout
+
+block title
+  | Dashboard - Base12
+
+block content
+  section.smallColumn.centered.pushDown
+    p.tac: a.logo.block(href='/')
+      span.is_hidden base12
+
+    h2 Welcome to Base12
+
+    ul.tac
+      li.pad: a(href="/settings") User Settings
+      li.pad: a(href="/signout") Signout
