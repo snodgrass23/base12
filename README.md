@@ -5,8 +5,55 @@
 ```shell
 $ sudo npm install -g base12
 $ base12 new projectname && cd projectname
-$ make start
+$ make open
 ```
+
+# Make commands
+
+### Install all modules
+
+      $ make setup
+
+### Run the app with one process and without file change restarts
+
+      $ make simple
+
+### Run the app with default settings and open browser to app url
+
+      $ make open
+
+### Run the app without default number of processes (num cpu's in machine)
+
+      $ make run
+
+### Run the app, limiting to a single process
+
+      $ make run 1
+
+### Run the app and cycle on file changes
+
+      $ make cycle
+
+### Run the app and cycle on file changes, limiting to a single process
+
+      $ make cycle 1
+
+### Run the app with single process and node profiling
+
+      $ make profile
+
+### Run the app with single process and node profiling using `prof_lazy`
+
+      $ make profile-lazy
+
+### Run the app with default settings with node debugging enabled
+
+      $ make debug
+
+### Run the app with default settings with node debugging enabled and immediately break on first line
+
+      $ make debug-brk
+
 
 # What you get
 
@@ -119,32 +166,6 @@ module.exports = {
 };
 ```
 
-
-## Common commands
-
-### Install packages and default environment config
-
-      $ make setup
-
-### Build assets (TODO)
-
-      $ make build
-
-### Run the app
-
-      $ make run
-
-### Run the app, limiting to a single process
-
-      $ make run 1
-
-### Run the app and cycle on file changes
-
-      $ make cycle
-
-### Run the app and cycle on file changes, limiting to a single process
-
-      $ make cycle 1
 
 
 ## The 12 Factors
