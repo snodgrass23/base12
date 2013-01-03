@@ -10,47 +10,49 @@ $ make open
 
 # Make commands
 
-### Install all modules
+#### Install all modules
 
-      $ make setup
+` bash
+make setup
+`
 
-### Run the app with one process and without file change restarts
+#### Run the app with one process and without file change restarts
 
       $ make simple
 
-### Run the app with default settings and open browser to app url
+#### Run the app with default settings and open browser to app url
 
       $ make open
 
-### Run the app without default number of processes (num cpu's in machine)
+#### Run the app without default number of processes (num cpu's in machine)
 
       $ make run
 
-### Run the app, limiting to a single process
+#### Run the app, limiting to a single process
 
       $ make run 1
 
-### Run the app and cycle on file changes
+#### Run the app and cycle on file changes
 
       $ make cycle
 
-### Run the app and cycle on file changes, limiting to a single process
+#### Run the app and cycle on file changes, limiting to a single process
 
       $ make cycle 1
 
-### Run the app with single process and node profiling
+#### Run the app with single process and node profiling
 
       $ make profile
 
-### Run the app with single process and node profiling using `prof_lazy`
+#### Run the app with single process and node profiling using `prof_lazy`
 
       $ make profile-lazy
 
-### Run the app with default settings with node debugging enabled
+#### Run the app with default settings with node debugging enabled
 
       $ make debug
 
-### Run the app with default settings with node debugging enabled and immediately break on first line
+#### Run the app with default settings with node debugging enabled and immediately break on first line
 
       $ make debug-brk
 
