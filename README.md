@@ -12,9 +12,7 @@ $ make open
 
 #### Install all modules
 
-` bash
-make setup
-`
+$ make setup
 
 #### Run the app with one process and without file change restarts
 
@@ -44,7 +42,7 @@ make setup
 
       $ make profile
 
-#### Run the app with single process and node profiling using `prof_lazy`
+#### Run the app with single process and node profiling using `prof_lazy` option
 
       $ make profile-lazy
 
