@@ -61,11 +61,13 @@ function startApp() {
 
 // Start listening if the app has been started directly
 
-if (module === require.main && config.cluster) {
-  balance(function() {
-    startApp();
-  });
-}
-else {
-  startApp();
+if (module === require.main) {
+  var debugMode = ( process.execArgv && 
+                    process.execArgv[0] && 
+                    process.execArgv[0].indexOf('--debug') > -1);
+
+  var simpleMode = ( process.argv[2] == 'simple' );
+  
+  if (debugMode || simpleMode) startApp();
+  else balance(startApp);
 }
