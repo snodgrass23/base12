@@ -12,7 +12,7 @@ $ make open
 
 #### Install all modules
 
-$ make setup
+      $ make setup
 
 #### Run the app with one process and without file change restarts
 
