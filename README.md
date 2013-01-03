@@ -106,8 +106,6 @@ Makefile              -- automated task makefile
 package.json          -- npm package.json
 ```
 
-## Writing new components
-
 
 ## Writing new components and libs
 
