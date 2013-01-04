@@ -19,16 +19,4 @@ module.exports = function(app, config) {
     process.exit();
   });
 
-  app.get('/reset/this/mutha', function(req, res, next) {
-    app.analysis.commitModel.remove().exec(function() {
-      app.analysis.fileModel.remove().exec(function() {
-        app.users.model.remove().exec(function(){
-          app.github.model.remove().exec(function() {
-            res.send("This mutha has been reset!!");
-          });
-        });
-      });
-    });
-  });
-
 };
