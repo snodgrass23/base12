@@ -55,19 +55,19 @@ function createApp(config) {
 
 function startApp() {
   var app = createApp(config);
-  app.listen(config.http_port);
-  console.log("Listening on", config.http_port);
+  app.listen(config.port);
+  console.log("Listening on", config.port);
 }
 
 // Start listening if the app has been started directly
 
 if (module === require.main) {
-  var debugMode = ( process.execArgv && 
-                    process.execArgv[0] && 
+  var debugMode = ( process.execArgv &&
+                    process.execArgv[0] &&
                     process.execArgv[0].indexOf('--debug') > -1);
 
   var simpleMode = ( process.argv[2] == 'simple' );
-  
+
   if (debugMode || simpleMode) startApp();
   else balance(startApp);
 }

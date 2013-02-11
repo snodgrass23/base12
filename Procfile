@@ -1,1 +1,1 @@
-web : node app.js run 1
+web: node app.js simple

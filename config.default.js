@@ -1,6 +1,6 @@
 module.exports = {
-  
-  http_port: 3000,
+
+  port: 3000,
   request_timeout: 100000,
   session_secret: "base12secret",
   log_requests: false,
@@ -8,10 +8,12 @@ module.exports = {
   stylus_debug: 1,
   stylus_force: 1,
   test: false,
-  redis_host: "localhost",
-  redis_port: 6379,
-  redis_pass: "",
-  redis_debug: false,
+  redis: {
+    host: "localhost",
+    port: 6379,
+    auth: "",
+    debug: false
+  },
   mongoose_url: "mongodb://localhost/base12"
 
 };

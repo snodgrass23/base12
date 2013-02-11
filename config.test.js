@@ -1,5 +1,5 @@
 module.exports = {
-  http_port: 8000,
+  port: 8000,
   stylus_debug: false,
   test: true,
   mongoose_url: "mongodb://localhost/base12_test",
