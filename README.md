@@ -1,4 +1,4 @@
-# base12
+# [base12](http://base12.herokuapp.com/)
 
 [12factor.net](http://12factor.net) web app platform for [node.js](http://node.js), built on [express 3](http://expressjs.com)
 
@@ -77,7 +77,7 @@ Instead, base12 embraces the node.js way: light processes, shallow inheritance, 
 
 ```
 assets                -- place to store assets for project (graphics, src files, etc.)
-components            -- place to store components for small piecs of functionality in app  
+components            -- place to store components for small piecs of functionality in app
   /dashboard          -- default dashboard example component
   /errors             -- default component for handling server errors
   /user               -- default component for user functionality using mvc pattern (signup, signin, signout, settings)
@@ -86,7 +86,7 @@ lib                   -- app specific and non-npm-published node.js libraries
   /balance            -- uses cluster to create and blance multiple processes
   /config-load        -- loads available config files
   /flash              -- flash messaging
-  /inject             -- 
+  /inject             --
   /locals             -- add resuable local helpers to app views
   /middleware         -- sets up express middleware (stylus, sessions, logs)
   /mongoose           -- connects mongoose to mongodb
