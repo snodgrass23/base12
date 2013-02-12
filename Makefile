@@ -2,6 +2,8 @@ setup:
 	rm -rf node_modules
 	npm install
 
+start: simple
+
 simple:
 	node app.js simple
 
@@ -15,10 +17,10 @@ run:
 cycle:
 	node app.js cycle $(filter-out $@,$(MAKECMDGOALS))
 
-profile: 
+profile:
 	node --profapp.js simple
 
-profile-lazy: 
+profile-lazy:
 	node --prof --prof_lazy app.js simple
 
 debug:
@@ -27,5 +29,8 @@ debug:
 debug-brk:
 	node --debug-brk app.js run
 
+build:
+	# build step
 
-.PHONY: setup simple open run cycle profile profile-lazy debug debug-brk
+
+.PHONY: setup start simple open run cycle profile profile-lazy debug debug-brk build

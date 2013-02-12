@@ -46,7 +46,7 @@ $ make open
 
       $ make profile-lazy
 
-#### Run the app with default settings with node debugging enabled
+#### Run the app with default settings with node debugging enabled (use node-inspector to view source and debug)
 
       $ make debug
 
@@ -84,7 +84,7 @@ components            -- place to store components for small piecs of functional
 doc                   -- documentation
 lib                   -- app specific and non-npm-published node.js libraries
   /balance            -- uses cluster to create and blance multiple processes
-  /config-load        -- loads available config files
+  /config-load        -- loads available config files and environment variables
   /flash              -- flash messaging
   /inject             --
   /locals             -- add resuable local helpers to app views
@@ -137,7 +137,7 @@ Application constants (values that do not change from machine to machine) are lo
 
 ```js
 module.exports = {
-  http_port: 3000,
+  port: 3000,
   cluster: true,
   request_timeout: 100000,
   session_secret: "base12secret",
@@ -146,10 +146,12 @@ module.exports = {
   stylus_debug: 1,
   stylus_force: 1,
   test: false,
-  redis_host: "localhost",
-  redis_port: 6379,
-  redis_pass: "",
-  redis_debug: false,
+  redis: {
+    host: "localhost",
+    port: 6379,
+    auth: "",
+    debug: false
+  },
   mongoose_url: "mongodb://localhost/base12"
 };
 ```
@@ -159,7 +161,7 @@ You can create this file whenever needed and it values will override the default
 
 ```js
 module.exports = {
-  http_port: 80,
+  port: 80,
   mongoose_url: "mongodb://username:passsword@127.0.0.1/base12"
 };
 ```
@@ -185,13 +187,13 @@ Manage your dependencies in `package.json`.
 
 "Store config in the environment."
 
-Base12 uses the untracked config.local.js file to manage environment config. Once tooling is better supported on hosts, it will likely move to environment variables.
+Base12 uses the untracked config.local.js file to manage environment config. It will also pull in available environment variables for instant compatibility with cloud providers like Heroku.
 
 ### 4. Backing services
 
 "Treat backing services as attached resources."
 
-Backing service configuration is stored in config.local.js on each host.
+Backing service configuration is stored in config.local.js or environment variables on each host.
 
 ### 5. Build, release, run
 
@@ -217,8 +219,7 @@ Ultimately, base12 relies on node's built-in http server to field requests. No h
 "Scale out via the process model."
 
 Using deployment-specific process managers (eg, upstart), base12 keeps the master node.js process running.
-In run.js, `base12.balance` uses cluster to spawn and monitor multiple processes on a single machine.
-New process types can be created by writing modules with a `start()` method, and passing that process module to `base12.balance()` in run.js.
+In `make run` base12 uses cluster to spawn and monitor multiple processes on a single machine.
 
 ### 9. Disposability
 
@@ -250,7 +251,7 @@ Built-in scripts include provisioning and deployment, tests, dependency manageme
 
   * node.js >= 0.8.x
   * npm >= 1.1.x
-  * redis
+  * redis (for default session management)
   * mongodb (if using default user component)
 
 
