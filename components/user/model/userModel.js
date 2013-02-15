@@ -1,21 +1,21 @@
-var util = require('../../../lib/mongoose-util'),
+var utils = require('mongoose-utils'),
     bcrypt = require('bcrypt'),
     mongoose = require('mongoose');
 
 module.exports = function() {
 
   var User = new mongoose.Schema({
-    email         : { type: String, index: true, required:true, lowercase: true, trim:true, unique: true, validate: [util.validate.email, 'not valid'] },
+    email         : { type: String, index: true, required:true, lowercase: true, trim:true, unique: true, validate: [utils.validate.email, 'not valid'] },
     name          : { type: String, trim: true },
-    password      : { type: String, trim: true, required:true, validate: [util.validate.length(4), 'required to be at least 4 characters'] }
+    password      : { type: String, trim: true, required:true, validate: [utils.validate.length(4), 'required to be at least 4 characters'] }
   }, {strict:true});
 
   // Plugins
 
-  User.plugin(util.plugin.timestamps);
+  User.plugin(utils.plugin.timestamps);
 
   // Getters and Setters
-  
+
   function encrypt(plain) {
     var salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(plain, salt);
@@ -31,18 +31,18 @@ module.exports = function() {
   // Static methods
 
   User.statics.authenticate = function(creds, callback) {
-    
+
     if (!creds.password || !creds.email) return callback(new Error("Email and pass required"));
 
     // lookup user by email
     this.findByEmail(creds.email, function(err, user){
-      
+
       // found the user
       if(!err && user) {
-        
+
         // check password
         if (bcrypt.compareSync(creds.password, user.password)) return callback(null, user);
-        
+
         // is temp user?
         if (user.temp) return callback(new Error('Please register account.'));
 
@@ -61,7 +61,7 @@ module.exports = function() {
         // trigger save for updated timestamp
         user.save();
         return callback(null, user);
-      } 
+      }
       else return callback(new Error("Unable to find user"));
     });
   };
