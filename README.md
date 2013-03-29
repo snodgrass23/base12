@@ -130,6 +130,14 @@ module.exports = function(app) {
 };
 ```
 
+You will then need to add the component to the main app file for loading.
+``` javascript
+var user = require('./components/user');
+```
+``` javascript
+user(app, config);
+```
+
 
 ## Updating constants and config
 
