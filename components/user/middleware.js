@@ -67,16 +67,55 @@ module.exports = function(app) {
           password: req.body.password
         };
       UserModel.authenticate(creds, function(err, user) {
-        if (user) {
-          req.session.user = user;
-          return res.redirect('/dashboard');
+        if (user) req.session.user = user;
+        else req.flash('Sorry, that username or password was not found.');
+
+        return res.redirect('/');
+      });
+    },
+
+    resetPassword: function(req,res,next) {
+      UserModel.findByEmail(req.body.email, function(err, user) {
+        if (err || !user || user.length < 1) {
+          req.flash("Sorry, that email does not seem to be registered.");
+          return res.redirect('/reset');
         }
-        else {
-          req.flash('Sorry, that username or password was not found.');
-          return res.redirect('/');
-        }
+
+        var newPassword = _gen_password();
+        user.password = newPassword;
+        user.resetPassword = true;
+
+        user.save(function(err) {
+          if (err) {
+            req.flash("Sorry, there was an error while resetting the password.");
+            return res.redirect('/reset');
+          }
+
+          req.flash("A new password has been sent to that email address.");
+          res.redirect('/');
+
+          app.emailer.send('password_reset', {
+            name: user.name,
+            to: user.email,
+            password: newPassword,
+            querystring: "password="+encodeURIComponent(newPassword)+"&email="+encodeURIComponent(user.email)
+          });
+
+        });
       });
     }
 
   };
 };
+
+
+function _gen_password() {
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789',
+      length = 8,
+      password = '';
+  while (length--) {
+    var pos = ~~(Math.random() * chars.length);
+    password += chars.charAt(pos);
+  }
+  return password;
+}

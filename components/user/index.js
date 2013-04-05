@@ -20,15 +20,28 @@ module.exports = function(app) {
 
   // ROUTES
 
-  app.get('/', function signIn(req, res) {
-    if (req.session.user) {
-      return res.redirect('/dashboard');
+ app.get('/', [
+    addParams,
+    function (req, res) {
+      if (req.session.user) {
+
+        console.log(req.session.user);
+
+
+        if (req.session.user.resetPassword) {
+          req.session.user.resetPassword = false;
+          UserModel.findByIdAndUpdate(req.session.user._id, {resetPassword:false}, function(){});
+          req.flash("Would you like to update your password to something more memorable?");
+          return res.redirect('/settings');
+        }
+        return res.redirect('/dashboard');
+      }
+      return res.render(path.join(__dirname, 'view/signin'));
     }
-    return res.render(path.join(__dirname, 'view/signin'));
-  });
+  ]);
 
   app.get('/settings', [
-    render('view/settings')
+    render('settings')
   ]);
 
   app.put('/settings', [
@@ -36,7 +49,10 @@ module.exports = function(app) {
     redirect('/settings')
   ]);
 
-  app.get('/register', render('view/register'));
+  app.get('/register', [
+    addParams,
+    render('register')
+  ]);
 
   app.post('/register', [
     middleware.doRegister,
@@ -53,6 +69,14 @@ module.exports = function(app) {
     redirect('/')
   ]);
 
+  app.get('/reset', [
+    render('reset')
+  ]);
+
+  app.post('/reset', [
+    middleware.resetPassword
+  ]);
+
 };
 
 
@@ -60,7 +84,7 @@ module.exports = function(app) {
 
 function render(view) {
   return function (req, res) {
-    return res.render(path.join(__dirname, view));
+    return res.render(path.join(__dirname, 'view/'+view));
   };
 }
 
@@ -75,4 +99,9 @@ function flash(message) {
     req.flash(message);
     return next();
   };
+}
+
+function addParams(req, res, next) {
+  res.locals.querystring = req.query;
+  return next();
 }
