@@ -1,6 +1,8 @@
+var port = 3000;
+
 module.exports = {
 
-  port: 3000,
+  port: port,
   request_timeout: 100000,
   session_secret: "base12secret",
   log_requests: false,
@@ -14,6 +16,8 @@ module.exports = {
     auth: "",
     debug: false
   },
-  mongoose_url: "mongodb://localhost/base12"
-
+  mongoose_url: "mongodb://localhost/base12",
+  send_mail: true,
+  contact_email: "jim@skookum.com",
+  host: "http://localhost:"+port
 };

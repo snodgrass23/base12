@@ -17,6 +17,7 @@ var flash       = require('./lib/flash');
 var mongoose    = require('./lib/mongoose');
 var redis       = require('./lib/redis');
 var reload      = require('./lib/reload')();
+var emailer       = require('./lib/emailer');
 
 // Require our components
 
@@ -43,6 +44,7 @@ function createApp(config) {
   middleware(app);
   locals(app);
   flash(app);
+  emailer(app);
   reload();
 
   // components

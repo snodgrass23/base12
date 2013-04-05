@@ -18,6 +18,7 @@
         "mongoose-utils": "0.0.1",
         "redis": "0.8.2",
         "bcrypt": "0.7.5",
+        "email": "0.2.4",
         "nib": "0.9.1",
         "async": "0.2.6",
         "underscore": "1.4.4"
