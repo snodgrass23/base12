@@ -3,19 +3,28 @@ extends ../../../shared/views/layout
 block subject
 
 block content
-  
+
   section.smallColumn.centered.pushDown
     p.tac: a.logo.block(href='/')
       span.is_hidden base12
 
-    form(action='/settings', method='post')
+    form(action='/settings', method='post', enctype="multipart/form-data")
       .title-bar
         h1 Profile Settings
       input(type="hidden", name="_method", value="put")
-      input.block(type='email', name='email', placeholder="email", value=current_user.email)
-      input.block(type='text', name='name', placeholder="name", value=current_user.name)
-      input.block(type='password', name='new_password', placeholder="new password")
-      input.block(type='password', name='new_password2', placeholder="repeat password")
+      ul
+        li
+          label(for="email") Email Address
+          input.block(type='email', name='email', placeholder="email", value=current_user.email)
+        li
+          label(for="name") Name
+          input.block(type='text', name='name', placeholder="name", value=current_user.name)
+        li
+          label(for="new_password") New Password
+          input.block(type='password', name='new_password', placeholder="new password")
+        li
+          label(for="new_password2") Repeat New Password
+          input.block(type='password', name='new_password2', placeholder="repeat password")
       .button-bar
         a.micro(href='/') Cancel
         button.button-submit(type='submit') Update!

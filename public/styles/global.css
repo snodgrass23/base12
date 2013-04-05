@@ -41,6 +41,9 @@ h1{color:#555}
 a{color:inherit;text-decoration:none;}
 a:hover{text-decoration:underline}
 input{font-size:1.2em;border:solid 1px #bbb;-webkit-border-radius:5px;border-radius:5px}
+input[type=file]{font-size:16px;border:none}
+form li{position:relative;}
+form li label{position:absolute;top:0;left:-100%;text-align:right;width:100%;padding:10px;color:#777}
 button{font-size:1.25em;border:solid 1px #ddd;background:#eee;-webkit-border-radius:3px;border-radius:3px}
 .wrap{background:rgba(255,255,255,0.8)}
 .micro{font-size:.8em;color:#999}

@@ -19,13 +19,24 @@ module.exports = function(app) {
         }
       }
 
-      UserModel.findByIdAndUpdate(req.session.user._id, req.body).exec(function(err, user) {
+      UserModel.findById(req.session.user._id, function(err, user) {
         if (err || !user) {
-          req.flash("There was an error updating the user.");
-          return next();
+          req.flash("There was an error finding the user.");
+          return next(err);
         }
-        req.session.user = user;
-        return next();
+
+        _.extend(user, req.body);
+
+        user.save(function(err) {
+          if (err) {
+            console.log(err);
+            req.flash("There was an error updating the user.");
+            return next();
+          }
+
+          req.session.user = user;
+          return next();
+        });
       });
     },
 
