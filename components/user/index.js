@@ -24,10 +24,6 @@ module.exports = function(app) {
     addParams,
     function (req, res) {
       if (req.session.user) {
-
-        console.log(req.session.user);
-
-
         if (req.session.user.resetPassword) {
           req.session.user.resetPassword = false;
           UserModel.findByIdAndUpdate(req.session.user._id, {resetPassword:false}, function(){});

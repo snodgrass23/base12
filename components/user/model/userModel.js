@@ -14,6 +14,7 @@ module.exports = function() {
   // Plugins
 
   User.plugin(utils.plugin.timestamps);
+  User.plugin(utils.plugin.extendedMethods);
 
   // Getters and Setters
 

@@ -15,7 +15,7 @@
         "jade": "0.28.2",
         "stylus": "0.32.1",
         "mongoose": "3.6.4",
-        "mongoose-utils": "0.0.1",
+        "mongoose-utils": "0.0.2",
         "redis": "0.8.2",
         "bcrypt": "0.7.5",
         "email": "0.2.4",
