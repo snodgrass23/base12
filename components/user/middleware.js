@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-  var UserModel = app.user.model;
+  var User = app.user.model;
 
   return {
 
@@ -19,7 +19,7 @@ module.exports = function(app) {
         }
       }
 
-      UserModel.findByIdAndUpdateX(req.session.user._id, req.body, function(err, user) {
+      User.findByIdAndUpdateX(req.session.user._id, req.body, function(err, user) {
         if (err) {
           console.log(err);
           req.flash("There was an error updating the user.");
@@ -32,8 +32,7 @@ module.exports = function(app) {
     },
 
     doRegister: function(req, res, next) {
-      var user = new UserModel(req.body);
-      user.save(function(err) {
+      User.create(req.body, function(err) {
         if (err) {
           var err_message = ((err+"").indexOf("duplicate key error") > -1) ? "That email address is already registered." : err;
 
@@ -57,7 +56,7 @@ module.exports = function(app) {
           email: req.body.email,
           password: req.body.password
         };
-      UserModel.authenticate(creds, function(err, user) {
+      User.authenticate(creds, function(err, user) {
         if (user) req.session.user = user;
         else req.flash('Sorry, that username or password was not found.');
 
@@ -66,7 +65,7 @@ module.exports = function(app) {
     },
 
     resetPassword: function(req,res,next) {
-      UserModel.findByEmail(req.body.email, function(err, user) {
+      User.findByEmail(req.body.email, function(err, user) {
         if (err || !user || user.length < 1) {
           req.flash("Sorry, that email does not seem to be registered.");
           return res.redirect('/reset');
