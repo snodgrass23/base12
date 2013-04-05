@@ -1,4 +1,4 @@
 node_modules
-config.local.json
-/.DS_Store
+config.local.js
+.DS_Store
 public/uploads
