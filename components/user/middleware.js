@@ -45,8 +45,15 @@ module.exports = function(app) {
       user.save(function(err) {
         if (err) {
           var err_message = ((err+"").indexOf("duplicate key error") > -1) ? "That email address is already registered." : err;
+
+          if (err.name == 'ValidationError') {
+            err_message = "Please check the following fields: ";
+            var error_fields = [];
+            _.each(err.errors, function(e) { error_fields.push(e.path); });
+            err_message += error_fields.join(", ");
+          }
+
           req.flash(err_message);
-          console.log(err);
           return res.redirect('/register');
         }
         else return next();
