@@ -1,27 +1,27 @@
 {
     "name": "b12prj",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "directories": {},
     "engines": {
-        "node": ">=0.8.0",
+        "node": ">=0.10.0",
         "npm": ">=1.1"
     },
     "dependencies": {
-        "express": "3.1.1",
-        "connect": "2.7.4",
+        "express": "3.4.1",
+        "connect": "2.9.1",
         "connect-timeout": "0.0.1",
         "connect-redis": "1.4.5",
         "connect-parallel": "0.0.3",
-        "jade": "0.28.2",
-        "stylus": "0.32.1",
-        "mongoose": "3.6.4",
+        "jade": "0.35.0",
+        "stylus": "0.38.0",
+        "mongoose": "3.6.20",
         "mongoose-utils": "0.0.2",
-        "redis": "0.8.2",
-        "bcrypt": "0.7.5",
-        "email": "0.2.4",
-        "nib": "0.9.1",
-        "async": "0.2.6",
-        "underscore": "1.4.4"
+        "redis": "0.8.6",
+        "bcrypt": "0.7.7",
+        "email": "0.2.6",
+        "nib": "1.0.1",
+        "async": "0.2.9",
+        "underscore": "1.5.2"
     },
     "devDependencies": {
         "mocha": "1.9.0",
