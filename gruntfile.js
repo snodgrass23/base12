@@ -14,6 +14,6 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', []);
-  grunt.registerTask('mobile', ['uglify', 'concat:minLibs', 'concat:all']);
+  grunt.registerTask('build', ['concat:components', 'uglify']);
 
 };

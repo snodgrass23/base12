@@ -35,7 +35,7 @@ debug-brk:
 	node --debug-brk app.js run
 
 build:
-	# build step
+	grunt build
 
 
 .PHONY: setup start simple open run cycle profile profile-lazy debug debug-brk build

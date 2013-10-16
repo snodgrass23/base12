@@ -1,13 +1,11 @@
 module.exports = {
-  minLibs: {
-    src: "<%= pkg.assets.mobile.minLibs %>",
-    dest: "tmp/min-libs.js"
-  },
-  all: {
-    src: [
-      "tmp/min-libs.js",
-      "tmp/libs.js"
-    ],
-    dest: "app/public/mobile/compiled/libs.js"
+  components: {
+    files: [{
+      src: [
+        "public/scripts/components/jquery/jquery.min.js",
+        "public/scripts/components/lodash/dist/lodash.min.js"
+      ],
+      dest: "public/scripts/compiled/components.js"
+    }]
   }
 };
