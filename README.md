@@ -10,9 +10,13 @@ $ make open
 
 # Make commands
 
-#### Install all modules
+#### Install all modules and bower components
 
       $ make setup
+
+#### Run the default build command using Grunt
+
+      $ make build
 
 #### Run the app with one process and without file change restarts
 
@@ -22,7 +26,7 @@ $ make open
 
       $ make open
 
-#### Run the app without default number of processes (num cpu's in machine)
+#### Run the app with default number of processes (num cpu's in machine)
 
       $ make run
 
@@ -61,7 +65,7 @@ $ make open
 - Painlessly follow [Ryan Dahl's 'gospel'](https://twitter.com/#!/ryah/statuses/161865845692301312) for node.js apps ([12factor.net](http://12factor.net) by Adam Wiggins).
 
 **Cloud Deployments**
-- Deploy to the cloud easily with the addition of [nimbus](https://github.com/skookum/nimbus), out-of-the-box (supports joyent, amazon, linode, rackspace; TODO: heroku, nodejitsu).
+- Deploy to the cloud easily out of the box to Heroku using built in Procfile. Built in Mongoose and Redis support for connecting to RedisToGo and MongoLab addons.
 
 **Structure**
 - Always know where things go. An easy to use component driven layout with proven MVC architecture all on top of express.
