@@ -15,14 +15,15 @@ body
 
   //- flash messages from messages lib
   mixin messages()
-  
+
   //- github fork banner
   a(href="https://github.com/skookum/base12")
     img(style="position: absolute; top: 0; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png", alt="Fork me on GitHub")
 
   .wrap.centered.pad2
-    
+
     block content
 
   block scripts
-    
+    script(src="/scripts/compiled/components.js")
+    script(src="/scripts/main.js")
