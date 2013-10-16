@@ -1,6 +1,11 @@
 setup:
-	rm -rf node_modules
 	npm install
+	bower install
+
+clean:
+	rm -rf node_modules
+
+setup-clean: clean setup
 
 start: simple
 

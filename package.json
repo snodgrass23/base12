@@ -24,8 +24,14 @@
         "underscore": "1.5.2"
     },
     "devDependencies": {
-        "mocha": "1.9.0",
-        "should": "1.2.2"
+        "mocha": "latest",
+        "should": "latest",
+        "grunt": "latest",
+        "bower": "latest",
+        "grunt-contrib-clean": "latest",
+        "grunt-contrib-copy": "latest",
+        "grunt-contrib-concat": "latest",
+        "grunt-contrib-uglify": "latest"
     },
     "scripts": {
         "lock": "scripts/module_lock.js"

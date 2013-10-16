@@ -2,3 +2,4 @@ node_modules
 config.local.js
 .DS_Store
 public/uploads
+public/scripts/components
