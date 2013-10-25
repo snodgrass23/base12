@@ -1,9 +1,6 @@
 extends ../../../shared/views/layout
 
-block subject
-
 block content
-
   section.smallColumn.centered.pushDown
     p.tac: a.logo.block(href='/')
       span.is_hidden base12
@@ -16,3 +13,6 @@ block content
       .button-bar
         a.micro(href='/register') Register
         a.micro(href='/reset') Reset password?
+
+append scripts
+  script(src="/scripts/user.signin.js")

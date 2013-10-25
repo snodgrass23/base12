@@ -3,6 +3,8 @@ var UserModel = require('./model/userModel')();
 
 module.exports = function(app) {
 
+  app.use(require('express')['static'](path.join(__dirname, 'public')));
+
   // hook model and other helpers into app
   app.user = {
     loggedIn: function(req, res, next) {
