@@ -178,6 +178,8 @@ module.exports = {
 };
 ```
 
+All system environment variables will also act as local config object and will also override default settings of the same name. This leaves it up to the developer and environment which way they want to specify location dependent settings.
+
 
 
 ## The 12 Factors
