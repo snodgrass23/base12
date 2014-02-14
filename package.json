@@ -21,7 +21,8 @@
         "email": "0.2.6",
         "nib": "1.0.1",
         "async": "0.2.9",
-        "underscore": "1.5.2"
+        "underscore": "1.5.2",
+        "newrelic": "latest"
     },
     "devDependencies": {
         "mocha": "latest",

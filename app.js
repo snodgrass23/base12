@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require('newrelic');
+
 var express = require('express');
 
 // Globals
