@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('newrelic');
+// require('newrelic');
 
 var express = require('express');
 

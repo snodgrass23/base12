@@ -3,3 +3,4 @@ config.local.js
 .DS_Store
 public/uploads
 public/scripts/components
+/newrelic_agent.log
