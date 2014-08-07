@@ -2,6 +2,8 @@
 
 [12factor.net](http://12factor.net) web app platform for [node.js](http://node.js), built on [express 3](http://expressjs.com)
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ```shell
 $ sudo npm install -g base12
 $ base12 new projectname && cd projectname

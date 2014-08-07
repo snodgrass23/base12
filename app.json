@@ -1,0 +1,8 @@
+{
+  "name": "base12",
+  "description": "A barebones Node.js app using base12",
+  "repository": "https://github.com/snodgrass23/base12",
+  "addons": ["mongolab:starter", "redistogo:nano"],
+  "logo": "https://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "base12"]
+}
