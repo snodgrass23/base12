@@ -6,7 +6,6 @@ var express = require('express');
 
 // Globals
 _ = require('underscore');
-async = require('async');
 
 // Require our base libs
 
