@@ -1,38 +1,44 @@
 {
-    "name": "b12prj",
-    "version": "0.0.2",
-    "directories": {},
-    "engines": {
-        "node": "5.x"
-    },
-    "dependencies": {
-        "express": "4.13.4",
-        "connect": "3.4.1",
-        "connect-timeout": "1.7.0",
-        "connect-redis": "3.0.2",
-        "connect-parallel": "0.0.3",
-        "jade": "1.11.0",
-        "stylus": "0.53.0",
-        "mongoose": "4.4.3",
-        "mongoose-utils": "0.0.2",
-        "redis": "2.4.2",
-        "email": "0.2.6",
-        "nib": "1.1.0",
-        "underscore": "1.8.3",
-        "newrelic": "1.25.1",
-        "bcrypt": "0.8.5"
-    },
-    "devDependencies": {
-        "mocha": "2.4.5",
-        "should": "8.2.2",
-        "grunt": "0.4.5",
-        "bower": "1.7.7",
-        "grunt-contrib-clean": "0.7.0",
-        "grunt-contrib-copy": "0.8.2",
-        "grunt-contrib-concat": "0.5.1",
-        "grunt-contrib-uglify": "0.11.1"
-    },
-    "scripts": {
-        "lock": "scripts/module_lock.js"
-    }
+  "name": "b12prj",
+  "version": "0.0.3",
+  "directories": {},
+  "engines": {
+    "node": "5.x"
+  },
+  "dependencies": {
+    "bcrypt": "0.8.5",
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
+    "connect": "3.4.1",
+    "connect-parallel": "0.0.3",
+    "connect-redis": "3.0.2",
+    "connect-timeout": "1.7.0",
+    "cookie-parser": "^1.4.1",
+    "email": "0.2.6",
+    "express": "4.13.4",
+    "express-session": "^1.13.0",
+    "jade": "1.11.0",
+    "method-override": "^2.3.5",
+    "mongoose": "4.4.3",
+    "mongoose-utils": "0.0.2",
+    "newrelic": "1.25.1",
+    "nib": "1.1.0",
+    "redis": "2.4.2",
+    "serve-static": "^1.10.2",
+    "stylus": "0.53.0",
+    "underscore": "1.8.3"
+  },
+  "devDependencies": {
+    "mocha": "2.4.5",
+    "should": "8.2.2",
+    "grunt": "0.4.5",
+    "bower": "1.7.7",
+    "grunt-contrib-clean": "0.7.0",
+    "grunt-contrib-copy": "0.8.2",
+    "grunt-contrib-concat": "0.5.1",
+    "grunt-contrib-uglify": "0.11.1"
+  },
+  "scripts": {
+    "lock": "scripts/module_lock.js"
+  }
 }

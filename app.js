@@ -10,7 +10,6 @@ _ = require('underscore');
 // Require our base libs
 
 var config      = require('./lib/config-load')();
-var inject      = require('./lib/inject');
 var balance     = require('./lib/balance');
 var middleware  = require('./lib/middleware');
 var locals      = require('./lib/locals');
@@ -18,7 +17,7 @@ var flash       = require('./lib/flash');
 var mongoose    = require('./lib/mongoose');
 var redis       = require('./lib/redis');
 var reload      = require('./lib/reload')();
-var emailer       = require('./lib/emailer');
+var emailer     = require('./lib/emailer');
 
 // Require our components
 
@@ -41,7 +40,7 @@ function createApp(config) {
   // libs
   mongoose(app, config);
   redis(app);
-  inject(app);
+  // inject(app);
   middleware(app);
   locals(app);
   flash(app);

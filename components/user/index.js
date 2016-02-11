@@ -1,9 +1,10 @@
-var path = require('path');
-var UserModel = require('./model/userModel')();
+var path        = require('path');
+var serveStatic = require('serve-static');
+var UserModel   = require('./model/userModel')();
 
 module.exports = function(app) {
 
-  app.use(require('express')['static'](path.join(__dirname, 'public')));
+  app.use(serveStatic(path.join(__dirname, 'public')));
 
   // hook model and other helpers into app
   app.user = {
