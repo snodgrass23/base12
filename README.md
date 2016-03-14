@@ -1,6 +1,6 @@
 # [base12](http://base12.herokuapp.com/)
 
-[12factor.net](http://12factor.net) web app platform for [node.js](http://node.js), built on [express 3](http://expressjs.com)
+[12factor.net](http://12factor.net) web app platform for [node.js](http://node.js), built on [express.js](http://expressjs.com)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
